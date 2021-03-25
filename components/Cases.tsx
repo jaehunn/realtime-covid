@@ -1,29 +1,31 @@
+import styles from "../styles/Cases.module.css";
+
 type CasesProps = {};
 
 const Cases = () => {
   return (
-    <>
+    <div className={styles.container}>
       <div>
-        <div>99,846</div>
+        <span>99,846</span>
         <div>Confirmed</div>
-        <div>+428</div>
+        <span>+428</span>
       </div>
       <div>
-        <div>1,707</div>
+        <span>1,707</span>
         <div>Deaths</div>
-        <div>+3</div>
+        <span>+3</span>
       </div>
       <div>
-        <div>91,560</div>
+        <span>91,560</span>
         <div>Recovered</div>
-        <div>+481</div>
+        <span>+481</span>
       </div>
       <div>
-        <div>7,441,210</div>
-        <div>tested</div>
-        <div>+40,220</div>
+        <span>7,441,210</span>
+        <div>Tested</div>
+        <span>+40,220</span>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -1,8 +1,10 @@
 import Link from "next/link";
 
+import NavbarStyles from "../styles/Navbar.module.css";
+
 const Navbar = () => {
   return (
-    <div>
+    <div className={NavbarStyles.container}>
       <Link href="#" as="/">
         <a>Korea</a>
       </Link>

@@ -4,11 +4,19 @@ import Cases from "../components/Cases";
 import Confirmed from "../components/Confirmed";
 import RegionalTable from "../components/RegionalTable";
 
-type HomeProps = {};
+import HomeStyles from "../styles/Home.module.css";
 
-const Home = () => {
+import { fetchData } from "./api/fetchData";
+
+type HomeProps = {
+  covidData: {};
+};
+
+const Home = ({ data }) => {
+  console.log(data);
+
   return (
-    <div>
+    <div className={HomeStyles.container}>
       <Header nation={"Korea"} />
       <Navbar />
       <Cases />
@@ -16,6 +24,14 @@ const Home = () => {
       <RegionalTable />
     </div>
   );
+};
+
+Home.getInitialProps = async () => {
+  const data = await fetchData();
+
+  return {
+    data,
+  };
 };
 
 export default Home;

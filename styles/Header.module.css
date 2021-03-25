@@ -1,3 +1,11 @@
 .container {
-  background: black;
+  text-align: center;
+}
+
+.container h1 {
+  font-size: 5rem;
+}
+
+.container span {
+  font-size: 2rem;
 }
