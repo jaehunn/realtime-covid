@@ -1,29 +1,52 @@
 import styles from "../styles/Cases.module.css";
 
-type CasesProps = {};
+// type covidItem = {
+//   deathCnt: number;
+//   decideCnt: number;
+//   examCnt: number;
+//   clearCnt: number;
+// };
 
-const Cases = () => {
+type CasesProps = { covidItems: any };
+
+const Cases = ({ covidItems }: CasesProps) => {
+  const [todayCovidItems, yesterdayCovidItems] = covidItems;
+
+  const {
+    decideCnt: todayDecideCnt,
+    deathCnt: todayDeathCnt,
+    examCnt: todayExamCnt,
+    clearCnt: todayClearCnt,
+  } = todayCovidItems;
+
+  const {
+    decideCnt: yesterdayDecideCnt,
+    deathCnt: yesterdayDeathCnt,
+    examCnt: yesterdayExamCnt,
+    clearCnt: yesterdayClearCnt,
+  } = yesterdayCovidItems;
+
   return (
     <div className={styles.container}>
       <div>
-        <span>99,846</span>
+        <span>{todayDecideCnt}</span>
         <div>Confirmed</div>
-        <span>+428</span>
+        <span>{todayDecideCnt - yesterdayDecideCnt}</span>
       </div>
       <div>
-        <span>1,707</span>
+        <span>{todayDeathCnt}</span>
         <div>Deaths</div>
-        <span>+3</span>
+        <span>{todayDeathCnt - yesterdayDeathCnt}</span>
       </div>
       <div>
-        <span>91,560</span>
+        <span>{todayExamCnt}</span>
         <div>Recovered</div>
-        <span>+481</span>
+        <span>{todayExamCnt - yesterdayExamCnt}</span>
       </div>
       <div>
-        <span>7,441,210</span>
+        <span>{todayClearCnt}</span>
         <div>Tested</div>
-        <span>+40,220</span>
+        <span>{todayClearCnt - yesterdayClearCnt}</span>
       </div>
     </div>
   );

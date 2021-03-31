@@ -1,8 +1,9 @@
 // @see https://stackoverflow.com/questions/37693982/how-to-fetch-xml-with-fetch-api
 // @see https://www.npmjs.com/package/xml-js
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import { DomesticCovidService } from "../env";
 
 import Header from "../components/Header";
 import Navbar from "../components/Navbar";
@@ -12,14 +13,18 @@ import RegionalTable from "../components/RegionalTable";
 
 import HomeStyles from "../styles/Home.module.css";
 
-const Home = ({ data }) => {
-  console.log(data.response.body.items);
+type HomeProps = {
+  covidData: {
+    item: [];
+  };
+};
 
+const Home = ({ covidData }: HomeProps) => {
   return (
     <div className={HomeStyles.container}>
       <Header nation={"Korea"} />
       <Navbar />
-      <Cases />
+      <Cases covidItems={covidData.item} />
       <Confirmed />
       <RegionalTable />
     </div>
@@ -27,12 +32,17 @@ const Home = ({ data }) => {
 };
 
 Home.getInitialProps = async () => {
+  const { baseUrl, serviceKey, params } = DomesticCovidService;
+  const { pageNo, numOfRows, startCreateDt, endCreateDt } = params;
+
   const { data } = await axios.get(
-    "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson?serviceKey=fUio6BUTWluJVfLQpEDGp5Goep1YvqAVJt2%2Fz2WOoFbsyaJYNQ0shUPRlgryta5ytgbONMa2B8lmozCwOGAJwA%3D%3D&pageNo=1&numOfRows=10&startCreateDt=20200310&endCreateDt=20200315"
+    `${baseUrl}?serviceKey=${serviceKey}&pageNo=${pageNo}&numOfRows=${numOfRows}&startCreateDt=${startCreateDt}&endCreateDt=${endCreateDt}`
   );
 
+  const covidData = await data.response.body.items;
+
   return {
-    data,
+    covidData,
   };
 };
 
