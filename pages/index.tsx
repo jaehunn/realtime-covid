@@ -1,12 +1,12 @@
 // @see https://stackoverflow.com/questions/37693982/how-to-fetch-xml-with-fetch-api
 // @see https://www.npmjs.com/package/xml-js
 
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
 import { DomesticCovidService } from "../env";
 
 import Header from "../components/Header";
-import Navbar from "../components/Navbar";
+//  import Navbar from "../components/Navbar";
 import Cases from "../components/Cases";
 import Confirmed from "../components/Confirmed";
 import RegionalTable from "../components/RegionalTable";
@@ -21,9 +21,9 @@ type HomeProps = {
 
 const Home = ({ covidData }: HomeProps) => {
   return (
-    <div className={HomeStyles.container}>
+    <div className="w-screen h-screen flex flex-col flex-1 bg-blue-50">
       <Header nation={"Korea"} />
-      <Navbar />
+      {/* <Navbar /> */}
       <Cases covidItems={covidData.item} />
       <Confirmed />
       <RegionalTable />

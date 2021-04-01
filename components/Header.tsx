@@ -6,11 +6,11 @@ type HeaderProps = {
 
 const Header = ({ nation }: HeaderProps) => {
   return (
-    <div className={HeaderStyles.container}>
-      <h1>
+    <div className="text-center">
+      <h1 className="text-5xl">
         RealTime Covid-19
         <br />
-        <span>{nation}</span>
+        <span className="text-3xl">{nation}</span>
       </h1>
     </div>
   );

@@ -12,3 +12,14 @@ export const getDate = (minusDay = 0) => {
 
   return `${currentYear}${currentMonth}${currentDays}`;
 };
+
+export const toIncreaseDecrease = (num: number): string => {
+  let sign = "";
+  if (num > 0) sign = "+";
+
+  return sign + toComma(num);
+};
+
+export const toComma = (num: number): string => {
+  return num.toLocaleString("en-US");
+};
