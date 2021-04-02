@@ -11,8 +11,6 @@ import Cases from "../components/Cases";
 import Confirmed from "../components/Confirmed";
 import RegionalTable from "../components/RegionalTable";
 
-import HomeStyles from "../styles/Home.module.css";
-
 type HomeProps = {
   covidData: {
     item: [];
@@ -21,11 +19,11 @@ type HomeProps = {
 
 const Home = ({ covidData }: HomeProps) => {
   return (
-    <div className="w-screen h-screen flex flex-col flex-1 bg-blue-50">
+    <div className="w-screen h-screen flex flex-col flex-1 bg-blue-100">
       <Header nation={"Korea"} />
       {/* <Navbar /> */}
       <Cases covidItems={covidData.item} />
-      <Confirmed />
+      <Confirmed covidItems={covidData.item} />
       <RegionalTable />
     </div>
   );

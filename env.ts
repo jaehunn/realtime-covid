@@ -1,4 +1,4 @@
-import { getDate } from "./utils";
+import { requestFormatDate, getDate } from "./utils";
 
 type DomesticCovidService = {
   baseUrl: string;
@@ -19,7 +19,7 @@ export const DomesticCovidService: DomesticCovidService = {
   params: {
     pageNo: 1,
     numOfRows: 10,
-    startCreateDt: getDate(2), // 3일전, 데이터 갱신주기 1시간
-    endCreateDt: getDate(), // 금일
+    startCreateDt: requestFormatDate(getDate(6)), // 3일전, 데이터 갱신주기 1시간
+    endCreateDt: requestFormatDate(getDate()), // 금일
   },
 };
