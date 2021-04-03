@@ -1,5 +1,3 @@
-import HeaderStyles from "../styles/Header.module.css";
-
 type HeaderProps = {
   nation: string;
 };

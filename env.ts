@@ -19,7 +19,7 @@ export const DomesticCovidService: DomesticCovidService = {
   params: {
     pageNo: 1,
     numOfRows: 10,
-    startCreateDt: requestFormatDate(getDate(6)), // 3일전, 데이터 갱신주기 1시간
+    startCreateDt: requestFormatDate(getDate(7)), // 8일전, 데이터 갱신주기 1시간
     endCreateDt: requestFormatDate(getDate()), // 금일
   },
 };

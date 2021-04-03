@@ -3,6 +3,8 @@ import { toIncreaseDecrease, toComma } from "../utils";
 type CasesProps = { covidItems: any };
 
 const Cases = ({ covidItems }: CasesProps) => {
+  console.log("Cases: ", covidItems);
+
   const [todayCovidItems, yesterdayCovidItems] = covidItems;
 
   const {

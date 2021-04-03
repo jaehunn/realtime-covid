@@ -1,7 +1,7 @@
 // @see https://stackoverflow.com/questions/37693982/how-to-fetch-xml-with-fetch-api
 // @see https://www.npmjs.com/package/xml-js
 
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { DomesticCovidService } from "../env";
 
@@ -18,18 +18,21 @@ type HomeProps = {
 };
 
 const Home = ({ covidData }: HomeProps) => {
+  const [CasesCovidItem, setCasesCovidItem] = useState([...covidData.item]);
+  const [ConfirmedCovidItem, setConfirmedCovidItem] = useState([...covidData.item]);
+
   return (
     <div className="w-screen h-screen flex flex-col flex-1 bg-blue-100">
       <Header nation={"Korea"} />
       {/* <Navbar /> */}
-      <Cases covidItems={covidData.item} />
-      <Confirmed covidItems={covidData.item} />
+      <Cases covidItems={CasesCovidItem} />
+      <Confirmed covidItems={ConfirmedCovidItem} />
       <RegionalTable />
     </div>
   );
 };
 
-Home.getInitialProps = async () => {
+export async function getStaticProps() {
   const { baseUrl, serviceKey, params } = DomesticCovidService;
   const { pageNo, numOfRows, startCreateDt, endCreateDt } = params;
 
@@ -40,8 +43,10 @@ Home.getInitialProps = async () => {
   const covidData = await data.response.body.items;
 
   return {
-    covidData,
+    props: {
+      covidData,
+    },
   };
-};
+}
 
 export default Home;
