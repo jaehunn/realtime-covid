@@ -63,8 +63,9 @@ const Confirmed = ({ covidItems }: ConfirmedProps) => {
   };
 
   // TODO) 확진자뿐 아니라 다른 정보를 선택적으로 보여주게하기
+  // TODO) window size 줄였을 때, 그래프가 아래로 길어진다.
   return (
-    <div className="w-1/2 h-80 bg-blue-50 m-auto shadow-lg rounded-md">
+    <div className="w-1/2 h-80 bg-blue-50 m-auto mt-16 shadow-lg rounded-md">
       <div className="text-center">
         <h2>Confirmed</h2>
         <Bar

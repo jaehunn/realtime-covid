@@ -55,7 +55,8 @@ var Confirmed = function (_a) {
         ]
     };
     // TODO) 확진자뿐 아니라 다른 정보를 선택적으로 보여주게하기
-    return (React.createElement("div", { className: "w-1/2 h-80 bg-blue-50 m-auto shadow-lg rounded-md" },
+    // TODO) window size 줄였을 때, 그래프가 아래로 길어진다.
+    return (React.createElement("div", { className: "w-1/2 h-80 bg-blue-50 m-auto mt-16 shadow-lg rounded-md" },
         React.createElement("div", { className: "text-center" },
             React.createElement("h2", null, "Confirmed"),
             React.createElement(react_chartjs_2_1.Bar, { data: barData, width: 400, height: 200, options: {

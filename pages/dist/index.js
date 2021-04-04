@@ -55,32 +55,43 @@ var Cases_1 = require("../components/Cases");
 var Confirmed_1 = require("../components/Confirmed");
 var RegionalTable_1 = require("../components/RegionalTable");
 var Home = function (_a) {
-    var covidData = _a.covidData;
-    var _b = react_1.useState(__spreadArrays(covidData.item)), CasesCovidItem = _b[0], setCasesCovidItem = _b[1];
-    var _c = react_1.useState(__spreadArrays(covidData.item)), ConfirmedCovidItem = _c[0], setConfirmedCovidItem = _c[1];
+    var domesticCovidData = _a.domesticCovidData, domesticRegionCovidData = _a.domesticRegionCovidData;
+    var _b = react_1.useState(__spreadArrays(domesticCovidData.item)), casesCovidItem = _b[0], setCasesCovidItem = _b[1];
+    var _c = react_1.useState(__spreadArrays(domesticCovidData.item)), confirmedCovidItem = _c[0], setConfirmedCovidItem = _c[1];
+    var _d = react_1.useState(__spreadArrays(domesticRegionCovidData.item)), regionCovidItem = _d[0], setRegionCovidItem = _d[1];
+    console.log(domesticCovidData, domesticRegionCovidData);
     return (react_1["default"].createElement("div", { className: "w-screen h-screen flex flex-col flex-1 bg-blue-100" },
         react_1["default"].createElement(Header_1["default"], { nation: "Korea" }),
-        react_1["default"].createElement(Cases_1["default"], { covidItems: CasesCovidItem }),
-        react_1["default"].createElement(Confirmed_1["default"], { covidItems: ConfirmedCovidItem }),
-        react_1["default"].createElement(RegionalTable_1["default"], null)));
+        react_1["default"].createElement(Cases_1["default"], { covidItems: casesCovidItem }),
+        react_1["default"].createElement(Confirmed_1["default"], { covidItems: confirmedCovidItem }),
+        react_1["default"].createElement(RegionalTable_1["default"], { covidItems: regionCovidItem })));
 };
 function getStaticProps() {
     return __awaiter(this, void 0, void 0, function () {
-        var baseUrl, serviceKey, params, pageNo, numOfRows, startCreateDt, endCreateDt, data, covidData;
+        var domesticCovidBaseUrl, domesticCovidServiceKey, domesticCovidParams, domesticCovidPageNo, domesticCovidNumOfRows, domesticCovidStartCreateDt, DomesticCovidEndCreateDt, domesticRegionCovidBaseUrl, domesticRegionCovidServiceKey, domesticRegionCovidParams, domesticRegionCovidPageNo, domesticRegionCovidNumOfRows, domesticRegionCovidStartCreateDt, domesticRegionCovidEndCreateDt, _domesticCovidData, domesticCovidData, _domesticRegionCovidData, domesticRegionCovidData;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    baseUrl = env_1.DomesticCovidService.baseUrl, serviceKey = env_1.DomesticCovidService.serviceKey, params = env_1.DomesticCovidService.params;
-                    pageNo = params.pageNo, numOfRows = params.numOfRows, startCreateDt = params.startCreateDt, endCreateDt = params.endCreateDt;
-                    return [4 /*yield*/, axios_1["default"].get(baseUrl + "?serviceKey=" + serviceKey + "&pageNo=" + pageNo + "&numOfRows=" + numOfRows + "&startCreateDt=" + startCreateDt + "&endCreateDt=" + endCreateDt)];
+                    domesticCovidBaseUrl = env_1.DomesticCovidService.baseUrl, domesticCovidServiceKey = env_1.DomesticCovidService.serviceKey, domesticCovidParams = env_1.DomesticCovidService.params;
+                    domesticCovidPageNo = domesticCovidParams.pageNo, domesticCovidNumOfRows = domesticCovidParams.numOfRows, domesticCovidStartCreateDt = domesticCovidParams.startCreateDt, DomesticCovidEndCreateDt = domesticCovidParams.endCreateDt;
+                    domesticRegionCovidBaseUrl = env_1.DomesticRegionCovidService.baseUrl, domesticRegionCovidServiceKey = env_1.DomesticRegionCovidService.serviceKey, domesticRegionCovidParams = env_1.DomesticRegionCovidService.params;
+                    domesticRegionCovidPageNo = domesticRegionCovidParams.pageNo, domesticRegionCovidNumOfRows = domesticRegionCovidParams.numOfRows, domesticRegionCovidStartCreateDt = domesticRegionCovidParams.startCreateDt, domesticRegionCovidEndCreateDt = domesticRegionCovidParams.endCreateDt;
+                    return [4 /*yield*/, axios_1["default"].get(domesticCovidBaseUrl + "?serviceKey=" + domesticCovidServiceKey + "&pageNo=" + domesticCovidPageNo + "&numOfRows=" + domesticCovidNumOfRows + "&startCreateDt=" + domesticCovidStartCreateDt + "&endCreateDt=" + DomesticCovidEndCreateDt)];
                 case 1:
-                    data = (_a.sent()).data;
-                    return [4 /*yield*/, data.response.body.items];
+                    _domesticCovidData = (_a.sent()).data;
+                    return [4 /*yield*/, _domesticCovidData.response.body.items];
                 case 2:
-                    covidData = _a.sent();
+                    domesticCovidData = _a.sent();
+                    return [4 /*yield*/, axios_1["default"].get(domesticRegionCovidBaseUrl + "?serviceKey=" + domesticRegionCovidServiceKey + "&pageNo=" + domesticRegionCovidPageNo + "&numOfRows=" + domesticRegionCovidNumOfRows + "&startCreateDt=" + domesticRegionCovidStartCreateDt + "&endCreateDt=" + domesticRegionCovidEndCreateDt)];
+                case 3:
+                    _domesticRegionCovidData = (_a.sent()).data;
+                    return [4 /*yield*/, _domesticRegionCovidData.response.body.items];
+                case 4:
+                    domesticRegionCovidData = _a.sent();
                     return [2 /*return*/, {
                             props: {
-                                covidData: covidData
+                                domesticCovidData: domesticCovidData,
+                                domesticRegionCovidData: domesticRegionCovidData
                             }
                         }];
             }

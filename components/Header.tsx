@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 type HeaderProps = {
   nation: string;
 };
@@ -6,9 +8,13 @@ const Header = ({ nation }: HeaderProps) => {
   return (
     <div className="text-center">
       <h1 className="text-5xl">
-        RealTime Covid-19
+        <Link href="#" as="/">
+          <a>RealTime Covid-19</a>
+        </Link>
         <br />
-        <span className="text-3xl">{nation}</span>
+        <Link href="#" as="/">
+          <a className="text-3xl">{nation}</a>
+        </Link>
       </h1>
     </div>
   );

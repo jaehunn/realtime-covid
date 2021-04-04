@@ -28,28 +28,28 @@ const Cases = ({ covidItems }: CasesProps) => {
       <div className="w-40 h-24 bg-blue-50 flex flex-col justify-center items-center shadow-lg rounded-md">
         <div className="text-lg leading-4 tracking-wide text-red-500">Confirmed</div>
         <div className="text-sm leading-8 tracking-wide">{toComma(todayDecideCnt)}</div>
-        <div className="text-xs leading-2 tracking-wide rounded-full py-1 px-3 bg-blue-50 font-semibold">
+        <div className="text-xs leading-2 tracking-wide rounded-full py-1 px-2 bg-blue-100 font-semibold">
           {toIncreaseDecrease(todayDecideCnt - yesterdayDecideCnt)}
         </div>
       </div>
       <div className="w-40 h-24 bg-blue-50 flex flex-col justify-center items-center shadow-lg rounded-md">
         <div className="text-lg leading-4 tracking-wide text-black">Deaths</div>
         <div className="text-sm leading-8 tracking-wide">{toComma(todayDeathCnt)}</div>
-        <div className="text-xs leading-2 tracking-wide rounded-full py-1 px-3 bg-blue-50 font-semibold">
+        <div className="text-xs leading-2 tracking-wide rounded-full py-1 px-2 bg-blue-100 font-semibold">
           {toIncreaseDecrease(todayDeathCnt - yesterdayDeathCnt)}
         </div>
       </div>
       <div className="w-40 h-24 bg-blue-50 flex flex-col justify-center items-center shadow-lg rounded-md">
         <div className="text-lg leading-4 tracking-wide text-green-500">Recovered</div>
         <div className="text-sm leading-8 tracking-wide">{toComma(todayExamCnt)}</div>
-        <div className="text-xs leading-2 tracking-wide rounded-full py-1 px-3 bg-blue-50 font-semibold">
+        <div className="text-xs leading-2 tracking-wide rounded-full py-1 px-2 bg-blue-100 font-semibold">
           {toIncreaseDecrease(todayExamCnt - yesterdayExamCnt)}
         </div>
       </div>
       <div className="w-40 h-24 bg-blue-50 flex flex-col justify-center items-center shadow-lg rounded-md">
         <div className="text-lg leading-4 tracking-wide text-blue-500">Tested</div>
         <div className="text-sm leading-8 tracking-wide">{toComma(todayClearCnt)}</div>
-        <div className="text-xs leading-2 tracking-wide rounded-full py-1 px-3 bg-blue-50 font-semibold">
+        <div className="text-xs leading-2 tracking-wide rounded-full py-1 px-2 bg-blue-100 font-semibold">
           {toIncreaseDecrease(todayClearCnt - yesterdayClearCnt)}
         </div>
       </div>

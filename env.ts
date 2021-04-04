@@ -19,7 +19,18 @@ export const DomesticCovidService: DomesticCovidService = {
   params: {
     pageNo: 1,
     numOfRows: 10,
-    startCreateDt: requestFormatDate(getDate(7)), // 8일전, 데이터 갱신주기 1시간
-    endCreateDt: requestFormatDate(getDate()), // 금일
+    startCreateDt: requestFormatDate(getDate(7)), // 차트 일주일치 데이터
+    endCreateDt: requestFormatDate(getDate()),
+  },
+};
+
+export const DomesticRegionCovidService: DomesticCovidService = {
+  baseUrl: "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson",
+  serviceKey: "fUio6BUTWluJVfLQpEDGp5Goep1YvqAVJt2/z2WOoFbsyaJYNQ0shUPRlgryta5ytgbONMa2B8lmozCwOGAJwA==",
+  params: {
+    pageNo: 1,
+    numOfRows: 10,
+    startCreateDt: requestFormatDate(getDate(2)), // 지역 어제데이터 -> INC_DEC 로 대체
+    endCreateDt: requestFormatDate(getDate()),
   },
 };

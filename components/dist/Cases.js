@@ -13,18 +13,18 @@ var Cases = function (_a) {
         React.createElement("div", { className: "w-40 h-24 bg-blue-50 flex flex-col justify-center items-center shadow-lg rounded-md" },
             React.createElement("div", { className: "text-lg leading-4 tracking-wide text-red-500" }, "Confirmed"),
             React.createElement("div", { className: "text-sm leading-8 tracking-wide" }, utils_1.toComma(todayDecideCnt)),
-            React.createElement("div", { className: "text-xs leading-2 tracking-wide rounded-full py-1 px-3 bg-blue-50 font-semibold" }, utils_1.toIncreaseDecrease(todayDecideCnt - yesterdayDecideCnt))),
+            React.createElement("div", { className: "text-xs leading-2 tracking-wide rounded-full py-1 px-2 bg-blue-100 font-semibold" }, utils_1.toIncreaseDecrease(todayDecideCnt - yesterdayDecideCnt))),
         React.createElement("div", { className: "w-40 h-24 bg-blue-50 flex flex-col justify-center items-center shadow-lg rounded-md" },
             React.createElement("div", { className: "text-lg leading-4 tracking-wide text-black" }, "Deaths"),
             React.createElement("div", { className: "text-sm leading-8 tracking-wide" }, utils_1.toComma(todayDeathCnt)),
-            React.createElement("div", { className: "text-xs leading-2 tracking-wide rounded-full py-1 px-3 bg-blue-50 font-semibold" }, utils_1.toIncreaseDecrease(todayDeathCnt - yesterdayDeathCnt))),
+            React.createElement("div", { className: "text-xs leading-2 tracking-wide rounded-full py-1 px-2 bg-blue-100 font-semibold" }, utils_1.toIncreaseDecrease(todayDeathCnt - yesterdayDeathCnt))),
         React.createElement("div", { className: "w-40 h-24 bg-blue-50 flex flex-col justify-center items-center shadow-lg rounded-md" },
             React.createElement("div", { className: "text-lg leading-4 tracking-wide text-green-500" }, "Recovered"),
             React.createElement("div", { className: "text-sm leading-8 tracking-wide" }, utils_1.toComma(todayExamCnt)),
-            React.createElement("div", { className: "text-xs leading-2 tracking-wide rounded-full py-1 px-3 bg-blue-50 font-semibold" }, utils_1.toIncreaseDecrease(todayExamCnt - yesterdayExamCnt))),
+            React.createElement("div", { className: "text-xs leading-2 tracking-wide rounded-full py-1 px-2 bg-blue-100 font-semibold" }, utils_1.toIncreaseDecrease(todayExamCnt - yesterdayExamCnt))),
         React.createElement("div", { className: "w-40 h-24 bg-blue-50 flex flex-col justify-center items-center shadow-lg rounded-md" },
             React.createElement("div", { className: "text-lg leading-4 tracking-wide text-blue-500" }, "Tested"),
             React.createElement("div", { className: "text-sm leading-8 tracking-wide" }, utils_1.toComma(todayClearCnt)),
-            React.createElement("div", { className: "text-xs leading-2 tracking-wide rounded-full py-1 px-3 bg-blue-50 font-semibold" }, utils_1.toIncreaseDecrease(todayClearCnt - yesterdayClearCnt)))));
+            React.createElement("div", { className: "text-xs leading-2 tracking-wide rounded-full py-1 px-2 bg-blue-100 font-semibold" }, utils_1.toIncreaseDecrease(todayClearCnt - yesterdayClearCnt)))));
 };
 exports["default"] = Cases;
