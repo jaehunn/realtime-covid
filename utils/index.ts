@@ -1,3 +1,8 @@
+type toColorArrowType = {
+  color: "green" | "red" | "";
+  arrow: "up" | "down" | "";
+};
+
 export const requestFormatDate = ([currentYear, currentMonth, currentDays]: string[]) => {
   if (currentMonth.length < 2) currentMonth = "0" + currentMonth;
   if (currentDays.length < 2) currentDays = "0" + currentDays;
@@ -25,13 +30,18 @@ export const getFormatDate = (dateString: string): string => {
   return `${formatMonth}/${formatDays}`;
 };
 
-export const toIncreaseDecrease = (num: number): string => {
-  let sign = "";
-  if (num > 0) sign = "+";
+export const toIncreaseDecreaseNumber = (num: number): string => {
+  if (num < 0) num *= -1;
 
-  return sign + toComma(num);
+  return toComma(num);
 };
 
 export const toComma = (num: number): string => {
   return num.toLocaleString("en-US");
+};
+
+export const getSignNumber = (num: number): number => {
+  if (num === 0) return 0;
+
+  return num > 0 ? 1 : -1;
 };

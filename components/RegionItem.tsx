@@ -1,4 +1,5 @@
-import { toIncreaseDecrease, toComma } from "../utils";
+import { toComma } from "../utils";
+import IncreaseDecrease from "./IncreaseDecrease";
 
 const RegionItem = ({
   region,
@@ -13,16 +14,16 @@ const RegionItem = ({
     <div className="w-full h-full bg-blue-50 flex justify-evenly shadow-lg rounded-md text-xs leading-2 tracking-wide font-semibold">
       <div className="w-1/5 h-12 bg-blue-50 flex justify-center items-center shadow-lg rounded-md">{region}</div>
       <div className="w-1/5 h-12 bg-blue-50 flex justify-center items-center shadow-lg rounded-md">
-        {toComma(todayConfirmed)}{" "}
-        <span className="inline-block bg-blue-100 rounded-full py-1 px-2 ml-3">
-          {toIncreaseDecrease(todayIncreaseDecrease)}
-        </span>
+        {toComma(todayConfirmed)}
+        <div className="inline-block bg-blue-100 rounded-full py-1 px-2 ml-3">
+          <IncreaseDecrease increaseDecreaseNumber={todayIncreaseDecrease} hasTextColor={false} />
+        </div>
       </div>
       <div className="w-1/5 h-12 bg-blue-50 flex justify-center items-center shadow-lg rounded-md">
-        {toComma(confirmed)}{" "}
-        <span className="inline-block bg-blue-100 rounded-full py-1 px-2 ml-3">
-          {toIncreaseDecrease(increaseDecrease)}
-        </span>
+        {toComma(confirmed)}
+        <div className="inline-block bg-blue-100 rounded-full py-1 px-2 ml-3">
+          <IncreaseDecrease increaseDecreaseNumber={increaseDecrease} hasTextColor={false} />
+        </div>
       </div>
       <div className="w-1/5 h-12 bg-blue-50 flex justify-center items-center shadow-lg rounded-md">
         {toComma(deaths)}
