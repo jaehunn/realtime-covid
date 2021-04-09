@@ -1,6 +1,20 @@
-type toColorArrowType = {
-  color: "green" | "red" | "";
-  arrow: "up" | "down" | "";
+export const getChartDataSetsData = (covidItems, selectOption = "decideCnt") => {
+  let defaultSelectOption = covidItems.sort((itemA, itemB) => itemA.seq - itemB.seq)[0][selectOption];
+  const data = covidItems
+    .sort((itemA, itemB) => itemA.seq - itemB.seq)
+    .reduce((data, item, index) => {
+      if (index === 0) return data;
+
+      const todaySelectOption = item[selectOption];
+
+      const gap = todaySelectOption - defaultSelectOption;
+
+      defaultSelectOption = todaySelectOption;
+
+      return data.concat(gap);
+    }, []);
+
+  return data;
 };
 
 export const requestFormatDate = ([currentYear, currentMonth, currentDays]: string[]) => {

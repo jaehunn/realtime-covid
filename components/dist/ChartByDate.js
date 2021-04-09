@@ -6,7 +6,7 @@ require("chartjs-plugin-datalabels");
 var utils_1 = require("../utils");
 // TODO) 마운트되고 왜 6일전 값이 -가 나올까? deaths 로 돌리고 confirmed 로 돌리면 잘 나온다?
 // TODO) 왜 confirmed 에서 날짜가 sort 되서 나오지 ->
-var Confirmed = function (_a) {
+var ChartByDate = function (_a) {
     var covidItems = _a.covidItems;
     console.log("Confirmed: ", covidItems);
     var defaultChartSetsData = utils_1.getChartDataSetsData(covidItems);
@@ -94,4 +94,4 @@ var Confirmed = function (_a) {
                     }
                 } }))));
 };
-exports["default"] = Confirmed;
+exports["default"] = ChartByDate;

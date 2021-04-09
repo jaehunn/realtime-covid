@@ -22,7 +22,7 @@ var RegionalTable = function (_a) {
             var dayBeforeYesterdayDefCnt = dayBeforeYesterdayCovidItems[index].defCnt;
             var todayConfirmed = defCnt - yesterdayDefCnt;
             var yesterdayConfirmed = yesterdayDefCnt - dayBeforeYesterdayDefCnt;
-            return (React.createElement(RegionItem_1["default"], { region: gubunEn, todayConfirmed: todayConfirmed, todayIncreaseDecrease: todayConfirmed - yesterdayConfirmed, confirmed: defCnt, increaseDecrease: incDec, deaths: deathCnt, recovered: isolClearCnt }));
+            return (React.createElement(RegionItem_1["default"], { key: index, region: gubunEn, todayConfirmed: todayConfirmed, todayIncreaseDecrease: todayConfirmed - yesterdayConfirmed, confirmed: defCnt, increaseDecrease: incDec, deaths: deathCnt, recovered: isolClearCnt }));
         })));
 };
 exports["default"] = RegionalTable;

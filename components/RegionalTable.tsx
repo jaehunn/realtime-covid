@@ -28,6 +28,7 @@ const RegionalTable = ({ covidItems }) => {
 
         return (
           <RegionItem
+            key={index}
             region={gubunEn}
             todayConfirmed={todayConfirmed}
             todayIncreaseDecrease={todayConfirmed - yesterdayConfirmed}

@@ -52,18 +52,18 @@ var env_1 = require("../env");
 var Header_1 = require("../components/Header");
 //  import Navbar from "../components/Navbar";
 var Cases_1 = require("../components/Cases");
-var Confirmed_1 = require("../components/Confirmed");
+var ChartByDate_1 = require("../components/ChartByDate");
 var RegionalTable_1 = require("../components/RegionalTable");
 var Home = function (_a) {
     var domesticCovidData = _a.domesticCovidData, domesticRegionCovidData = _a.domesticRegionCovidData;
     var _b = react_1.useState(__spreadArrays(domesticCovidData.item)), casesCovidItem = _b[0], setCasesCovidItem = _b[1];
-    var _c = react_1.useState(__spreadArrays(domesticCovidData.item)), confirmedCovidItem = _c[0], setConfirmedCovidItem = _c[1];
+    var _c = react_1.useState(__spreadArrays(domesticCovidData.item)), chartByDateItem = _c[0], setChartByDateItem = _c[1];
     var _d = react_1.useState(__spreadArrays(domesticRegionCovidData.item)), regionCovidItem = _d[0], setRegionCovidItem = _d[1];
     console.log(domesticCovidData, domesticRegionCovidData);
     return (react_1["default"].createElement("div", { className: "w-screen h-screen flex flex-col flex-1 bg-blue-100" },
         react_1["default"].createElement(Header_1["default"], { nation: "Korea" }),
         react_1["default"].createElement(Cases_1["default"], { covidItems: casesCovidItem }),
-        react_1["default"].createElement(Confirmed_1["default"], { covidItems: confirmedCovidItem }),
+        react_1["default"].createElement(ChartByDate_1["default"], { covidItems: chartByDateItem }),
         react_1["default"].createElement(RegionalTable_1["default"], { covidItems: regionCovidItem })));
 };
 function getStaticProps() {

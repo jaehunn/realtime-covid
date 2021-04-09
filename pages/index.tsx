@@ -8,7 +8,7 @@ import { DomesticCovidService, DomesticRegionCovidService } from "../env";
 import Header from "../components/Header";
 //  import Navbar from "../components/Navbar";
 import Cases from "../components/Cases";
-import Confirmed from "../components/Confirmed";
+import ChartByDate from "../components/ChartByDate";
 import RegionalTable from "../components/RegionalTable";
 
 type HomeProps = {
@@ -23,7 +23,7 @@ type HomeProps = {
 
 const Home = ({ domesticCovidData, domesticRegionCovidData }: HomeProps) => {
   const [casesCovidItem, setCasesCovidItem] = useState([...domesticCovidData.item]);
-  const [confirmedCovidItem, setConfirmedCovidItem] = useState([...domesticCovidData.item]);
+  const [chartByDateItem, setChartByDateItem] = useState([...domesticCovidData.item]);
   const [regionCovidItem, setRegionCovidItem] = useState([...domesticRegionCovidData.item]);
 
   console.log(domesticCovidData, domesticRegionCovidData);
@@ -33,7 +33,7 @@ const Home = ({ domesticCovidData, domesticRegionCovidData }: HomeProps) => {
       <Header nation={"Korea"} />
       {/* <Navbar /> */}
       <Cases covidItems={casesCovidItem} />
-      <Confirmed covidItems={confirmedCovidItem} />
+      <ChartByDate covidItems={chartByDateItem} />
       <RegionalTable covidItems={regionCovidItem} />
     </div>
   );

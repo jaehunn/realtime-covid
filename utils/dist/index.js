@@ -1,6 +1,21 @@
 "use strict";
 exports.__esModule = true;
-exports.toComma = exports.toIncreaseDecrease = exports.getFormatDate = exports.getDate = exports.requestFormatDate = void 0;
+exports.getSignNumber = exports.toComma = exports.toIncreaseDecreaseNumber = exports.getFormatDate = exports.getDate = exports.requestFormatDate = exports.getChartDataSetsData = void 0;
+exports.getChartDataSetsData = function (covidItems, selectOption) {
+    if (selectOption === void 0) { selectOption = "decideCnt"; }
+    var defaultSelectOption = covidItems.sort(function (itemA, itemB) { return itemA.seq - itemB.seq; })[0][selectOption];
+    var data = covidItems
+        .sort(function (itemA, itemB) { return itemA.seq - itemB.seq; })
+        .reduce(function (data, item, index) {
+        if (index === 0)
+            return data;
+        var todaySelectOption = item[selectOption];
+        var gap = todaySelectOption - defaultSelectOption;
+        defaultSelectOption = todaySelectOption;
+        return data.concat(gap);
+    }, []);
+    return data;
+};
 exports.requestFormatDate = function (_a) {
     var currentYear = _a[0], currentMonth = _a[1], currentDays = _a[2];
     if (currentMonth.length < 2)
@@ -25,12 +40,16 @@ exports.getFormatDate = function (dateString) {
     var formatMonth = formatDate[0], formatDays = formatDate[1];
     return formatMonth + "/" + formatDays;
 };
-exports.toIncreaseDecrease = function (num) {
-    var sign = "";
-    if (num > 0)
-        sign = "+";
-    return sign + exports.toComma(num);
+exports.toIncreaseDecreaseNumber = function (num) {
+    if (num < 0)
+        num *= -1;
+    return exports.toComma(num);
 };
 exports.toComma = function (num) {
     return num.toLocaleString("en-US");
+};
+exports.getSignNumber = function (num) {
+    if (num === 0)
+        return 0;
+    return num > 0 ? 1 : -1;
 };
