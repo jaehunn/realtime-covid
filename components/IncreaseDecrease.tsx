@@ -6,7 +6,6 @@ type IncreaseDecreaseProps = {
   hasTextColor?: boolean;
 };
 
-// TODO) Cases 의 text 색까지 바뀌게된다.
 const IncreaseDecrease = ({ increaseDecreaseNumber, hasTextColor = true }: IncreaseDecreaseProps) => {
   const signNumber = getSignNumber(increaseDecreaseNumber);
 

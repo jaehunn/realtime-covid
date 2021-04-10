@@ -1,18 +1,22 @@
 "use strict";
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 exports.__esModule = true;
 var react_1 = require("react");
 var react_chartjs_2_1 = require("react-chartjs-2");
 require("chartjs-plugin-datalabels");
 var utils_1 = require("../utils");
-// TODO) 마운트되고 왜 6일전 값이 -가 나올까? deaths 로 돌리고 confirmed 로 돌리면 잘 나온다?
-// TODO) 왜 confirmed 에서 날짜가 sort 되서 나오지 ->
 var ChartByDate = function (_a) {
     var covidItems = _a.covidItems;
-    console.log("Confirmed: ", covidItems);
-    var defaultChartSetsData = utils_1.getChartDataSetsData(covidItems);
+    console.log("ChartByDate: ", covidItems);
+    var defaultChartSetsData = utils_1.getChartDataSetsData(__spreadArrays(covidItems));
     var _b = react_1.useState(defaultChartSetsData), chartDataSetsData = _b[0], setChartDataSetsData = _b[1];
-    var labels = covidItems
-        .sort(function (itemA, itemB) { return itemA.seq - itemB.seq; })
+    var labels = __spreadArrays(covidItems).sort(function (itemA, itemB) { return itemA.seq - itemB.seq; })
         .reduce(function (labels, _a, index) {
         var createDt = _a.createDt;
         if (index === 0)
@@ -20,7 +24,6 @@ var ChartByDate = function (_a) {
         var formatDate = utils_1.getFormatDate(createDt);
         return labels.concat(formatDate);
     }, []);
-    console.log(chartDataSetsData, labels);
     var barData = {
         labels: labels,
         datasets: [
@@ -54,16 +57,13 @@ var ChartByDate = function (_a) {
         setChartDataSetsData(utils_1.getChartDataSetsData(covidItems, optionValue));
         console.log(chartDataSetsData);
     };
-    // TODO) bar chart 숫자가 가려진다. layout.padding 으로 임시해결
-    // TODO) 확진자뿐 아니라 다른 정보를 선택적으로 보여주게하기
     // TODO) window size 줄였을 때, 그래프가 아래로 길어진다.
-    return (react_1["default"].createElement("div", { className: "w-1/2 h-auto bg-blue-50 m-auto mt-16 shadow-lg rounded-md" },
+    return (react_1["default"].createElement("div", { className: "w-1/2 h-5/3 bg-blue-50 m-auto mt-16 shadow-lg rounded-md" },
         react_1["default"].createElement("div", { className: "text-center" },
-            react_1["default"].createElement("select", { className: "", onChange: onChangeHandler },
+            react_1["default"].createElement("select", { className: "flex flex-start text-sm leading-2 rounded-full py-1 px-2 bg-blue-100 border-2 border-blue-400 border-opacity-75 m-4 cursor-pointer", onChange: onChangeHandler },
                 react_1["default"].createElement("option", { value: "decideCnt" }, "Confirmed"),
                 react_1["default"].createElement("option", { value: "deathCnt" }, "Deaths"),
-                react_1["default"].createElement("option", { value: "clearCnt" }, "Recovered"),
-                react_1["default"].createElement("option", { value: "dps4" }, "Confirmed Rate")),
+                react_1["default"].createElement("option", { value: "clearCnt" }, "Recovered")),
             react_1["default"].createElement(react_chartjs_2_1.Bar, { data: barData, width: 400, height: 200, options: {
                     layout: {
                         padding: 30

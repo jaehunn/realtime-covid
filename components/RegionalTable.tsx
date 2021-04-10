@@ -8,9 +8,8 @@ const RegionalTable = ({ covidItems }) => {
   const dayBeforeYesterdayCovidItems = covidItems.slice(38, 57);
 
   // TODO) 무한 스크롤 기능
-  // TODO) 금일 확진자 수, 어제기준 증감 수 구하기
   return (
-    <div className="w-1/2 h-80 bg-blue-50 flex flex-col m-auto mt-16 shadow-lg rounded-md">
+    <div className="w-3/5 bg-blue-50 flex flex-col m-auto mt-16 shadow-lg rounded-md">
       <div className="w-full bg-blue-200 flex justify-evenly text-sm leading-8 tracking-wide font-semibold">
         <div className="w-1/5 h-12 flex justify-center items-center">Location</div>
         <div className="w-1/5 h-12 flex justify-center items-center">Today Confirmed</div>

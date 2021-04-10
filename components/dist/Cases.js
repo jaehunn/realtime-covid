@@ -9,7 +9,6 @@ var Cases = function (_a) {
     var accDecideCnt = accCovidItems.decideCnt, accDeathCnt = accCovidItems.deathCnt, accClearCnt = accCovidItems.clearCnt, accExamCnt = accCovidItems.accExamCnt;
     var yesterdayAccDecideCnt = yesterdayAccCovidItems.decideCnt, yesterdayAccDeathCnt = yesterdayAccCovidItems.deathCnt, yesterdayAccClearCnt = yesterdayAccCovidItems.clearCnt, yesterdayAccExamCnt = yesterdayAccCovidItems.accExamCnt;
     // TODO) 중복되는 스타일을 어떻게 해결할까
-    // TODO) 증감에 따라 유동적으로 색 조정, 화살표 아이콘
     return (React.createElement("div", { className: "w-1/2 h-32 flex flex-row flex-1 justify-evenly m-auto mt-16" },
         React.createElement("div", { className: "w-40 h-24 bg-blue-50 flex flex-col justify-center items-center shadow-lg rounded-md text-red-500" },
             React.createElement("div", { className: "text-lg leading-4 tracking-wide" }, "Confirmed"),

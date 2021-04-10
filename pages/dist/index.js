@@ -60,7 +60,7 @@ var Home = function (_a) {
     var _c = react_1.useState(__spreadArrays(domesticCovidData.item)), chartByDateItem = _c[0], setChartByDateItem = _c[1];
     var _d = react_1.useState(__spreadArrays(domesticRegionCovidData.item)), regionCovidItem = _d[0], setRegionCovidItem = _d[1];
     console.log(domesticCovidData, domesticRegionCovidData);
-    return (react_1["default"].createElement("div", { className: "w-screen h-screen flex flex-col flex-1 bg-blue-100" },
+    return (react_1["default"].createElement("div", { className: "w-full h-full flex flex-col flex-1 bg-blue-100 overflow-auto" },
         react_1["default"].createElement(Header_1["default"], { nation: "Korea" }),
         react_1["default"].createElement(Cases_1["default"], { covidItems: casesCovidItem }),
         react_1["default"].createElement(ChartByDate_1["default"], { covidItems: chartByDateItem }),

@@ -29,7 +29,7 @@ const Home = ({ domesticCovidData, domesticRegionCovidData }: HomeProps) => {
   console.log(domesticCovidData, domesticRegionCovidData);
 
   return (
-    <div className="w-screen h-screen flex flex-col flex-1 bg-blue-100">
+    <div className="w-full h-full flex flex-col flex-1 bg-blue-100 overflow-auto">
       <Header nation={"Korea"} />
       {/* <Navbar /> */}
       <Cases covidItems={casesCovidItem} />
