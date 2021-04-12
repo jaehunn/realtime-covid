@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { getSignNumber } from "../utils";
 
-type IncreaseDecreaseIconProps = {
+interface IncreaseDecreaseIconProps {
   increaseDecreaseNumber: number;
-};
+}
 
 const IncreaseDecreaseIcon = ({ increaseDecreaseNumber }: IncreaseDecreaseIconProps) => {
   return (

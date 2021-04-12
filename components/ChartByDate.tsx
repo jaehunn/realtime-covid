@@ -4,14 +4,13 @@ import { Bar } from "react-chartjs-2";
 import "chartjs-plugin-datalabels";
 
 import { getFormatDate, getChartDataSetsData } from "../utils";
+import { CovidDataType } from "../pages";
 
-type ChartByDateProps = {
-  covidItems: any;
-};
+interface ChartByDateProps {
+  covidItems: CovidDataType[];
+}
 
 const ChartByDate = ({ covidItems }: ChartByDateProps) => {
-  console.log("ChartByDate: ", covidItems);
-
   const defaultChartSetsData = getChartDataSetsData([...covidItems]);
   const [chartDataSetsData, setChartDataSetsData] = useState(defaultChartSetsData);
 

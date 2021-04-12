@@ -1,10 +1,10 @@
 import { toIncreaseDecreaseNumber, getSignNumber } from "../utils";
 import IncreaseDecreaseIcon from "./IncreaseDecreaseIcon";
 
-type IncreaseDecreaseProps = {
+interface IncreaseDecreaseProps {
   increaseDecreaseNumber: number;
   hasTextColor?: boolean;
-};
+}
 
 const IncreaseDecrease = ({ increaseDecreaseNumber, hasTextColor = true }: IncreaseDecreaseProps) => {
   const signNumber = getSignNumber(increaseDecreaseNumber);

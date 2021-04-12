@@ -50,7 +50,7 @@ var react_1 = require("react");
 var axios_1 = require("axios");
 var env_1 = require("../env");
 var Header_1 = require("../components/Header");
-//  import Navbar from "../components/Navbar";
+var Navbar_1 = require("../components/Navbar");
 var Cases_1 = require("../components/Cases");
 var ChartByDate_1 = require("../components/ChartByDate");
 var RegionalTable_1 = require("../components/RegionalTable");
@@ -61,22 +61,23 @@ var Home = function (_a) {
     var _d = react_1.useState(__spreadArrays(domesticRegionCovidData.item)), regionCovidItem = _d[0], setRegionCovidItem = _d[1];
     console.log(domesticCovidData, domesticRegionCovidData);
     return (react_1["default"].createElement("div", { className: "w-full h-full flex flex-col flex-1 bg-blue-100 overflow-auto" },
-        react_1["default"].createElement(Header_1["default"], { nation: "Korea" }),
+        react_1["default"].createElement(Header_1["default"], { nation: Header_1.NATION.domestic }),
+        react_1["default"].createElement(Navbar_1["default"], null),
         react_1["default"].createElement(Cases_1["default"], { covidItems: casesCovidItem }),
         react_1["default"].createElement(ChartByDate_1["default"], { covidItems: chartByDateItem }),
         react_1["default"].createElement(RegionalTable_1["default"], { covidItems: regionCovidItem })));
 };
 function getStaticProps() {
     return __awaiter(this, void 0, void 0, function () {
-        var domesticCovidBaseUrl, domesticCovidServiceKey, domesticCovidParams, domesticCovidPageNo, domesticCovidNumOfRows, domesticCovidStartCreateDt, DomesticCovidEndCreateDt, domesticRegionCovidBaseUrl, domesticRegionCovidServiceKey, domesticRegionCovidParams, domesticRegionCovidPageNo, domesticRegionCovidNumOfRows, domesticRegionCovidStartCreateDt, domesticRegionCovidEndCreateDt, _domesticCovidData, domesticCovidData, _domesticRegionCovidData, domesticRegionCovidData;
+        var domesticCovidBaseUrl, domesticCovidServiceKey, domesticCovidParams, domesticCovidPageNo, domesticCovidNumOfRows, domesticCovidStartCreateDt, domesticCovidEndCreateDt, domesticRegionCovidBaseUrl, domesticRegionCovidServiceKey, domesticRegionCovidParams, domesticRegionCovidPageNo, domesticRegionCovidNumOfRows, domesticRegionCovidStartCreateDt, domesticRegionCovidEndCreateDt, _domesticCovidData, domesticCovidData, _domesticRegionCovidData, domesticRegionCovidData;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     domesticCovidBaseUrl = env_1.DomesticCovidService.baseUrl, domesticCovidServiceKey = env_1.DomesticCovidService.serviceKey, domesticCovidParams = env_1.DomesticCovidService.params;
-                    domesticCovidPageNo = domesticCovidParams.pageNo, domesticCovidNumOfRows = domesticCovidParams.numOfRows, domesticCovidStartCreateDt = domesticCovidParams.startCreateDt, DomesticCovidEndCreateDt = domesticCovidParams.endCreateDt;
+                    domesticCovidPageNo = domesticCovidParams.pageNo, domesticCovidNumOfRows = domesticCovidParams.numOfRows, domesticCovidStartCreateDt = domesticCovidParams.startCreateDt, domesticCovidEndCreateDt = domesticCovidParams.endCreateDt;
                     domesticRegionCovidBaseUrl = env_1.DomesticRegionCovidService.baseUrl, domesticRegionCovidServiceKey = env_1.DomesticRegionCovidService.serviceKey, domesticRegionCovidParams = env_1.DomesticRegionCovidService.params;
                     domesticRegionCovidPageNo = domesticRegionCovidParams.pageNo, domesticRegionCovidNumOfRows = domesticRegionCovidParams.numOfRows, domesticRegionCovidStartCreateDt = domesticRegionCovidParams.startCreateDt, domesticRegionCovidEndCreateDt = domesticRegionCovidParams.endCreateDt;
-                    return [4 /*yield*/, axios_1["default"].get(domesticCovidBaseUrl + "?serviceKey=" + domesticCovidServiceKey + "&pageNo=" + domesticCovidPageNo + "&numOfRows=" + domesticCovidNumOfRows + "&startCreateDt=" + domesticCovidStartCreateDt + "&endCreateDt=" + DomesticCovidEndCreateDt)];
+                    return [4 /*yield*/, axios_1["default"].get(domesticCovidBaseUrl + "?serviceKey=" + domesticCovidServiceKey + "&pageNo=" + domesticCovidPageNo + "&numOfRows=" + domesticCovidNumOfRows + "&startCreateDt=" + domesticCovidStartCreateDt + "&endCreateDt=" + domesticCovidEndCreateDt)];
                 case 1:
                     _domesticCovidData = (_a.sent()).data;
                     return [4 /*yield*/, _domesticCovidData.response.body.items];

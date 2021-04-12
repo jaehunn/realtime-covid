@@ -1,8 +1,12 @@
 import Link from "next/link";
 
-type HeaderProps = {
-  nation: string;
-};
+interface HeaderProps {
+  nation: NATION;
+}
+export enum NATION {
+  domestic = "Domestic",
+  overseas = "Overseas",
+}
 
 const Header = ({ nation }: HeaderProps) => {
   return (

@@ -1,6 +1,11 @@
 import { toComma } from "../utils";
 import IncreaseDecrease from "./IncreaseDecrease";
 
+// TODO) props 타입을 어떻게 설정할까
+interface RegionItemProps {
+  CovidItem: any;
+}
+
 const RegionItem = ({
   region,
   todayConfirmed,

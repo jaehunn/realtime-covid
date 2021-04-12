@@ -5,21 +5,56 @@ import React, { useState } from "react";
 import axios from "axios";
 import { DomesticCovidService, DomesticRegionCovidService } from "../env";
 
-import Header from "../components/Header";
-//  import Navbar from "../components/Navbar";
+import Header, { NATION } from "../components/Header";
+import Navbar from "../components/Navbar";
 import Cases from "../components/Cases";
 import ChartByDate from "../components/ChartByDate";
 import RegionalTable from "../components/RegionalTable";
 
-type HomeProps = {
+interface HomeProps {
   domesticCovidData: {
-    item: [];
+    item: CovidDataType[];
   };
 
   domesticRegionCovidData: {
-    item: [];
+    item: RegionCovidDataType[];
   };
-};
+}
+
+export interface CovidDataType {
+  accDefRate: number;
+  accExamCnt: number;
+  accExamCompCnt: number;
+  careCnt: number;
+  clearCnt: number;
+  createDt: string;
+  deathCnt: number;
+  decideCnt: number;
+  examCnt: number;
+  resutlNegCnt: number;
+  seq: number;
+  stateDt: number;
+  stateTime: string;
+  updateDt: string;
+}
+
+export interface RegionCovidDataType {
+  createDt: string;
+  deathCnt: number;
+  defCnt: number;
+  gubun: "검역";
+  gubunCn: string;
+  gubunEn: string;
+  incDec: number;
+  isolClearCnt: number;
+  isolIngCnt: number;
+  localOccCnt: number;
+  overFlowCnt: number;
+  qurRate: string;
+  seq: number;
+  stdDay: string;
+  updateDt: string;
+}
 
 const Home = ({ domesticCovidData, domesticRegionCovidData }: HomeProps) => {
   const [casesCovidItem, setCasesCovidItem] = useState([...domesticCovidData.item]);
@@ -30,8 +65,8 @@ const Home = ({ domesticCovidData, domesticRegionCovidData }: HomeProps) => {
 
   return (
     <div className="w-full h-full flex flex-col flex-1 bg-blue-100 overflow-auto">
-      <Header nation={"Korea"} />
-      {/* <Navbar /> */}
+      <Header nation={NATION.domestic} />
+      <Navbar />
       <Cases covidItems={casesCovidItem} />
       <ChartByDate covidItems={chartByDateItem} />
       <RegionalTable covidItems={regionCovidItem} />
@@ -50,7 +85,7 @@ export async function getStaticProps() {
     pageNo: domesticCovidPageNo,
     numOfRows: domesticCovidNumOfRows,
     startCreateDt: domesticCovidStartCreateDt,
-    endCreateDt: DomesticCovidEndCreateDt,
+    endCreateDt: domesticCovidEndCreateDt,
   } = domesticCovidParams;
 
   const {
@@ -67,7 +102,7 @@ export async function getStaticProps() {
   } = domesticRegionCovidParams;
 
   const { data: _domesticCovidData } = await axios.get(
-    `${domesticCovidBaseUrl}?serviceKey=${domesticCovidServiceKey}&pageNo=${domesticCovidPageNo}&numOfRows=${domesticCovidNumOfRows}&startCreateDt=${domesticCovidStartCreateDt}&endCreateDt=${DomesticCovidEndCreateDt}`
+    `${domesticCovidBaseUrl}?serviceKey=${domesticCovidServiceKey}&pageNo=${domesticCovidPageNo}&numOfRows=${domesticCovidNumOfRows}&startCreateDt=${domesticCovidStartCreateDt}&endCreateDt=${domesticCovidEndCreateDt}`
   );
 
   const domesticCovidData = await _domesticCovidData.response.body.items;

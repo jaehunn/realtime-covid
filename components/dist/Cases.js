@@ -4,7 +4,6 @@ var utils_1 = require("../utils");
 var IncreaseDecrease_1 = require("./IncreaseDecrease");
 var Cases = function (_a) {
     var covidItems = _a.covidItems;
-    console.log("Cases: ", covidItems);
     var accCovidItems = covidItems[0], yesterdayAccCovidItems = covidItems[1];
     var accDecideCnt = accCovidItems.decideCnt, accDeathCnt = accCovidItems.deathCnt, accClearCnt = accCovidItems.clearCnt, accExamCnt = accCovidItems.accExamCnt;
     var yesterdayAccDecideCnt = yesterdayAccCovidItems.decideCnt, yesterdayAccDeathCnt = yesterdayAccCovidItems.deathCnt, yesterdayAccClearCnt = yesterdayAccCovidItems.clearCnt, yesterdayAccExamCnt = yesterdayAccCovidItems.accExamCnt;

@@ -13,7 +13,6 @@ require("chartjs-plugin-datalabels");
 var utils_1 = require("../utils");
 var ChartByDate = function (_a) {
     var covidItems = _a.covidItems;
-    console.log("ChartByDate: ", covidItems);
     var defaultChartSetsData = utils_1.getChartDataSetsData(__spreadArrays(covidItems));
     var _b = react_1.useState(defaultChartSetsData), chartDataSetsData = _b[0], setChartDataSetsData = _b[1];
     var labels = __spreadArrays(covidItems).sort(function (itemA, itemB) { return itemA.seq - itemB.seq; })

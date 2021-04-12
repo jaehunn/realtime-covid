@@ -3,7 +3,6 @@ exports.__esModule = true;
 var RegionItem_1 = require("./RegionItem");
 var RegionalTable = function (_a) {
     var covidItems = _a.covidItems;
-    console.log("RegionalTable", covidItems); // 일별 지역 데이터 19개
     var todayCovidItems = covidItems.slice(0, 19);
     var yesterdayCovidItems = covidItems.slice(19, 38);
     var dayBeforeYesterdayCovidItems = covidItems.slice(38, 57);

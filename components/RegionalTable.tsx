@@ -1,8 +1,11 @@
 import RegionItem from "./RegionItem";
+import { RegionCovidDataType } from "../pages";
 
-const RegionalTable = ({ covidItems }) => {
-  console.log("RegionalTable", covidItems); // 일별 지역 데이터 19개
+interface RegionTableProps {
+  covidItems: RegionCovidDataType[];
+}
 
+const RegionalTable = ({ covidItems }: RegionTableProps) => {
   const todayCovidItems = covidItems.slice(0, 19);
   const yesterdayCovidItems = covidItems.slice(19, 38);
   const dayBeforeYesterdayCovidItems = covidItems.slice(38, 57);

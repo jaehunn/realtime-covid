@@ -1,12 +1,13 @@
 import Link from "next/link";
 
-import NavbarStyles from "../styles/Navbar.module.css";
-
 const Navbar = () => {
   return (
-    <div className="fixed top-2/4 left-full transform -translate-x-full">
-      <Link href="#" as="/">
-        <a>Korea</a>
+    <div className="fixed flex flex-col justify-between top-2/4 left-full transform -translate-x-full">
+      <Link href="/">
+        <a>Domestic</a>
+      </Link>
+      <Link href="/overseas">
+        <a>Overseas</a>
       </Link>
     </div>
   );

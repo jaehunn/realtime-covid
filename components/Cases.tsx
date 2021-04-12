@@ -1,11 +1,14 @@
 import { toComma } from "../utils";
 import IncreaseDecrease from "./IncreaseDecrease";
 
-type CasesProps = { covidItems: any };
+import { CovidDataType } from "../pages";
+import { OverseasCovidDataType } from "../pages/overseas";
+
+interface CasesProps {
+  covidItems: CovidDataType[];
+}
 
 const Cases = ({ covidItems }: CasesProps) => {
-  console.log("Cases: ", covidItems);
-
   const [accCovidItems, yesterdayAccCovidItems] = covidItems;
 
   const {

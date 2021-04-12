@@ -1,8 +1,8 @@
 import Head from "next/head";
 
-type LayoutProps = {
+interface LayoutProps {
   children: JSX.Element;
-};
+}
 
 const Layout = ({ children }: LayoutProps) => {
   return (
