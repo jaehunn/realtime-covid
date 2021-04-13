@@ -17,6 +17,20 @@ export const getChartDataSetsData = (covidItems, selectOption = "decideCnt") => 
   return data;
 };
 
+export const getAllDecideDeathCnt = (overseasCovidItems) => {
+  const allDecideDeathCnt = overseasCovidItems.reduce(
+    (allDecideDeathCnt, { natDefCnt, natDeathCnt }) => {
+      allDecideDeathCnt[0] += natDefCnt;
+      allDecideDeathCnt[1] += natDeathCnt;
+
+      return allDecideDeathCnt;
+    },
+    [0, 0]
+  );
+
+  return allDecideDeathCnt;
+};
+
 export const requestFormatDate = ([currentYear, currentMonth, currentDays]: string[]) => {
   if (currentMonth.length < 2) currentMonth = "0" + currentMonth;
   if (currentDays.length < 2) currentDays = "0" + currentDays;

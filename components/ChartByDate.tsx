@@ -14,6 +14,8 @@ const ChartByDate = ({ covidItems }: ChartByDateProps) => {
   const defaultChartSetsData = getChartDataSetsData([...covidItems]);
   const [chartDataSetsData, setChartDataSetsData] = useState(defaultChartSetsData);
 
+  console.log(defaultChartSetsData);
+
   const labels = [...covidItems]
     .sort((itemA, itemB) => itemA.seq - itemB.seq)
     .reduce((labels, { createDt }, index) => {

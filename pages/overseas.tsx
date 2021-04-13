@@ -41,9 +41,9 @@ const Overseas = ({ overseasCovidData }: OverseasProps) => {
     <div className="w-full h-full flex flex-col flex-1 bg-blue-100 overflow-auto">
       <Header nation={NATION.overseas} />
       <Navbar />
-      <OverseasCases />
-      <OverseasChartByDate />
-      <OverseasRegionTable />
+      <OverseasCases overseasCovidItems={casesCovidItem} />
+      <OverseasChartByDate overseasCovidItems={chartByDateItem} />
+      <OverseasRegionTable overseasCovidItems={regionCovidItem} />
     </div>
   );
 };
