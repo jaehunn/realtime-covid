@@ -15,6 +15,7 @@ var ChartByDate = function (_a) {
     var covidItems = _a.covidItems;
     var defaultChartSetsData = utils_1.getChartDataSetsData(__spreadArrays(covidItems));
     var _b = react_1.useState(defaultChartSetsData), chartDataSetsData = _b[0], setChartDataSetsData = _b[1];
+    console.log(defaultChartSetsData);
     var labels = __spreadArrays(covidItems).sort(function (itemA, itemB) { return itemA.seq - itemB.seq; })
         .reduce(function (labels, _a, index) {
         var createDt = _a.createDt;
@@ -27,6 +28,7 @@ var ChartByDate = function (_a) {
         labels: labels,
         datasets: [
             {
+                barPercentage: 0.5,
                 label: [],
                 data: chartDataSetsData,
                 backgroundColor: [
@@ -71,6 +73,7 @@ var ChartByDate = function (_a) {
                     scales: {
                         yAxes: [
                             {
+                                display: false,
                                 ticks: {
                                     beginAtZero: true
                                 }
@@ -85,6 +88,9 @@ var ChartByDate = function (_a) {
                     },
                     plugins: {
                         datalabels: {
+                            formatter: function (_, context) {
+                                return utils_1.toComma(context.dataset.data[context.dataIndex]);
+                            },
                             display: true,
                             color: "black",
                             anchor: "end",

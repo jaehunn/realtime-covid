@@ -1,5 +1,6 @@
 import RegionItem from "./RegionItem";
 import { RegionCovidDataType } from "../pages";
+import { getRegionName } from "../utils";
 
 interface RegionTableProps {
   covidItems: RegionCovidDataType[];
@@ -12,7 +13,7 @@ const RegionalTable = ({ covidItems }: RegionTableProps) => {
 
   // TODO) 무한 스크롤 기능
   return (
-    <div className="w-3/5 bg-blue-50 flex flex-col m-auto mt-16 shadow-lg rounded-md">
+    <div className="w-1/3 bg-blue-50 flex flex-col m-auto mt-16 shadow-lg rounded-md">
       <div className="w-full bg-blue-200 flex justify-evenly text-sm leading-8 tracking-wide font-semibold">
         <div className="w-1/5 h-12 flex justify-center items-center">Location</div>
         <div className="w-1/5 h-12 flex justify-center items-center">Today Confirmed</div>
@@ -22,22 +23,41 @@ const RegionalTable = ({ covidItems }: RegionTableProps) => {
       </div>
 
       {todayCovidItems.map(({ gubunEn, incDec, defCnt, deathCnt, isolClearCnt }, index) => {
-        const { defCnt: yesterdayDefCnt } = yesterdayCovidItems[index];
-        const { defCnt: dayBeforeYesterdayDefCnt } = dayBeforeYesterdayCovidItems[index];
+        const {
+          defCnt: yesterdayDefCnt,
+          deathCnt: yesterdayDeathCnt,
+          isolClearCnt: yesterdayRecoveredCnt,
+        } = yesterdayCovidItems[index];
+
+        const {
+          defCnt: dayBeforeYesterdayDefCnt,
+          deathCnt: dayBeforeYesterdayDeathCnt,
+          isolClearCnt: dayBeforeYesterdayRecoveredCnt,
+        } = dayBeforeYesterdayCovidItems[index];
 
         const todayConfirmed = defCnt - yesterdayDefCnt;
         const yesterdayConfirmed = yesterdayDefCnt - dayBeforeYesterdayDefCnt;
+
+        const todayDeaths = deathCnt - yesterdayDeathCnt;
+        const yesterdayDeaths = yesterdayDeathCnt - dayBeforeYesterdayDeathCnt;
+
+        const todayRecovered = isolClearCnt - yesterdayRecoveredCnt;
+        const yesterdayRecovered = yesterdayRecoveredCnt - dayBeforeYesterdayRecoveredCnt;
+
+        if (~gubunEn.indexOf("-do")) gubunEn = getRegionName(gubunEn);
 
         return (
           <RegionItem
             key={index}
             region={gubunEn}
             todayConfirmed={todayConfirmed}
-            todayIncreaseDecrease={todayConfirmed - yesterdayConfirmed}
+            todayConfirmedIncreaseDecrease={todayConfirmed - yesterdayConfirmed}
             confirmed={defCnt}
-            increaseDecrease={incDec}
+            confirmedIncreaseDecrease={incDec}
             deaths={deathCnt}
+            todayDeathsIncreaseDecrease={todayDeaths - yesterdayDeaths}
             recovered={isolClearCnt}
+            todayRecoveredIncreaseDecrease={todayRecovered - yesterdayRecovered}
           />
         );
       })}

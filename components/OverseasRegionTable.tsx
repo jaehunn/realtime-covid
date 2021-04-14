@@ -11,13 +11,15 @@ const OverseasRegionlTable = ({ overseasCovidItems }: OverseasRegionlTableProps)
   const yesterdayCovidItems = overseasCovidItems.slice(190, 380);
   const dayBeforeYesterdayCovidItems = overseasCovidItems.slice(380, 570);
 
+  console.log(accOverseasCovidItems);
+
   // TODO) 무한 스크롤 기능
   return (
-    <div className="w-3/5 bg-blue-50 flex flex-col m-auto mt-16 shadow-lg rounded-md">
+    <div className="w-1/3 bg-blue-50 flex flex-col m-auto mt-16 shadow-lg rounded-md">
       <div className="w-full bg-blue-200 flex justify-evenly text-sm leading-8 tracking-wide font-semibold">
-        <div className="w-1/5 h-12 flex justify-center items-center">Location</div>
-        <div className="w-1/5 h-12 flex justify-center items-center">Confirmed</div>
-        <div className="w-1/5 h-12 flex justify-center items-center">Deaths</div>
+        <div className="w-1/3 h-12 flex justify-center items-center">Location</div>
+        <div className="w-1/3 h-12 flex justify-center items-center">Confirmed</div>
+        <div className="w-1/3 h-12 flex justify-center items-center">Deaths</div>
       </div>
 
       {accOverseasCovidItems.map(({ nationNmEn, natDefCnt, natDeathCnt }, index) => {

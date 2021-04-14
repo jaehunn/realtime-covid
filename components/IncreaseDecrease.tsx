@@ -7,7 +7,7 @@ interface IncreaseDecreaseProps {
 }
 
 const IncreaseDecrease = ({ increaseDecreaseNumber, hasTextColor = true }: IncreaseDecreaseProps) => {
-  const signNumber = getSignNumber(increaseDecreaseNumber);
+  let signNumber = getSignNumber(increaseDecreaseNumber);
 
   return (
     <div

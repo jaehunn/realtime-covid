@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Bar } from "react-chartjs-2";
 import "chartjs-plugin-datalabels";
 
-import { getFormatDate, getChartDataSetsData } from "../utils";
+import { toComma, getFormatDate, getChartDataSetsData } from "../utils";
 import { CovidDataType } from "../pages";
 
 interface ChartByDateProps {
@@ -30,6 +30,7 @@ const ChartByDate = ({ covidItems }: ChartByDateProps) => {
     labels,
     datasets: [
       {
+        barPercentage: 0.5,
         label: [],
         data: chartDataSetsData,
         backgroundColor: [
@@ -90,6 +91,7 @@ const ChartByDate = ({ covidItems }: ChartByDateProps) => {
             scales: {
               yAxes: [
                 {
+                  display: false,
                   ticks: {
                     beginAtZero: true,
                   },
@@ -104,6 +106,9 @@ const ChartByDate = ({ covidItems }: ChartByDateProps) => {
             },
             plugins: {
               datalabels: {
+                formatter: function (_, context) {
+                  return toComma(context.dataset.data[context.dataIndex]);
+                },
                 display: true,
                 color: "black",
                 anchor: "end",

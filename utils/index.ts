@@ -1,3 +1,14 @@
+export enum Region {
+  "Gyeongsangnam-do" = "Gyeongnam",
+  "Gyeongsangbuk-do" = "Gyeongbuk",
+  "Jeollanam-do" = "Jeonnam",
+  "Jeollabuk-do" = "Jeonbuk",
+  "Chungcheongnam-do" = "Chungnam",
+  "Chungcheongbuk-do" = "Chungbuk",
+  "Gangwon-do" = "Gangwon",
+  "Gyeonggi-do" = "Gyeonggi",
+}
+
 export const getChartDataSetsData = (covidItems, selectOption = "decideCnt") => {
   let defaultSelectOption = covidItems.sort((itemA, itemB) => itemA.seq - itemB.seq)[0][selectOption];
   const data = covidItems
@@ -72,4 +83,8 @@ export const getSignNumber = (num: number): number => {
   if (num === 0) return 0;
 
   return num > 0 ? 1 : -1;
+};
+
+export const getRegionName = (region) => {
+  return Region[region];
 };

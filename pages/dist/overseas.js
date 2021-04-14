@@ -62,9 +62,9 @@ var Overseas = function (_a) {
     return (react_1["default"].createElement("div", { className: "w-full h-full flex flex-col flex-1 bg-blue-100 overflow-auto" },
         react_1["default"].createElement(Header_1["default"], { nation: Header_1.NATION.overseas }),
         react_1["default"].createElement(Navbar_1["default"], null),
-        react_1["default"].createElement(OverseasCases_1["default"], null),
-        react_1["default"].createElement(OverseasChartByDate_1["default"], null),
-        react_1["default"].createElement(OverseasRegionTable_1["default"], null)));
+        react_1["default"].createElement(OverseasCases_1["default"], { overseasCovidItems: casesCovidItem }),
+        react_1["default"].createElement(OverseasChartByDate_1["default"], { overseasCovidItems: chartByDateItem }),
+        react_1["default"].createElement(OverseasRegionTable_1["default"], { overseasCovidItems: regionCovidItem })));
 };
 function getStaticProps() {
     return __awaiter(this, void 0, void 0, function () {

@@ -1,6 +1,17 @@
 "use strict";
 exports.__esModule = true;
-exports.getSignNumber = exports.toComma = exports.toIncreaseDecreaseNumber = exports.getFormatDate = exports.getDate = exports.requestFormatDate = exports.getChartDataSetsData = void 0;
+exports.getRegionName = exports.getSignNumber = exports.toComma = exports.toIncreaseDecreaseNumber = exports.getFormatDate = exports.getDate = exports.requestFormatDate = exports.getAllDecideDeathCnt = exports.getChartDataSetsData = exports.Region = void 0;
+var Region;
+(function (Region) {
+    Region["Gyeongsangnam-do"] = "Gyeongnam";
+    Region["Gyeongsangbuk-do"] = "Gyeongbuk";
+    Region["Jeollanam-do"] = "Jeonnam";
+    Region["Jeollabuk-do"] = "Jeonbuk";
+    Region["Chungcheongnam-do"] = "Chungnam";
+    Region["Chungcheongbuk-do"] = "Chungbuk";
+    Region["Gangwon-do"] = "Gangwon";
+    Region["Gyeonggi-do"] = "Gyeonggi";
+})(Region = exports.Region || (exports.Region = {}));
 exports.getChartDataSetsData = function (covidItems, selectOption) {
     if (selectOption === void 0) { selectOption = "decideCnt"; }
     var defaultSelectOption = covidItems.sort(function (itemA, itemB) { return itemA.seq - itemB.seq; })[0][selectOption];
@@ -15,6 +26,15 @@ exports.getChartDataSetsData = function (covidItems, selectOption) {
         return data.concat(gap);
     }, []);
     return data;
+};
+exports.getAllDecideDeathCnt = function (overseasCovidItems) {
+    var allDecideDeathCnt = overseasCovidItems.reduce(function (allDecideDeathCnt, _a) {
+        var natDefCnt = _a.natDefCnt, natDeathCnt = _a.natDeathCnt;
+        allDecideDeathCnt[0] += natDefCnt;
+        allDecideDeathCnt[1] += natDeathCnt;
+        return allDecideDeathCnt;
+    }, [0, 0]);
+    return allDecideDeathCnt;
 };
 exports.requestFormatDate = function (_a) {
     var currentYear = _a[0], currentMonth = _a[1], currentDays = _a[2];
@@ -52,4 +72,7 @@ exports.getSignNumber = function (num) {
     if (num === 0)
         return 0;
     return num > 0 ? 1 : -1;
+};
+exports.getRegionName = function (region) {
+    return Region[region];
 };

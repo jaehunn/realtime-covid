@@ -1,7 +1,7 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
 import { OverseasCovidDataType } from "../pages/overseas";
-import { getChartDataSetsData, getFormatDate } from "../utils";
+import { toComma, getChartDataSetsData, getFormatDate } from "../utils";
 
 interface OverseasChartByDateProps {
   overseasCovidItems: OverseasCovidDataType[];
@@ -39,6 +39,7 @@ const OverseasChartByDate = ({ overseasCovidItems }: OverseasChartByDateProps) =
     labels,
     datasets: [
       {
+        barPercentage: 0.5,
         label: [],
         data: defaultOverseasChartSetsData,
         backgroundColor: [
@@ -64,9 +65,14 @@ const OverseasChartByDate = ({ overseasCovidItems }: OverseasChartByDateProps) =
     ],
   };
 
+  /* TODO) onChange 구현 */
   return (
     <div className="w-1/2 h-5/3 bg-blue-50 m-auto mt-16 shadow-lg rounded-md">
       <div className="text-center">
+        <select className="flex flex-start text-sm leading-2 rounded-full py-1 px-2 bg-blue-100 border-2 border-blue-400 border-opacity-75 m-4 cursor-pointer">
+          <option value="decideCnt">Confirmed</option>
+          <option value="deathCnt">Deaths</option>
+        </select>
         <Bar
           data={barData}
           width={400}
@@ -79,6 +85,7 @@ const OverseasChartByDate = ({ overseasCovidItems }: OverseasChartByDateProps) =
             scales: {
               yAxes: [
                 {
+                  display: false,
                   ticks: {
                     beginAtZero: true,
                   },
@@ -93,6 +100,9 @@ const OverseasChartByDate = ({ overseasCovidItems }: OverseasChartByDateProps) =
             },
             plugins: {
               datalabels: {
+                formatter: function (_, context) {
+                  return toComma(context.dataset.data[context.dataIndex]);
+                },
                 display: true,
                 color: "black",
                 anchor: "end",
