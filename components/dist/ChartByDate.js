@@ -15,7 +15,6 @@ var ChartByDate = function (_a) {
     var covidItems = _a.covidItems;
     var defaultChartSetsData = utils_1.getChartDataSetsData(__spreadArrays(covidItems));
     var _b = react_1.useState(defaultChartSetsData), chartDataSetsData = _b[0], setChartDataSetsData = _b[1];
-    console.log(defaultChartSetsData);
     var labels = __spreadArrays(covidItems).sort(function (itemA, itemB) { return itemA.seq - itemB.seq; })
         .reduce(function (labels, _a, index) {
         var createDt = _a.createDt;
@@ -56,7 +55,6 @@ var ChartByDate = function (_a) {
     var onChangeHandler = function (e) {
         var optionValue = e.target.value;
         setChartDataSetsData(utils_1.getChartDataSetsData(covidItems, optionValue));
-        console.log(chartDataSetsData);
     };
     // TODO) window size 줄였을 때, 그래프가 아래로 길어진다.
     return (react_1["default"].createElement("div", { className: "w-1/2 h-5/3 bg-blue-50 m-auto mt-16 shadow-lg rounded-md" },

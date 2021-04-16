@@ -7,9 +7,8 @@ var OverseasRegionlTable = function (_a) {
     var accOverseasCovidItems = overseasCovidItems.slice(0, 190);
     var yesterdayCovidItems = overseasCovidItems.slice(190, 380);
     var dayBeforeYesterdayCovidItems = overseasCovidItems.slice(380, 570);
-    console.log(accOverseasCovidItems);
     // TODO) 무한 스크롤 기능
-    return (react_1["default"].createElement("div", { className: "w-1/3 bg-blue-50 flex flex-col m-auto mt-16 shadow-lg rounded-md" },
+    return (react_1["default"].createElement("div", { className: "w-1/2 bg-blue-50 flex flex-col m-auto mt-16 shadow-lg rounded-md" },
         react_1["default"].createElement("div", { className: "w-full bg-blue-200 flex justify-evenly text-sm leading-8 tracking-wide font-semibold" },
             react_1["default"].createElement("div", { className: "w-1/3 h-12 flex justify-center items-center" }, "Location"),
             react_1["default"].createElement("div", { className: "w-1/3 h-12 flex justify-center items-center" }, "Confirmed"),

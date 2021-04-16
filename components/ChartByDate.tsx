@@ -14,8 +14,6 @@ const ChartByDate = ({ covidItems }: ChartByDateProps) => {
   const defaultChartSetsData = getChartDataSetsData([...covidItems]);
   const [chartDataSetsData, setChartDataSetsData] = useState(defaultChartSetsData);
 
-  console.log(defaultChartSetsData);
-
   const labels = [...covidItems]
     .sort((itemA, itemB) => itemA.seq - itemB.seq)
     .reduce((labels, { createDt }, index) => {
@@ -60,8 +58,6 @@ const ChartByDate = ({ covidItems }: ChartByDateProps) => {
     const { value: optionValue } = e.target;
 
     setChartDataSetsData(getChartDataSetsData(covidItems, optionValue));
-
-    console.log(chartDataSetsData);
   };
 
   // TODO) window size 줄였을 때, 그래프가 아래로 길어진다.

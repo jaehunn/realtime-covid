@@ -85,6 +85,6 @@ export const getSignNumber = (num: number): number => {
   return num > 0 ? 1 : -1;
 };
 
-export const getRegionName = (region) => {
+export const getRegionName = (region: string) => {
   return Region[region];
 };
