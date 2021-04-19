@@ -1,31 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { OverseasCovidDataType } from "../pages/overseas";
-import { toComma, getChartDataSetsData, getFormatDate } from "../utils";
+import { getChartDataSetsData, getOverseasChartDataForm, toComma, getFormatDate } from "../utils";
 
 interface OverseasChartByDateProps {
   overseasCovidItems: OverseasCovidDataType[];
 }
 
 const OverseasChartByDate = ({ overseasCovidItems }: OverseasChartByDateProps) => {
-  const defaultOverseasChartData = [];
-  let accDecideCnt = 0;
-  overseasCovidItems.forEach(({ natDefCnt, seq, createDt }, index) => {
-    if ((index + 1) % 190) accDecideCnt += natDefCnt;
-    else {
-      defaultOverseasChartData.push({
-        seq,
-        createDt,
-        decideCnt: accDecideCnt,
-      });
+  const overseasChartData = getOverseasChartDataForm([...overseasCovidItems]);
+  const defaultOverseasChartSetsData = getChartDataSetsData([...overseasChartData]);
+  const [overseasChartDataSetsData, setOverseasChartDataSetsData] = useState(defaultOverseasChartSetsData);
 
-      accDecideCnt = 0;
-    }
-  });
-
-  const defaultOverseasChartSetsData = getChartDataSetsData([...defaultOverseasChartData]);
-
-  const labels = [...defaultOverseasChartData]
+  const labels = [...overseasChartData]
     .sort((itemA, itemB) => itemA.seq - itemB.seq)
     .reduce((labels, { createDt }, index) => {
       if (index === 0) return labels;
@@ -41,7 +28,7 @@ const OverseasChartByDate = ({ overseasCovidItems }: OverseasChartByDateProps) =
       {
         barPercentage: 0.5,
         label: [],
-        data: defaultOverseasChartSetsData,
+        data: overseasChartDataSetsData,
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
           "rgba(54, 162, 235, 0.2)",
@@ -65,11 +52,19 @@ const OverseasChartByDate = ({ overseasCovidItems }: OverseasChartByDateProps) =
     ],
   };
 
-  /* TODO) onChange 구현 */
+  const onChangeHandler: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
+    const { value: optionValue } = e.target;
+
+    setOverseasChartDataSetsData(getChartDataSetsData(overseasChartData, optionValue));
+  };
+
   return (
     <div className="w-1/2 h-5/3 bg-blue-50 m-auto mt-16 shadow-lg rounded-md">
       <div className="text-center">
-        <select className="flex flex-start text-sm leading-2 rounded-full py-1 px-2 bg-blue-100 border-2 border-blue-400 border-opacity-75 m-4 cursor-pointer">
+        <select
+          className="flex flex-start text-sm leading-2 rounded-full py-1 px-2 bg-blue-100 border-2 border-blue-400 border-opacity-75 m-4 cursor-pointer outline-none"
+          onChange={onChangeHandler}
+        >
           <option value="decideCnt">Confirmed</option>
           <option value="deathCnt">Deaths</option>
         </select>

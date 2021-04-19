@@ -65,7 +65,7 @@ const ChartByDate = ({ covidItems }: ChartByDateProps) => {
     <div className="w-1/2 h-5/3 bg-blue-50 m-auto mt-16 shadow-lg rounded-md">
       <div className="text-center">
         <select
-          className="flex flex-start text-sm leading-2 rounded-full py-1 px-2 bg-blue-100 border-2 border-blue-400 border-opacity-75 m-4 cursor-pointer"
+          className="flex flex-start text-sm leading-2 rounded-full py-1 px-2 bg-blue-100 border-2 border-blue-400 border-opacity-75 m-4 cursor-pointer outline-none"
           onChange={onChangeHandler}
         >
           <option value="decideCnt">Confirmed</option>

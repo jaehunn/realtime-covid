@@ -9,6 +9,31 @@ export enum Region {
   "Gyeonggi-do" = "Gyeonggi",
 }
 
+export const getOverseasChartDataForm = (overseasCovidItems) => {
+  let accDecideCnt = 0;
+  let accDeathCnt = 0;
+
+  const chartFormOverseasCovidItems = [];
+  overseasCovidItems.forEach(({ natDefCnt, natDeathCnt, seq, createDt }, index) => {
+    if ((index + 1) % 190) {
+      accDecideCnt += natDefCnt;
+      accDeathCnt += natDeathCnt;
+    } else {
+      chartFormOverseasCovidItems.push({
+        seq,
+        createDt,
+        decideCnt: accDecideCnt,
+        deathCnt: accDeathCnt,
+      });
+
+      accDecideCnt = 0;
+      accDeathCnt = 0;
+    }
+  });
+
+  return chartFormOverseasCovidItems;
+};
+
 export const getChartDataSetsData = (covidItems, selectOption = "decideCnt") => {
   let defaultSelectOption = covidItems.sort((itemA, itemB) => itemA.seq - itemB.seq)[0][selectOption];
   const data = covidItems
