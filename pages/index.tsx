@@ -61,8 +61,6 @@ const Home = ({ domesticCovidData, domesticRegionCovidData }: HomeProps) => {
   const [chartByDateItem, setChartByDateItem] = useState([...domesticCovidData.item]);
   const [regionCovidItem, setRegionCovidItem] = useState([...domesticRegionCovidData.item]);
 
-  console.log(domesticCovidData, domesticRegionCovidData);
-
   return (
     <div className="w-full h-full flex flex-col flex-1 bg-blue-100 overflow-auto">
       <Header nation={NATION.domestic} />

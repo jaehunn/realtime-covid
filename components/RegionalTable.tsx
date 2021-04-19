@@ -11,6 +11,8 @@ const RegionalTable = ({ covidItems }: RegionTableProps) => {
   const yesterdayCovidItems = covidItems.slice(19, 38);
   const dayBeforeYesterdayCovidItems = covidItems.slice(38, 57);
 
+  console.log(covidItems.length);
+
   // TODO) 무한 스크롤 기능
   return (
     <div className="w-1/2 bg-blue-50 flex flex-col m-auto mt-16 shadow-lg rounded-md">
