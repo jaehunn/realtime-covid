@@ -1,3 +1,5 @@
+import InfiniteScroll from "react-infinite-scroll-component";
+
 import RegionItem from "./RegionItem";
 import { RegionCovidDataType } from "../pages";
 import { getRegionName } from "../utils";

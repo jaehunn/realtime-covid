@@ -1,7 +1,7 @@
 // @see https://stackoverflow.com/questions/37693982/how-to-fetch-xml-with-fetch-api
 // @see https://www.npmjs.com/package/xml-js
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { DomesticCovidService, DomesticRegionCovidService } from "../env";
 
@@ -61,6 +61,10 @@ const Home = ({ domesticCovidData, domesticRegionCovidData }: HomeProps) => {
   const [chartByDateItem, setChartByDateItem] = useState([...domesticCovidData.item]);
   const [regionCovidItem, setRegionCovidItem] = useState([...domesticRegionCovidData.item]);
 
+  useEffect(() => {
+    // ...
+  });
+
   return (
     <div className="w-full h-full flex flex-col flex-1 bg-blue-100 overflow-auto">
       <Header nation={NATION.domestic} />
@@ -72,7 +76,7 @@ const Home = ({ domesticCovidData, domesticRegionCovidData }: HomeProps) => {
   );
 };
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const {
     baseUrl: domesticCovidBaseUrl,
     serviceKey: domesticCovidServiceKey,
