@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import { Bar } from "react-chartjs-2";
-import { OverseasCovidDataType } from "../pages/overseas";
 import { getChartDataSetsData, getOverseasChartDataForm, toComma, getFormatDate } from "../utils";
 
-interface OverseasChartByDateProps {
-  overseasCovidItems: OverseasCovidDataType[];
-}
+interface OverseasChartByDateProps {}
 
-const OverseasChartByDate = ({ overseasCovidItems }: OverseasChartByDateProps) => {
-  const overseasChartData = getOverseasChartDataForm([...overseasCovidItems]);
+const OverseasChartByDate = ({ overseasChartData }) => {
   const defaultOverseasChartSetsData = getChartDataSetsData([...overseasChartData]);
   const [overseasChartDataSetsData, setOverseasChartDataSetsData] = useState(defaultOverseasChartSetsData);
 

@@ -4,13 +4,10 @@ import { Bar } from "react-chartjs-2";
 import "chartjs-plugin-datalabels";
 
 import { toComma, getFormatDate, getChartDataSetsData } from "../utils";
-import { CovidDataType } from "../pages";
 
-interface ChartByDateProps {
-  covidItems: CovidDataType[];
-}
+interface ChartByDateProps {}
 
-const ChartByDate = ({ covidItems }: ChartByDateProps) => {
+const ChartByDate = ({ covidItems }) => {
   const defaultChartSetsData = getChartDataSetsData([...covidItems]);
   const [chartDataSetsData, setChartDataSetsData] = useState(defaultChartSetsData);
 
@@ -71,9 +68,6 @@ const ChartByDate = ({ covidItems }: ChartByDateProps) => {
           <option value="decideCnt">Confirmed</option>
           <option value="deathCnt">Deaths</option>
           <option value="clearCnt">Recovered</option>
-
-          {/* 금일 확진자 / 금일 검사자 * 100 */}
-          {/* <option value="dps4">Confirmed Rate</option> */}
         </select>
         <Bar
           data={barData}

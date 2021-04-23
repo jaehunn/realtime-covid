@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { OverseasCovidService } from "../env";
+import { getAllDecideDeathCnt, getOverseasChartDataForm } from "../utils";
 
 import Header, { NATION } from "../components/Header";
 import Navbar from "../components/Navbar";
@@ -8,42 +9,37 @@ import OverseasCases from "../components/OverseasCases";
 import OverseasRegionTable from "../components/OverseasRegionTable";
 import OverseasChartByDate from "../components/OverseasChartByDate";
 
-interface OverseasProps {
-  overseasCovidData: { item: OverseasCovidDataType[] };
-}
-
-export interface OverseasCovidDataType {
-  areaNm: string;
-  areaNmCn: string;
-  areaNmEn: string;
-  createDt: string;
-  natDeathCnt: number;
-  natDeathRate: number;
-  natDefCnt: number;
-  nationNm: string;
-  nationNmCn: string;
-  nationNmEn: string;
-  seq: number;
-  stdDay: string;
-  updateDt: string;
-}
+interface OverseasProps {}
 
 // TODO) 국기를 어떻게 뽑아올까
 
-const Overseas = ({ overseasCovidData }: OverseasProps) => {
-  console.log("OverseasCovidData:", overseasCovidData);
+const Overseas = ({ overseasCovidData }) => {
+  const overseasCovidItems = overseasCovidData.item;
+  const todayOverseasCovidItems = overseasCovidItems.slice(0, 190);
+  const yesterdayOverseasCovidItems = overseasCovidItems.slice(190, 380);
+  const dayBeforeYesterdayCovidItems = overseasCovidItems.slice(380, 570);
 
-  const [casesCovidItem, setCasesCovidItem] = useState([...overseasCovidData.item]);
-  const [chartByDateItem, setChartByDateItem] = useState([...overseasCovidData.item]);
-  const [regionCovidItem, setRegionCovidItem] = useState([...overseasCovidData.item]);
+  const [todayAllDecideCnt, todayAllDeathCnt] = getAllDecideDeathCnt(todayOverseasCovidItems);
+  const [yesterdayAllDecideCnt, yesterdayAllDeathCnt] = getAllDecideDeathCnt(yesterdayOverseasCovidItems);
+
+  const overseasChartData = getOverseasChartDataForm(overseasCovidItems);
 
   return (
     <div className="w-full h-full flex flex-col flex-1 bg-blue-100 overflow-auto">
       <Header nation={NATION.overseas} />
       <Navbar />
-      <OverseasCases overseasCovidItems={casesCovidItem} />
-      <OverseasChartByDate overseasCovidItems={chartByDateItem} />
-      <OverseasRegionTable overseasCovidItems={regionCovidItem} />
+      <OverseasCases
+        todayAllDecideCnt={todayAllDecideCnt}
+        todayAllDeathCnt={todayAllDeathCnt}
+        yesterdayAllDecideCnt={yesterdayAllDecideCnt}
+        yesterdayAllDeathCnt={yesterdayAllDeathCnt}
+      />
+      <OverseasChartByDate overseasChartData={overseasChartData} />
+      <OverseasRegionTable
+        todayOverseasCovidItems={todayOverseasCovidItems}
+        yesterdayOverseasCovidItems={yesterdayOverseasCovidItems}
+        dayBeforeYesterdayCovidItems={dayBeforeYesterdayCovidItems}
+      />
     </div>
   );
 };

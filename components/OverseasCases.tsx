@@ -1,19 +1,9 @@
-import { OverseasCovidDataType } from "../pages/overseas";
 import IncreaseDecrease from "./IncreaseDecrease";
+import { toComma } from "../utils";
 
-import { getAllDecideDeathCnt, toComma } from "../utils";
+interface OverseasCasesProps {}
 
-interface OverseasCasesProps {
-  overseasCovidItems: OverseasCovidDataType[];
-}
-
-const OverseasCases = ({ overseasCovidItems }: OverseasCasesProps) => {
-  const todayOverseasCovidItem = overseasCovidItems.slice(0, 190);
-  const yesterdayOverseasCovidItem = overseasCovidItems.slice(190, 380);
-
-  const [todayAllDecideCnt, todayAllDeathCnt] = getAllDecideDeathCnt(todayOverseasCovidItem);
-  const [yesterdayAllDecideCnt, yesterdayAllDeathCnt] = getAllDecideDeathCnt(yesterdayOverseasCovidItem);
-
+const OverseasCases = ({ todayAllDecideCnt, todayAllDeathCnt, yesterdayAllDecideCnt, yesterdayAllDeathCnt }) => {
   return (
     <div className="w-1/2 h-32 flex flex-row flex-1 justify-evenly m-auto mt-16">
       <div className="w-40 h-24 bg-blue-50 flex flex-col justify-center items-center shadow-lg rounded-md text-red-500">

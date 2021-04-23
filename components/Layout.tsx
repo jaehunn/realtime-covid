@@ -26,7 +26,10 @@ const Layout = ({ children }: LayoutProps) => {
         <meta property="og:image" content="" />
       </Head>
 
-      <main>{children}</main>
+      <main>
+        {children}
+        <div id="renderTrigger"></div>
+      </main>
     </>
   );
 };

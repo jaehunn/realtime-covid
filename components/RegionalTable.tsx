@@ -1,20 +1,9 @@
-import InfiniteScroll from "react-infinite-scroll-component";
-
 import RegionItem from "./RegionItem";
-import { RegionCovidDataType } from "../pages";
 import { getRegionName } from "../utils";
 
-interface RegionTableProps {
-  covidItems: RegionCovidDataType[];
-}
+interface RegionTableProps {}
 
-const RegionalTable = ({ covidItems }: RegionTableProps) => {
-  const todayCovidItems = covidItems.slice(0, 19);
-  const yesterdayCovidItems = covidItems.slice(19, 38);
-  const dayBeforeYesterdayCovidItems = covidItems.slice(38, 57);
-
-  console.log(covidItems.length);
-
+const RegionalTable = ({ todayCovidItems, yesterdayCovidItems, dayBeforeYesterdayCovidItems }) => {
   // TODO) 무한 스크롤 기능
   return (
     <div className="w-1/2 bg-blue-50 flex flex-col m-auto mt-16 shadow-lg rounded-md">

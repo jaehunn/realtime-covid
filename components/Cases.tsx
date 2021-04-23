@@ -1,30 +1,17 @@
 import { toComma } from "../utils";
 import IncreaseDecrease from "./IncreaseDecrease";
 
-import { CovidDataType } from "../pages";
-import { OverseasCovidDataType } from "../pages/overseas";
+interface CasesProps {}
 
-interface CasesProps {
-  covidItems: CovidDataType[];
-}
-
-const Cases = ({ covidItems }: CasesProps) => {
-  const [accCovidItems, yesterdayAccCovidItems] = covidItems;
-
-  const {
-    decideCnt: accDecideCnt,
-    deathCnt: accDeathCnt,
-    clearCnt: accClearCnt,
-    accExamCnt: accExamCnt,
-  } = accCovidItems;
-
-  const {
+const Cases = ({
+  accCovidItems: { decideCnt: accDecideCnt, deathCnt: accDeathCnt, clearCnt: accClearCnt, accExamCnt: accExamCnt },
+  yesterdayAccCovidItems: {
     decideCnt: yesterdayAccDecideCnt,
     deathCnt: yesterdayAccDeathCnt,
     clearCnt: yesterdayAccClearCnt,
     accExamCnt: yesterdayAccExamCnt,
-  } = yesterdayAccCovidItems;
-
+  },
+}) => {
   // TODO) 중복되는 스타일을 어떻게 해결할까
   return (
     <div className="w-1/2 h-32 flex flex-row flex-1 justify-evenly m-auto mt-16">

@@ -11,55 +11,17 @@ import Cases from "../components/Cases";
 import ChartByDate from "../components/ChartByDate";
 import RegionalTable from "../components/RegionalTable";
 
-interface HomeProps {
-  domesticCovidData: {
-    item: CovidDataType[];
-  };
+interface HomeProps {}
 
-  domesticRegionCovidData: {
-    item: RegionCovidDataType[];
-  };
-}
+const Home = ({ domesticCovidData, domesticRegionCovidData }) => {
+  const covidItems = domesticCovidData.item;
+  const regionCovidItems = domesticRegionCovidData.item;
 
-export interface CovidDataType {
-  accDefRate: number;
-  accExamCnt: number;
-  accExamCompCnt: number;
-  careCnt: number;
-  clearCnt: number;
-  createDt: string;
-  deathCnt: number;
-  decideCnt: number;
-  examCnt: number;
-  resutlNegCnt: number;
-  seq: number;
-  stateDt: number;
-  stateTime: string;
-  updateDt: string;
-}
+  const [accCovidItems, yesterdayAccCovidItems] = covidItems;
 
-export interface RegionCovidDataType {
-  createDt: string;
-  deathCnt: number;
-  defCnt: number;
-  gubun: "검역";
-  gubunCn: string;
-  gubunEn: string;
-  incDec: number;
-  isolClearCnt: number;
-  isolIngCnt: number;
-  localOccCnt: number;
-  overFlowCnt: number;
-  qurRate: string;
-  seq: number;
-  stdDay: string;
-  updateDt: string;
-}
-
-const Home = ({ domesticCovidData, domesticRegionCovidData }: HomeProps) => {
-  const [casesCovidItem, setCasesCovidItem] = useState([...domesticCovidData.item]);
-  const [chartByDateItem, setChartByDateItem] = useState([...domesticCovidData.item]);
-  const [regionCovidItem, setRegionCovidItem] = useState([...domesticRegionCovidData.item]);
+  const todayCovidItems = regionCovidItems.slice(0, 19);
+  const yesterdayCovidItems = regionCovidItems.slice(19, 38);
+  const dayBeforeYesterdayCovidItems = regionCovidItems.slice(38, 57);
 
   useEffect(() => {
     // ...
@@ -69,9 +31,13 @@ const Home = ({ domesticCovidData, domesticRegionCovidData }: HomeProps) => {
     <div className="w-full h-full flex flex-col flex-1 bg-blue-100 overflow-auto">
       <Header nation={NATION.domestic} />
       <Navbar />
-      <Cases covidItems={casesCovidItem} />
-      <ChartByDate covidItems={chartByDateItem} />
-      <RegionalTable covidItems={regionCovidItem} />
+      <Cases accCovidItems={accCovidItems} yesterdayAccCovidItems={yesterdayAccCovidItems} />
+      <ChartByDate covidItems={covidItems} />
+      <RegionalTable
+        todayCovidItems={todayCovidItems}
+        yesterdayCovidItems={yesterdayCovidItems}
+        dayBeforeYesterdayCovidItems={dayBeforeYesterdayCovidItems}
+      />
     </div>
   );
 };
