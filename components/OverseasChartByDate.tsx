@@ -22,28 +22,9 @@ const OverseasChartByDate = ({ overseasChartData }) => {
     labels,
     datasets: [
       {
-        barPercentage: 0.5,
-        label: [],
+        barPercentage: 0.2,
         data: overseasChartDataSetsData,
-        backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(255, 206, 86, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
-          "rgba(153, 102, 255, 0.2)",
-          "rgba(255, 159, 64, 0.2)",
-          "rgba(83, 97, 98, 0.2)",
-        ],
-        borderColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(153, 102, 255, 1)",
-          "rgba(255, 159, 64, 1)",
-          "rgba(83, 97, 98, 1)",
-        ],
-        borderWidth: 1,
+        backgroundColor: "rgba(99, 102, 241, 1)",
       },
     ],
   };
@@ -55,10 +36,10 @@ const OverseasChartByDate = ({ overseasChartData }) => {
   };
 
   return (
-    <div className="w-1/2 h-5/3 bg-blue-50 m-auto mt-16 shadow-lg rounded-md">
+    <div className="w-1/2 h-5/3 bg-blue-50 m-auto mt-16 shadow-lg rounded-md dark:bg-gray-600">
       <div className="text-center">
         <select
-          className="flex flex-start text-sm leading-2 rounded-full py-1 px-2 bg-blue-100 border-2 border-blue-400 border-opacity-75 m-4 cursor-pointer outline-none"
+          className="flex flex-start text-sm leading-2 rounded-full py-1 px-2 bg-blue-100 border-2 border-blue-400 border-opacity-75 m-4 cursor-pointer outline-none dark:bg-gray-500"
           onChange={onChangeHandler}
         >
           <option value="decideCnt">Confirmed</option>
@@ -74,6 +55,13 @@ const OverseasChartByDate = ({ overseasChartData }) => {
             },
             maintainAspectRatio: false,
             scales: {
+              xAxes: [
+                {
+                  ticks: {
+                    fontColor: "rgba(229, 231, 235, 1)",
+                  },
+                },
+              ],
               yAxes: [
                 {
                   display: false,
@@ -95,7 +83,7 @@ const OverseasChartByDate = ({ overseasChartData }) => {
                   return toComma(context.dataset.data[context.dataIndex]);
                 },
                 display: true,
-                color: "black",
+                color: "rgba(229, 231, 235, 1)",
                 anchor: "end",
                 align: "end",
               },

@@ -11,7 +11,7 @@ const IncreaseDecrease = ({ increaseDecreaseNumber, hasTextColor = true }: Incre
 
   return (
     <div
-      className="text-xs leading-2 tracking-wide rounded-full py-1 px-2 bg-blue-100 font-semibold text-color"
+      className="text-xs leading-2 tracking-wide rounded-full py-1 px-2 bg-blue-100 font-semibold dark:bg-gray-500"
       style={hasTextColor ? {} : { color: `${signNumber === 1 ? "red" : signNumber === -1 ? "blue" : "black"}` }}
     >
       <IncreaseDecreaseIcon increaseDecreaseNumber={increaseDecreaseNumber} />{" "}

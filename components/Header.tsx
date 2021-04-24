@@ -1,16 +1,9 @@
 import Link from "next/link";
-
-interface HeaderProps {
-  nation: NATION;
-}
-export enum NATION {
-  domestic = "Domestic",
-  overseas = "Overseas",
-}
+import { HeaderProps } from "../types";
 
 const Header = ({ nation }: HeaderProps) => {
   return (
-    <div className="text-center">
+    <div className="text-center dark:text-gray-200">
       <h1 className="text-5xl">
         <Link href="#" as="/">
           <a>RealTime Covid-19</a>

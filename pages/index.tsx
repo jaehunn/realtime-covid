@@ -1,38 +1,46 @@
 // @see https://stackoverflow.com/questions/37693982/how-to-fetch-xml-with-fetch-api
 // @see https://www.npmjs.com/package/xml-js
 
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { DomesticCovidService, DomesticRegionCovidService } from "../env";
+import { NATION } from "../types";
 
-import Header, { NATION } from "../components/Header";
+import Header from "../components/Header";
 import Navbar from "../components/Navbar";
 import Cases from "../components/Cases";
 import ChartByDate from "../components/ChartByDate";
 import RegionalTable from "../components/RegionalTable";
 
-interface HomeProps {}
+const Home = ({ domesticCovidItems, domesticRegionCovidItems }) => {
+  const [accCovidItem, yesterdayAccCovidItem] = domesticCovidItems;
 
-const Home = ({ domesticCovidData, domesticRegionCovidData }) => {
-  const covidItems = domesticCovidData.item;
-  const regionCovidItems = domesticRegionCovidData.item;
+  const todayCovidItems = domesticRegionCovidItems.slice(0, 19);
+  const yesterdayCovidItems = domesticRegionCovidItems.slice(19, 38);
+  const dayBeforeYesterdayCovidItems = domesticRegionCovidItems.slice(38, 57);
 
-  const [accCovidItems, yesterdayAccCovidItems] = covidItems;
+  const [theme, setTheme] = useState(null);
 
-  const todayCovidItems = regionCovidItems.slice(0, 19);
-  const yesterdayCovidItems = regionCovidItems.slice(19, 38);
-  const dayBeforeYesterdayCovidItems = regionCovidItems.slice(38, 57);
-
+  // TODO) dark mode
   useEffect(() => {
-    // ...
-  });
+    setTheme(localStorage.getItem("theme"));
+
+    if (!theme) {
+      const { matches } = window.matchMedia("(prefers-color-scheme: dark)"); // OS 테마 감지
+
+      setTheme(matches ? "dark" : "light");
+      localStorage.setItem("theme", theme);
+    }
+
+    document.documentElement.classList.toggle("dark", theme === "dark");
+  }, [theme]);
 
   return (
-    <div className="w-full h-full flex flex-col flex-1 bg-blue-100 overflow-auto">
-      <Header nation={NATION.domestic} />
-      <Navbar />
-      <Cases accCovidItems={accCovidItems} yesterdayAccCovidItems={yesterdayAccCovidItems} />
-      <ChartByDate covidItems={covidItems} />
+    <div className="w-full h-full flex flex-col flex-1 bg-blue-100 overflow-auto dark:bg-gray-800">
+      <Header nation={NATION.DOMESTIC} />
+      <Navbar setTheme={setTheme} />
+      <Cases accCovidItem={accCovidItem} yesterdayAccCovidItem={yesterdayAccCovidItem} />
+      <ChartByDate domesticCovidItems={domesticCovidItems} theme={theme} />
       <RegionalTable
         todayCovidItems={todayCovidItems}
         yesterdayCovidItems={yesterdayCovidItems}
@@ -69,22 +77,22 @@ export async function getServerSideProps() {
     endCreateDt: domesticRegionCovidEndCreateDt,
   } = domesticRegionCovidParams;
 
-  const { data: _domesticCovidData } = await axios.get(
+  const { data: domesticCovidData } = await axios.get(
     `${domesticCovidBaseUrl}?serviceKey=${domesticCovidServiceKey}&pageNo=${domesticCovidPageNo}&numOfRows=${domesticCovidNumOfRows}&startCreateDt=${domesticCovidStartCreateDt}&endCreateDt=${domesticCovidEndCreateDt}`
   );
 
-  const domesticCovidData = await _domesticCovidData.response.body.items;
+  const domesticCovidItems = await domesticCovidData.response.body.items.item;
 
-  const { data: _domesticRegionCovidData } = await axios.get(
+  const { data: domesticRegionCovidData } = await axios.get(
     `${domesticRegionCovidBaseUrl}?serviceKey=${domesticRegionCovidServiceKey}&pageNo=${domesticRegionCovidPageNo}&numOfRows=${domesticRegionCovidNumOfRows}&startCreateDt=${domesticRegionCovidStartCreateDt}&endCreateDt=${domesticRegionCovidEndCreateDt}`
   );
 
-  const domesticRegionCovidData = await _domesticRegionCovidData.response.body.items;
+  const domesticRegionCovidItems = await domesticRegionCovidData.response.body.items.item;
 
   return {
     props: {
-      domesticCovidData,
-      domesticRegionCovidData,
+      domesticCovidItems,
+      domesticRegionCovidItems,
     },
   };
 }

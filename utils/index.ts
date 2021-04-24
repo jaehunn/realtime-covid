@@ -1,14 +1,4 @@
-export enum Region {
-  "Gyeongsangnam-do" = "Gyeongnam",
-  "Gyeongsangbuk-do" = "Gyeongbuk",
-  "Jeollanam-do" = "Jeonnam",
-  "Jeollabuk-do" = "Jeonbuk",
-  "Chungcheongnam-do" = "Chungnam",
-  "Chungcheongbuk-do" = "Chungbuk",
-  "Gangwon-do" = "Gangwon",
-  "Gyeonggi-do" = "Gyeonggi",
-}
-
+import { Region } from "../types";
 export const getOverseasChartDataForm = (overseasCovidItems) => {
   let accDecideCnt = 0;
   let accDeathCnt = 0;
@@ -77,8 +67,11 @@ export const requestFormatDate = ([currentYear, currentMonth, currentDays]: stri
 export const getDate = (minusDay = 0) => {
   let currentDate = new Date();
 
-  // 자정(0시) 이면, 1시간전 데이터로 한다. (전날)
+  // TODO)
+  // 자정이면 1시간전 데이터로 한다. (전날)
+  // 새벽1시면 2시간전 데이터로 한다.
   if (currentDate.getHours() === 0) currentDate = new Date(currentDate.setTime(currentDate.getTime() - 3600000));
+  if (currentDate.getHours() === 1) currentDate = new Date(currentDate.setTime(currentDate.getTime() - 7200000));
 
   if (minusDay > 0) currentDate = new Date(currentDate.setDate(currentDate.getDate() - minusDay));
 
