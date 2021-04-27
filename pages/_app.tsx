@@ -5,12 +5,15 @@ import Layout from "../components/Layout";
 import "tailwindcss/tailwind.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
+import { ThemeProvider } from "next-themes";
 config.autoAddCss = false;
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Layout>
-      <Component {...pageProps} />
+      <ThemeProvider attribute="class">
+        <Component {...pageProps} />
+      </ThemeProvider>
     </Layout>
   );
 }

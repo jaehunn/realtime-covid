@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import { Bar } from "react-chartjs-2";
 import "chartjs-plugin-datalabels";
+import { useTheme } from "next-themes";
 
 import { toComma, getFormatDate, getChartDataSetsData } from "../utils";
 
-const ChartByDate = ({ domesticCovidItems, theme }) => {
+const ChartByDate = ({ domesticCovidItems }) => {
   const defaultChartSetsData = getChartDataSetsData([...domesticCovidItems]);
   const [chartDataSetsData, setChartDataSetsData] = useState(defaultChartSetsData);
 
@@ -29,6 +30,8 @@ const ChartByDate = ({ domesticCovidItems, theme }) => {
       },
     ],
   };
+
+  const { theme, setTheme } = useTheme();
 
   const onChangeHandler: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
     const { value: optionValue } = e.target;

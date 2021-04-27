@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Bar } from "react-chartjs-2";
-import { getChartDataSetsData, getOverseasChartDataForm, toComma, getFormatDate } from "../utils";
-
-interface OverseasChartByDateProps {}
+import { getChartDataSetsData, toComma, getFormatDate } from "../utils";
+import { useTheme } from "next-themes";
 
 const OverseasChartByDate = ({ overseasChartData }) => {
   const defaultOverseasChartSetsData = getChartDataSetsData([...overseasChartData]);
@@ -28,6 +27,8 @@ const OverseasChartByDate = ({ overseasChartData }) => {
       },
     ],
   };
+
+  const { theme, setTheme } = useTheme();
 
   const onChangeHandler: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
     const { value: optionValue } = e.target;
@@ -58,7 +59,7 @@ const OverseasChartByDate = ({ overseasChartData }) => {
               xAxes: [
                 {
                   ticks: {
-                    fontColor: "rgba(229, 231, 235, 1)",
+                    fontColor: `${theme === "dark" ? "rgba(229, 231, 235, 1)" : "rgba(0, 0, 0, 1)"}`,
                   },
                 },
               ],
@@ -83,7 +84,7 @@ const OverseasChartByDate = ({ overseasChartData }) => {
                   return toComma(context.dataset.data[context.dataIndex]);
                 },
                 display: true,
-                color: "rgba(229, 231, 235, 1)",
+                color: `${theme === "dark" ? "rgba(229, 231, 235, 1)" : "rgba(0, 0, 0, 1)"}`,
                 anchor: "end",
                 align: "end",
               },

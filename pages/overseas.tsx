@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { OverseasCovidService } from "../env";
 import { getAllDecideDeathCnt, getOverseasChartDataForm } from "../utils";
@@ -22,23 +22,12 @@ const Overseas = ({ overseasCovidItems }) => {
 
   const overseasChartData = getOverseasChartDataForm(overseasCovidItems);
 
-  useEffect(() => {
-    let theme = localStorage.getItem("theme");
-
-    if (!theme) {
-      const { matches } = window.matchMedia("(prefers-color-scheme: dark)"); // OS 테마 감지
-
-      theme = matches ? "dark" : "light";
-      localStorage.setItem("theme", theme);
-    }
-
-    document.documentElement.classList.toggle("dark", theme === "dark");
-  }, []);
+  // TODO) 페이지 바꼈을때 이전 theme 가져오기
 
   return (
     <div className="w-full h-full flex flex-col flex-1 bg-blue-100 overflow-auto dark:bg-gray-800">
       <Header nation={NATION.OVERSEAS} />
-      <Navbar setTheme={setTheme} />
+      <Navbar />
       <OverseasCases
         todayAllDecideCnt={todayAllDecideCnt}
         todayAllDeathCnt={todayAllDeathCnt}
@@ -55,7 +44,7 @@ const Overseas = ({ overseasCovidItems }) => {
   );
 };
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const {
     baseUrl: overseasCovidBaseUrl,
     serviceKey: overseasCovidServiceKey,

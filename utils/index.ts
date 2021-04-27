@@ -67,13 +67,12 @@ export const requestFormatDate = ([currentYear, currentMonth, currentDays]: stri
 export const getDate = (minusDay = 0) => {
   let currentDate = new Date();
 
-  // TODO)
   // 자정이면 1시간전 데이터로 한다. (전날)
   // 새벽1시면 2시간전 데이터로 한다.
   if (currentDate.getHours() === 0) currentDate = new Date(currentDate.setTime(currentDate.getTime() - 3600000));
   if (currentDate.getHours() === 1) currentDate = new Date(currentDate.setTime(currentDate.getTime() - 7200000));
 
-  if (minusDay > 0) currentDate = new Date(currentDate.setDate(currentDate.getDate() - minusDay));
+  if (minusDay !== 0) currentDate = new Date(currentDate.setDate(currentDate.getDate() - minusDay));
 
   const currentYear: string = currentDate.getFullYear() + "";
   const currentMonth: string = currentDate.getMonth() + 1 + "";
