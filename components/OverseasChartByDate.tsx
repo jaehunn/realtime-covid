@@ -4,7 +4,7 @@ import { getChartDataSetsData, toComma, getFormatDate } from "../utils";
 import { useTheme } from "next-themes";
 
 const OverseasChartByDate = ({ overseasChartData }) => {
-  const defaultOverseasChartSetsData = getChartDataSetsData([...overseasChartData]);
+  const defaultOverseasChartSetsData = getChartDataSetsData([...overseasChartData], "decideCnt");
   const [overseasChartDataSetsData, setOverseasChartDataSetsData] = useState(defaultOverseasChartSetsData);
 
   const labels = [...overseasChartData]
@@ -48,13 +48,12 @@ const OverseasChartByDate = ({ overseasChartData }) => {
         </select>
         <Bar
           data={barData}
-          width={400}
-          height={200}
           options={{
             layout: {
               padding: 30,
             },
-            maintainAspectRatio: false,
+            maintainAspectRatio: true,
+            responsive: true,
             scales: {
               xAxes: [
                 {

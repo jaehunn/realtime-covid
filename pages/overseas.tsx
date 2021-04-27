@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import axios from "axios";
 import { OverseasCovidService } from "../env";
 import { getAllDecideDeathCnt, getOverseasChartDataForm } from "../utils";
@@ -22,8 +21,6 @@ const Overseas = ({ overseasCovidItems }) => {
 
   const overseasChartData = getOverseasChartDataForm(overseasCovidItems);
 
-  // TODO) 페이지 바꼈을때 이전 theme 가져오기
-
   return (
     <div className="w-full h-full flex flex-col flex-1 bg-blue-100 overflow-auto dark:bg-gray-800">
       <Header nation={NATION.OVERSEAS} />
@@ -44,7 +41,7 @@ const Overseas = ({ overseasCovidItems }) => {
   );
 };
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const {
     baseUrl: overseasCovidBaseUrl,
     serviceKey: overseasCovidServiceKey,

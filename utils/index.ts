@@ -24,11 +24,14 @@ export const getOverseasChartDataForm = (overseasCovidItems) => {
   return chartFormOverseasCovidItems;
 };
 
-export const getChartDataSetsData = (covidItems, selectOption = "decideCnt") => {
-  let defaultSelectOption = covidItems.sort((itemA, itemB) => itemA.seq - itemB.seq)[0][selectOption];
-  const data = covidItems
-    .sort((itemA, itemB) => itemA.seq - itemB.seq)
-    .reduce((data, item, index) => {
+export const getChartDataSetsData = (covidItems, selectOption, options = {}) => {
+  if (Object.keys(options).length === 0) {
+    let defaultSelectOption = covidItems.sort((itemA, itemB) => itemA.seq - itemB.seq)[0][selectOption];
+    const data = covidItems.sort((itemA, itemB) => itemA.seq - itemB.seq);
+
+    // 확진률은 누적확진률로 한다.
+    if (selectOption === "accDefRate") return data.map(({ accDefRate }) => accDefRate).slice(1);
+    return data.reduce((data, item, index) => {
       if (index === 0) return data;
 
       const todaySelectOption = item[selectOption];
@@ -39,8 +42,9 @@ export const getChartDataSetsData = (covidItems, selectOption = "decideCnt") => 
 
       return data.concat(gap);
     }, []);
+  }
 
-  return data;
+  // TODO) 선택된 옵션이 있는 경우...
 };
 
 export const getAllDecideDeathCnt = (overseasCovidItems) => {
