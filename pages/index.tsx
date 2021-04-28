@@ -29,7 +29,7 @@ const Home = ({ domesticCovidItems, domesticRegionCovidItems }) => {
   );
 };
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const {
     baseUrl: domesticCovidBaseUrl,
     serviceKey: domesticCovidServiceKey,

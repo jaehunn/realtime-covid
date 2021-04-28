@@ -4,25 +4,18 @@ import { Bar } from "react-chartjs-2";
 import "chartjs-plugin-datalabels";
 import { useTheme } from "next-themes";
 
-import { toComma, getFormatDate, getChartDataSetsData } from "../utils";
+import { toComma, getChartDataSetsData, getChartLabels } from "../utils";
 
 const ChartByDate = ({ domesticCovidItems }) => {
-  const defaultChartSetsData = getChartDataSetsData([...domesticCovidItems], "decideCnt");
-  const [chartDataSetsData, setChartDataSetsData] = useState(defaultChartSetsData);
-  const [options, setOptions] = useState({});
+  const { theme } = useTheme();
 
-  const labels = [...domesticCovidItems]
-    .sort((itemA, itemB) => itemA.seq - itemB.seq)
-    .reduce((labels, { createDt }, index) => {
-      if (index === 0) return labels;
+  const [options, setOptions] = useState({ firstOption: "decideCnt", secondOption: "daily" });
 
-      const formatDate = getFormatDate(createDt);
-
-      return labels.concat(formatDate);
-    }, []);
+  const [chartDataSetsData, setChartDataSetsData] = useState([]);
+  const [chartLabels, setChartLabels] = useState([]);
 
   const barData = {
-    labels,
+    labels: chartLabels,
     datasets: [
       {
         barPercentage: 0.2,
@@ -32,14 +25,18 @@ const ChartByDate = ({ domesticCovidItems }) => {
     ],
   };
 
-  const { theme, setTheme } = useTheme();
+  useEffect(() => {
+    const chartSetsData = getChartDataSetsData(domesticCovidItems, options);
+    setChartDataSetsData(chartSetsData);
+
+    const chartLabels = getChartLabels(domesticCovidItems, options);
+    setChartLabels(chartLabels);
+  }, [options]);
 
   const firstOptionChangeHandler: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
     const { value: optionValue } = e.target;
 
-    setOptions({ firstOption: optionValue });
-
-    setChartDataSetsData(getChartDataSetsData(domesticCovidItems, optionValue, options));
+    setOptions({ ...options, firstOption: optionValue });
   };
 
   // TODO) 두번째 셀렉트박스는 어떻게 처리해야될까.
@@ -55,10 +52,12 @@ const ChartByDate = ({ domesticCovidItems }) => {
           <option value="decideCnt">Confirmed</option>
           <option value="deathCnt">Deaths</option>
           <option value="clearCnt">Recovered</option>
-          <option value="accDefRate">Confirmed Rate</option>
+          <option value="accExamCnt">Tested</option>
+          <option value="decideRate">Confirmed Rate</option>
         </select>
         <select className="flex flex-start text-sm leading-2 rounded-full py-1 px-2 bg-blue-100 border-2 border-blue-400 border-opacity-75 m-4 cursor-pointer outline-none dark:bg-gray-500">
-          <option value="realTime">RealTime</option>
+          {/* TODO) 실시간 차트 고민중 */}
+          {/* <option value="realTime">RealTime</option> */}
           <option value="daily">Daily</option>
           <option value="weekly">Weekly</option>
           <option value="monthly">Monthly</option>

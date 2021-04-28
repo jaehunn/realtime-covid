@@ -24,25 +24,57 @@ export const getOverseasChartDataForm = (overseasCovidItems) => {
   return chartFormOverseasCovidItems;
 };
 
-export const getChartDataSetsData = (covidItems, selectOption, options = {}) => {
-  let defaultSelectOption = covidItems.sort((itemA, itemB) => itemA.seq - itemB.seq)[0][selectOption];
-  const data = covidItems.sort((itemA, itemB) => itemA.seq - itemB.seq);
+// const oneWeekCovidItems = domesticCovidItems.slice(0, 7);
+// const fourWeeksCovidItems = domesticCovidItems.slice(0, 28);
+// const threeMonthsCovidItems = domesticCovidItems.slice(0, findGapFirstDaysFromThreeMonthAgo());
 
-  // 확진률은 누적확진률로 한다.
-  if (selectOption === "accDefRate") return data.map(({ accDefRate }) => accDefRate).slice(1);
-  return data.reduce((data, item, index) => {
-    if (index === 0) return data;
+// const chartData = {
+//   daily: oneWeekCovidItems,
+//   weekly: fourWeeksCovidItems,
+//   monthly: threeMonthsCovidItems,
+// };
 
-    const todaySelectOption = item[selectOption];
+export const getChartDataSetsData = (covidItems, { firstOption, secondOption }) => {
+  console.log(firstOption, secondOption);
 
-    const gap = todaySelectOption - defaultSelectOption;
+  if (secondOption === "daily") {
+    if (firstOption === "decideRate") {
+      const decideCntChartDataSetsData = getChartDataSetsData(covidItems, { firstOption: "decideCnt", secondOption });
+      const accExamCntChartDataSetsData = getChartDataSetsData(covidItems, { firstOption: "accExamCnt", secondOption });
 
-    defaultSelectOption = todaySelectOption;
+      console.log(decideCntChartDataSetsData, accExamCntChartDataSetsData);
 
-    return data.concat(gap);
-  }, []);
+      return decideCntChartDataSetsData.map((todayDecideCnt, index) =>
+        ((todayDecideCnt / accExamCntChartDataSetsData[index]) * 100).toFixed(2)
+      );
+    } else {
+      let defaultSelectOption = covidItems.slice(0, 8).sort((itemA, itemB) => itemA.seq - itemB.seq)[0][firstOption];
+      const data = covidItems.slice(0, 8).sort((itemA, itemB) => itemA.seq - itemB.seq);
+      return data.slice(1).reduce((data, item) => {
+        const todaySelectOption = item[firstOption];
 
-  // TODO) 선택된 옵션이 있는 경우...
+        const gap = todaySelectOption - defaultSelectOption;
+
+        defaultSelectOption = todaySelectOption;
+
+        return data.concat(gap);
+      }, []);
+    }
+  }
+};
+
+export const getChartLabels = (covidItems, { firstOption, secondOption }) => {
+  if (secondOption === "daily") {
+    return covidItems
+      .slice(0, 8)
+      .sort((itemA, itemB) => itemA.seq - itemB.seq)
+      .slice(1)
+      .reduce((labels, { createDt }) => {
+        const formatDate = getFormatDate(createDt);
+
+        return labels.concat(formatDate);
+      }, []);
+  }
 };
 
 export const getAllDecideDeathCnt = (overseasCovidItems) => {
@@ -69,8 +101,6 @@ export const requestFormatDate = ([currentYear, currentMonth, currentDays]: stri
 export const getDate = (minusDay = 0) => {
   let currentDate = new Date();
 
-  // 자정이면 1시간전 데이터로 한다. (전날)
-  // 새벽1시면 2시간전 데이터로 한다.
   if (currentDate.getHours() === 0) currentDate = new Date(currentDate.setTime(currentDate.getTime() - 3600000));
   if (currentDate.getHours() === 1) currentDate = new Date(currentDate.setTime(currentDate.getTime() - 7200000));
 
@@ -81,6 +111,47 @@ export const getDate = (minusDay = 0) => {
   const currentDays: string = currentDate.getDate() + "";
 
   return [currentYear, currentMonth, currentDays];
+};
+
+export const findGapFirstDaysFromSameMonth = () => {
+  let currentDate = new Date();
+
+  return currentDate.getDate() - 1;
+};
+
+export const findGapFirstDaysFromThreeMonthAgo = () => {
+  const DAYS = {
+    1: "31",
+    2: ["28", "29"],
+    3: "31",
+    4: "30",
+    5: "31",
+    6: "30",
+    7: "31",
+    8: "31",
+    9: "30",
+    10: "31",
+    11: "30",
+    12: "31",
+  };
+
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth() + 1; // 4
+  let threeMonthAgoMonth = currentMonth - 2; // 2
+
+  // 3개월 전 월의 1일까지 차이나는 일수를 반환한다.
+
+  if (threeMonthAgoMonth < 1) threeMonthAgoMonth = 1;
+
+  let days = currentDate.getDate();
+  for (let curMonth = currentMonth - 1; curMonth >= threeMonthAgoMonth; curMonth -= 1) {
+    if (curMonth === 2) {
+      if (currentDate.getFullYear() % 4) days += +DAYS[2][0];
+      else days += +DAYS[2][1];
+    } else days += +DAYS[curMonth];
+  }
+
+  return days - 1;
 };
 
 export const getFormatDate = (dateString: string): string => {
