@@ -5,11 +5,7 @@ import axios from "axios";
 import { DomesticCovidService, DomesticRegionCovidService } from "../env";
 import { NATION } from "../types";
 
-import Header from "../components/Header";
-import Navbar from "../components/Navbar";
-import Cases from "../components/Cases";
-import ChartByDate from "../components/ChartByDate";
-import RegionalTable from "../components/RegionalTable";
+import { Header, Navbar, Cases, ChartByDate, RegionTable } from "../components";
 
 const Home = ({ domesticCovidItems, domesticRegionCovidItems }) => {
   const [accCovidItem, yesterdayAccCovidItem] = domesticCovidItems;
@@ -24,7 +20,7 @@ const Home = ({ domesticCovidItems, domesticRegionCovidItems }) => {
       <Navbar />
       <Cases accCovidItem={accCovidItem} yesterdayAccCovidItem={yesterdayAccCovidItem} />
       <ChartByDate domesticCovidItems={domesticCovidItems} />
-      <RegionalTable
+      <RegionTable
         todayCovidItems={todayCovidItems}
         yesterdayCovidItems={yesterdayCovidItems}
         dayBeforeYesterdayCovidItems={dayBeforeYesterdayCovidItems}

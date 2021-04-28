@@ -1,7 +1,7 @@
 import RegionItem from "./RegionItem";
 import { getRegionName } from "../utils";
 
-const RegionalTable = ({ todayCovidItems, yesterdayCovidItems, dayBeforeYesterdayCovidItems }) => {
+const RegionTable = ({ todayCovidItems, yesterdayCovidItems, dayBeforeYesterdayCovidItems }) => {
   // TODO) 무한 스크롤 기능
   return (
     <div className="w-1/2 bg-blue-50 border flex flex-col m-auto mt-16 shadow-lg rounded-md dark:border-gray-500 dark:bg-gray-600">
@@ -56,4 +56,4 @@ const RegionalTable = ({ todayCovidItems, yesterdayCovidItems, dayBeforeYesterda
   );
 };
 
-export default RegionalTable;
+export default RegionTable;

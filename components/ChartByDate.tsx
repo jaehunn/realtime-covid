@@ -43,13 +43,7 @@ const ChartByDate = ({ domesticCovidItems }) => {
   };
 
   // TODO) 두번째 셀렉트박스는 어떻게 처리해야될까.
-  const secondOptionChangeHandler: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
-    const { value: optionValue } = e.target;
-
-    setOptions({ secondOption: optionValue });
-
-    setChartDataSetsData(getChartDataSetsData(domesticCovidItems, optionValue, options));
-  };
+  // ...
 
   return (
     <div className="w-1/2 h-3/5 bg-blue-50 m-auto mt-16 shadow-lg rounded-md dark:bg-gray-600">
@@ -63,10 +57,7 @@ const ChartByDate = ({ domesticCovidItems }) => {
           <option value="clearCnt">Recovered</option>
           <option value="accDefRate">Confirmed Rate</option>
         </select>
-        <select
-          className="flex flex-start text-sm leading-2 rounded-full py-1 px-2 bg-blue-100 border-2 border-blue-400 border-opacity-75 m-4 cursor-pointer outline-none dark:bg-gray-500"
-          onChange={secondOptionChangeHandler}
-        >
+        <select className="flex flex-start text-sm leading-2 rounded-full py-1 px-2 bg-blue-100 border-2 border-blue-400 border-opacity-75 m-4 cursor-pointer outline-none dark:bg-gray-500">
           <option value="realTime">RealTime</option>
           <option value="daily">Daily</option>
           <option value="weekly">Weekly</option>

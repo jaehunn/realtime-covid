@@ -1,6 +1,6 @@
 import type { AppProps } from "next/app";
 
-import Layout from "../components/Layout";
+import { Layout } from "../components";
 
 import "tailwindcss/tailwind.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";

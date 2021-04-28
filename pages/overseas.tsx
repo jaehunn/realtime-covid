@@ -3,11 +3,7 @@ import { OverseasCovidService } from "../env";
 import { getAllDecideDeathCnt, getOverseasChartDataForm } from "../utils";
 import { NATION } from "../types";
 
-import Header from "../components/Header";
-import Navbar from "../components/Navbar";
-import OverseasCases from "../components/OverseasCases";
-import OverseasRegionTable from "../components/OverseasRegionTable";
-import OverseasChartByDate from "../components/OverseasChartByDate";
+import { Header, Navbar, OverseasCases, OverseasRegionTable, OverseasChartByDate } from "../components";
 
 // TODO) 국기를 어떻게 뽑아올까
 

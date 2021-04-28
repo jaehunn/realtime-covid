@@ -25,24 +25,22 @@ export const getOverseasChartDataForm = (overseasCovidItems) => {
 };
 
 export const getChartDataSetsData = (covidItems, selectOption, options = {}) => {
-  if (Object.keys(options).length === 0) {
-    let defaultSelectOption = covidItems.sort((itemA, itemB) => itemA.seq - itemB.seq)[0][selectOption];
-    const data = covidItems.sort((itemA, itemB) => itemA.seq - itemB.seq);
+  let defaultSelectOption = covidItems.sort((itemA, itemB) => itemA.seq - itemB.seq)[0][selectOption];
+  const data = covidItems.sort((itemA, itemB) => itemA.seq - itemB.seq);
 
-    // 확진률은 누적확진률로 한다.
-    if (selectOption === "accDefRate") return data.map(({ accDefRate }) => accDefRate).slice(1);
-    return data.reduce((data, item, index) => {
-      if (index === 0) return data;
+  // 확진률은 누적확진률로 한다.
+  if (selectOption === "accDefRate") return data.map(({ accDefRate }) => accDefRate).slice(1);
+  return data.reduce((data, item, index) => {
+    if (index === 0) return data;
 
-      const todaySelectOption = item[selectOption];
+    const todaySelectOption = item[selectOption];
 
-      const gap = todaySelectOption - defaultSelectOption;
+    const gap = todaySelectOption - defaultSelectOption;
 
-      defaultSelectOption = todaySelectOption;
+    defaultSelectOption = todaySelectOption;
 
-      return data.concat(gap);
-    }, []);
-  }
+    return data.concat(gap);
+  }, []);
 
   // TODO) 선택된 옵션이 있는 경우...
 };
