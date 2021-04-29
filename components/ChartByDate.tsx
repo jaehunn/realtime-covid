@@ -33,14 +33,17 @@ const ChartByDate = ({ domesticCovidItems }) => {
     setChartLabels(chartLabels);
   }, [options]);
 
-  const firstOptionChangeHandler: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
-    const { value: optionValue } = e.target;
-
+  const firstOptionChangeHandler: React.ChangeEventHandler<HTMLSelectElement> = ({
+    target: { value: optionValue },
+  }) => {
     setOptions({ ...options, firstOption: optionValue });
   };
 
-  // TODO) 두번째 셀렉트박스는 어떻게 처리해야될까.
-  // ...
+  const secondOptionChangeHandler: React.ChangeEventHandler<HTMLSelectElement> = ({
+    target: { value: optionValue },
+  }) => {
+    setOptions({ ...options, secondOption: optionValue });
+  };
 
   return (
     <div className="w-1/2 h-3/5 bg-blue-50 m-auto mt-16 shadow-lg rounded-md dark:bg-gray-600">
@@ -55,7 +58,10 @@ const ChartByDate = ({ domesticCovidItems }) => {
           <option value="accExamCnt">Tested</option>
           <option value="decideRate">Confirmed Rate</option>
         </select>
-        <select className="flex flex-start text-sm leading-2 rounded-full py-1 px-2 bg-blue-100 border-2 border-blue-400 border-opacity-75 m-4 cursor-pointer outline-none dark:bg-gray-500">
+        <select
+          className="flex flex-start text-sm leading-2 rounded-full py-1 px-2 bg-blue-100 border-2 border-blue-400 border-opacity-75 m-4 cursor-pointer outline-none dark:bg-gray-500"
+          onChange={secondOptionChangeHandler}
+        >
           {/* TODO) 실시간 차트 고민중 */}
           {/* <option value="realTime">RealTime</option> */}
           <option value="daily">Daily</option>

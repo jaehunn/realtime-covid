@@ -1,4 +1,20 @@
 import { Region } from "../types";
+
+const DAYS_PER_MONTH = {
+  1: "31",
+  2: ["28", "29"],
+  3: "31",
+  4: "30",
+  5: "31",
+  6: "30",
+  7: "31",
+  8: "31",
+  9: "30",
+  10: "31",
+  11: "30",
+  12: "31",
+};
+
 export const getOverseasChartDataForm = (overseasCovidItems) => {
   let accDecideCnt = 0;
   let accDeathCnt = 0;
@@ -24,8 +40,6 @@ export const getOverseasChartDataForm = (overseasCovidItems) => {
   return chartFormOverseasCovidItems;
 };
 
-// const oneWeekCovidItems = domesticCovidItems.slice(0, 7);
-// const fourWeeksCovidItems = domesticCovidItems.slice(0, 28);
 // const threeMonthsCovidItems = domesticCovidItems.slice(0, findGapFirstDaysFromThreeMonthAgo());
 
 // const chartData = {
@@ -35,14 +49,10 @@ export const getOverseasChartDataForm = (overseasCovidItems) => {
 // };
 
 export const getChartDataSetsData = (covidItems, { firstOption, secondOption }) => {
-  console.log(firstOption, secondOption);
-
   if (secondOption === "daily") {
     if (firstOption === "decideRate") {
       const decideCntChartDataSetsData = getChartDataSetsData(covidItems, { firstOption: "decideCnt", secondOption });
       const accExamCntChartDataSetsData = getChartDataSetsData(covidItems, { firstOption: "accExamCnt", secondOption });
-
-      console.log(decideCntChartDataSetsData, accExamCntChartDataSetsData);
 
       return decideCntChartDataSetsData.map((todayDecideCnt, index) =>
         ((todayDecideCnt / accExamCntChartDataSetsData[index]) * 100).toFixed(2)
@@ -61,6 +71,60 @@ export const getChartDataSetsData = (covidItems, { firstOption, secondOption }) 
       }, []);
     }
   }
+
+  if (secondOption === "weekly") {
+    if (firstOption === "decideRate") {
+      const decideCntChartDataSetsData = getChartDataSetsData(covidItems, { firstOption: "decideCnt", secondOption });
+      const accExamCntChartDataSetsData = getChartDataSetsData(covidItems, { firstOption: "accExamCnt", secondOption });
+
+      return decideCntChartDataSetsData.map((todayDecideCnt, index) =>
+        ((todayDecideCnt / accExamCntChartDataSetsData[index]) * 100).toFixed(2)
+      );
+    } else {
+      let startDaySelectOption = 0;
+      let endDaySelectOption = 0;
+
+      const data = [];
+
+      const currentMonth = new Date(covidItems[0].createDt).getMonth();
+
+      covidItems
+        .filter(({ createDt }) => new Date(createDt).getMonth() === currentMonth)
+        .forEach((item) => {
+          const modDay = new Date(item.createDt).getDay();
+
+          if (endDaySelectOption === 0) endDaySelectOption = item[firstOption];
+
+          if (modDay === 6) {
+            startDaySelectOption = item[firstOption];
+
+            data.unshift(endDaySelectOption - startDaySelectOption);
+
+            startDaySelectOption = 0;
+            endDaySelectOption = 0;
+          }
+        });
+
+      console.log(data);
+
+      if (data.length > 4) return data.slice(0, 4);
+
+      return data;
+    }
+  }
+
+  if (secondOption === "monthly") {
+    if (firstOption === "decideRate") {
+      const decideCntChartDataSetsData = getChartDataSetsData(covidItems, { firstOption: "decideCnt", secondOption });
+      const accExamCntChartDataSetsData = getChartDataSetsData(covidItems, { firstOption: "accExamCnt", secondOption });
+
+      return decideCntChartDataSetsData.map((todayDecideCnt, index) =>
+        ((todayDecideCnt / accExamCntChartDataSetsData[index]) * 100).toFixed(2)
+      );
+    } else {
+      // ...
+    }
+  }
 };
 
 export const getChartLabels = (covidItems, { firstOption, secondOption }) => {
@@ -74,6 +138,34 @@ export const getChartLabels = (covidItems, { firstOption, secondOption }) => {
 
         return labels.concat(formatDate);
       }, []);
+  }
+
+  if (secondOption === "weekly") {
+    let startDate = "";
+    let endDate = "";
+
+    const labels = [];
+
+    const currentMonth = new Date(covidItems[0].createDt).getMonth();
+
+    covidItems
+      .filter(({ createDt }) => new Date(createDt).getMonth() === currentMonth)
+      .forEach((item) => {
+        const modDay = new Date(item.createDt).getDay();
+
+        if (endDate === "") endDate = item.createDt;
+
+        if (modDay === 0) {
+          startDate = item.createDt;
+
+          labels.unshift(`${getFormatDate(startDate)} - ${getFormatDate(endDate)}`);
+
+          startDate = "";
+          endDate = "";
+        }
+      });
+
+    return labels;
   }
 };
 
@@ -120,21 +212,6 @@ export const findGapFirstDaysFromSameMonth = () => {
 };
 
 export const findGapFirstDaysFromThreeMonthAgo = () => {
-  const DAYS = {
-    1: "31",
-    2: ["28", "29"],
-    3: "31",
-    4: "30",
-    5: "31",
-    6: "30",
-    7: "31",
-    8: "31",
-    9: "30",
-    10: "31",
-    11: "30",
-    12: "31",
-  };
-
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth() + 1; // 4
   let threeMonthAgoMonth = currentMonth - 2; // 2
@@ -146,9 +223,9 @@ export const findGapFirstDaysFromThreeMonthAgo = () => {
   let days = currentDate.getDate();
   for (let curMonth = currentMonth - 1; curMonth >= threeMonthAgoMonth; curMonth -= 1) {
     if (curMonth === 2) {
-      if (currentDate.getFullYear() % 4) days += +DAYS[2][0];
-      else days += +DAYS[2][1];
-    } else days += +DAYS[curMonth];
+      if (currentDate.getFullYear() % 4) days += +DAYS_PER_MONTH[2][0];
+      else days += +DAYS_PER_MONTH[2][1];
+    } else days += +DAYS_PER_MONTH[curMonth];
   }
 
   return days - 1;
