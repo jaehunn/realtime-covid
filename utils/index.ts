@@ -40,14 +40,6 @@ export const getOverseasChartDataForm = (overseasCovidItems) => {
   return chartFormOverseasCovidItems;
 };
 
-// const threeMonthsCovidItems = domesticCovidItems.slice(0, findGapFirstDaysFromThreeMonthAgo());
-
-// const chartData = {
-//   daily: oneWeekCovidItems,
-//   weekly: fourWeeksCovidItems,
-//   monthly: threeMonthsCovidItems,
-// };
-
 export const getChartDataSetsData = (covidItems, { firstOption, secondOption }) => {
   if (secondOption === "daily") {
     if (firstOption === "decideRate") {
@@ -105,8 +97,6 @@ export const getChartDataSetsData = (covidItems, { firstOption, secondOption }) 
           }
         });
 
-      console.log(data);
-
       if (data.length > 4) return data.slice(0, 4);
 
       return data;
@@ -122,7 +112,31 @@ export const getChartDataSetsData = (covidItems, { firstOption, secondOption }) 
         ((todayDecideCnt / accExamCntChartDataSetsData[index]) * 100).toFixed(2)
       );
     } else {
-      // ...
+      const data = [];
+
+      let currentMonth = new Date(covidItems[0].createDt).getMonth() + 1;
+      let endDateByBeforeMonthSelectOption = 0; // start
+      let endDateByCurrentMonthSelectOption = covidItems[0][firstOption]; // end
+
+      console.log(covidItems);
+
+      covidItems.forEach((item) => {
+        const targetDate = new Date(item.createDt);
+        const targetMonth = targetDate.getMonth() + 1;
+
+        if ((targetMonth % 12) + 1 === currentMonth) {
+          endDateByBeforeMonthSelectOption = item[firstOption];
+
+          data.unshift(endDateByCurrentMonthSelectOption - endDateByBeforeMonthSelectOption);
+
+          currentMonth = targetDate.getMonth() + 1;
+          endDateByCurrentMonthSelectOption = endDateByBeforeMonthSelectOption;
+
+          console.log(data);
+        }
+      });
+
+      return data;
     }
   }
 };
@@ -158,12 +172,36 @@ export const getChartLabels = (covidItems, { firstOption, secondOption }) => {
         if (modDay === 0) {
           startDate = item.createDt;
 
-          labels.unshift(`${getFormatDate(startDate)} - ${getFormatDate(endDate)}`);
+          labels.unshift(`${getFormatDate(startDate)} ~ ${getFormatDate(endDate)}`);
 
           startDate = "";
           endDate = "";
         }
       });
+
+    return labels;
+  }
+
+  if (secondOption === "monthly") {
+    let startDate = "";
+    let endDate = "";
+
+    const labels = [];
+
+    covidItems.forEach((item) => {
+      const targetDate = new Date(item.createDt).getDate();
+
+      if (endDate === "") endDate = item.createDt;
+
+      if (targetDate === 1) {
+        startDate = item.createDt;
+
+        labels.unshift(`${getFormatDate(startDate)} ~ ${getFormatDate(endDate)}`);
+
+        startDate = "";
+        endDate = "";
+      }
+    });
 
     return labels;
   }
@@ -211,24 +249,30 @@ export const findGapFirstDaysFromSameMonth = () => {
   return currentDate.getDate() - 1;
 };
 
-export const findGapFirstDaysFromThreeMonthAgo = () => {
+export const findGapFirstDaysFromNmonthAgo = (n = 0) => {
   const currentDate = new Date();
-  const currentMonth = currentDate.getMonth() + 1; // 4
-  let threeMonthAgoMonth = currentMonth - 2; // 2
+  let currentYear = new Date().getFullYear();
+  let currentMonth = currentDate.getMonth() + 1; // 4
+  let nMonthAgoMonth = currentMonth - n; // 2
 
-  // 3개월 전 월의 1일까지 차이나는 일수를 반환한다.
-
-  if (threeMonthAgoMonth < 1) threeMonthAgoMonth = 1;
+  // n개월 전 월의 1일까지 차이나는 일수를 반환한다.
 
   let days = currentDate.getDate();
-  for (let curMonth = currentMonth - 1; curMonth >= threeMonthAgoMonth; curMonth -= 1) {
+  for (let curMonth = currentMonth - 1; curMonth >= nMonthAgoMonth; curMonth -= 1) {
+    if (curMonth === 0) {
+      curMonth = 12;
+      nMonthAgoMonth += 13;
+
+      currentYear -= 1;
+    }
+
     if (curMonth === 2) {
-      if (currentDate.getFullYear() % 4) days += +DAYS_PER_MONTH[2][0];
+      if (currentYear % 4) days += +DAYS_PER_MONTH[2][0];
       else days += +DAYS_PER_MONTH[2][1];
     } else days += +DAYS_PER_MONTH[curMonth];
   }
 
-  return days - 1;
+  return days;
 };
 
 export const getFormatDate = (dateString: string): string => {
