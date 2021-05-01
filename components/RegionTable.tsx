@@ -1,8 +1,10 @@
+import { useEffect } from "react";
 import RegionItem from "./RegionItem";
 import { getRegionName } from "../utils";
 
 const RegionTable = ({ todayCovidItems, yesterdayCovidItems, dayBeforeYesterdayCovidItems }) => {
-  // TODO) 무한 스크롤 기능
+  useEffect(() => {}, []);
+
   return (
     <div className="w-1/2 bg-blue-50 border flex flex-col m-auto mt-16 shadow-lg rounded-md dark:border-gray-500 dark:bg-gray-600">
       <div className="w-full bg-blue-200 flex justify-evenly text-sm leading-8 tracking-wide font-semibold dark:text-gray-200 dark:bg-gray-500">

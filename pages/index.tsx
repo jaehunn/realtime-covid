@@ -1,6 +1,4 @@
-// @see https://stackoverflow.com/questions/37693982/how-to-fetch-xml-with-fetch-api
-// @see https://www.npmjs.com/package/xml-js
-
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { DomesticCovidService, DomesticRegionCovidService } from "../env";
 import { NATION } from "../types";

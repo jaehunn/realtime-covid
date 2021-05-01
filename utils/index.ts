@@ -78,16 +78,13 @@ export const getChartDataSetsData = (covidItems, { firstOption, secondOption }) 
 
       const data = [];
 
-      const currentMonth = new Date(covidItems[0].createDt).getMonth();
+      covidItems.slice(0, 30).forEach((item, index) => {
+        const targetDate = new Date(item.createDt);
 
-      covidItems
-        .filter(({ createDt }) => new Date(createDt).getMonth() === currentMonth)
-        .forEach((item) => {
-          const modDay = new Date(item.createDt).getDay();
-
+        const currentDate = new Date();
+        if (Math.abs(currentDate.getMonth() - targetDate.getMonth()) <= 1) {
           if (endDaySelectOption === 0) endDaySelectOption = item[firstOption];
-
-          if (modDay === 6) {
+          else if (index % 7 === 0) {
             startDaySelectOption = item[firstOption];
 
             data.unshift(endDaySelectOption - startDaySelectOption);
@@ -95,7 +92,8 @@ export const getChartDataSetsData = (covidItems, { firstOption, secondOption }) 
             startDaySelectOption = 0;
             endDaySelectOption = 0;
           }
-        });
+        }
+      });
 
       if (data.length > 4) return data.slice(0, 4);
 
@@ -118,8 +116,6 @@ export const getChartDataSetsData = (covidItems, { firstOption, secondOption }) 
       let endDateByBeforeMonthSelectOption = 0; // start
       let endDateByCurrentMonthSelectOption = covidItems[0][firstOption]; // end
 
-      console.log(covidItems);
-
       covidItems.forEach((item) => {
         const targetDate = new Date(item.createDt);
         const targetMonth = targetDate.getMonth() + 1;
@@ -131,8 +127,6 @@ export const getChartDataSetsData = (covidItems, { firstOption, secondOption }) 
 
           currentMonth = targetDate.getMonth() + 1;
           endDateByCurrentMonthSelectOption = endDateByBeforeMonthSelectOption;
-
-          console.log(data);
         }
       });
 
@@ -160,16 +154,15 @@ export const getChartLabels = (covidItems, { firstOption, secondOption }) => {
 
     const labels = [];
 
-    const currentMonth = new Date(covidItems[0].createDt).getMonth();
+    covidItems.slice(0, 29).forEach((item, index) => {
+      const targetDate = new Date(item.createDt);
 
-    covidItems
-      .filter(({ createDt }) => new Date(createDt).getMonth() === currentMonth)
-      .forEach((item) => {
-        const modDay = new Date(item.createDt).getDay();
-
+      // 뜬금없는 날짜가 끼워져있다.
+      // guard, 오차 검증
+      const currentDate = new Date();
+      if (Math.abs(currentDate.getMonth() - targetDate.getMonth()) <= 1) {
         if (endDate === "") endDate = item.createDt;
-
-        if (modDay === 0) {
+        else if (index % 7 === 0) {
           startDate = item.createDt;
 
           labels.unshift(`${getFormatDate(startDate)} ~ ${getFormatDate(endDate)}`);
@@ -177,7 +170,8 @@ export const getChartLabels = (covidItems, { firstOption, secondOption }) => {
           startDate = "";
           endDate = "";
         }
-      });
+      }
+    });
 
     return labels;
   }

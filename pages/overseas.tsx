@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { OverseasCovidService } from "../env";
 import { getAllDecideDeathCnt, getOverseasChartDataForm } from "../utils";
@@ -6,7 +7,6 @@ import { NATION } from "../types";
 import { Header, Navbar, OverseasCases, OverseasRegionTable, OverseasChartByDate } from "../components";
 
 // TODO) 국기를 어떻게 뽑아올까
-
 const Overseas = ({ overseasCovidItems }) => {
   const todayOverseasCovidItems = overseasCovidItems.slice(0, 190);
   const yesterdayOverseasCovidItems = overseasCovidItems.slice(190, 380);
@@ -16,6 +16,8 @@ const Overseas = ({ overseasCovidItems }) => {
   const [yesterdayAllDecideCnt, yesterdayAllDeathCnt] = getAllDecideDeathCnt(yesterdayOverseasCovidItems);
 
   const overseasChartData = getOverseasChartDataForm(overseasCovidItems);
+
+  // dynamic import...
 
   return (
     <div className="w-full h-full flex flex-col flex-1 bg-blue-100 overflow-auto dark:bg-gray-800">
