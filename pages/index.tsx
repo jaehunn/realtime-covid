@@ -12,6 +12,7 @@ const Home = ({ domesticCovidItems, domesticRegionCovidItems }) => {
   const yesterdayCovidItems = domesticRegionCovidItems.slice(19, 38);
   const dayBeforeYesterdayCovidItems = domesticRegionCovidItems.slice(38, 57);
 
+
   return (
     <div className="w-full h-full flex flex-col flex-1 bg-blue-100 overflow-auto dark:bg-gray-800">
       <Header nation={NATION.DOMESTIC} />
@@ -27,7 +28,7 @@ const Home = ({ domesticCovidItems, domesticRegionCovidItems }) => {
   );
 };
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const {
     baseUrl: domesticCovidBaseUrl,
     serviceKey: domesticCovidServiceKey,

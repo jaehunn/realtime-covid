@@ -1,23 +1,29 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useTheme } from "next-themes";
 
 const ToggleSwitcher = () => {
-  const toggleButtonRef = useRef(null);
+  const toggleEl = useRef(null);
   const { theme, setTheme } = useTheme();
 
   const toggleHandler = () => {
     setTheme(theme === "dark" ? "light" : "dark");
 
     if (theme === "light") {
-      toggleButtonRef.current.classList.remove("bg-yellow-500", "-translate-x-2");
-      toggleButtonRef.current.classList.add("bg-gray-700", "translate-x-full");
+      toggleEl.current.classList.remove("bg-yellow-500", "-translate-x-2");
+      toggleEl.current.classList.add("bg-gray-700", "translate-x-full");
     } else {
-      toggleButtonRef.current.classList.add("bg-yellow-500", "-translate-x-2");
-      toggleButtonRef.current.classList.remove("bg-gray-700", "translate-x-full");
+      toggleEl.current.classList.add("bg-yellow-500", "-translate-x-2");
+      toggleEl.current.classList.remove("bg-gray-700", "translate-x-full");
     }
   };
+
+  // TODO)
+  useEffect(() => {
+    if (theme === "dark") toggleEl.current.classList.add("bg-gray-700", "translate-x-full");
+    else toggleEl.current.classList.add("bg-yellow-500", "-translate-x-2");
+  }, []);
 
   return (
     <button
@@ -25,8 +31,8 @@ const ToggleSwitcher = () => {
       onClick={toggleHandler}
     >
       <div
-        className="w-12 h-10 relative rounded-full transition duration-500 transform bg-yellow-500 -translate-x-2 p-1 text-white leading-10"
-        ref={toggleButtonRef}
+        className="w-12 h-10 relative rounded-full transition duration-500 transform p-1 text-white leading-10"
+        ref={toggleEl}
       >
         {!theme || theme === "light" ? (
           <FontAwesomeIcon icon={faSun} size="2x" />

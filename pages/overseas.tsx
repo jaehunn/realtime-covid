@@ -7,20 +7,54 @@ import { NATION } from "../types";
 import { Header, Navbar, OverseasCases, OverseasRegionTable, OverseasChartByDate } from "../components";
 
 // TODO) 국기를 어떻게 뽑아올까
+// TODO) 로드가 느리다. 어떻게 해결할까. Rendering 에 대해서 다시 공부해보자
 const Overseas = ({ overseasCovidItems }) => {
-  const todayOverseasCovidItems = overseasCovidItems.slice(0, 190);
-  const yesterdayOverseasCovidItems = overseasCovidItems.slice(190, 380);
-  const dayBeforeYesterdayCovidItems = overseasCovidItems.slice(380, 570);
+  const REGION_ITEMS_PER_PAGE = 38; // 38 * 5 = 190
+  const [page, setPage] = useState(1);
 
-  const [todayAllDecideCnt, todayAllDeathCnt] = getAllDecideDeathCnt(todayOverseasCovidItems);
-  const [yesterdayAllDecideCnt, yesterdayAllDeathCnt] = getAllDecideDeathCnt(yesterdayOverseasCovidItems);
+  const [todayOverseasCovidItems, setTodayOverseasCovidItems] = useState([]);
+  const todayOverseasCovidItemsStartIndex = 0;
+
+  const [yesterdayOverseasCovidItems, setYesterdayOverseasCovidItems] = useState([]);
+  const yesterdayOverseasCovidItemsStartIndex = 190;
+
+  const [dayBeforeYesterdayCovidItems, setDayBeforeYesterdayCovidItems] = useState([]);
+  const dayBeforeYesterdayCovidItemsStartIndex = 380;
+
+  const [todayAllDecideCnt, todayAllDeathCnt] = getAllDecideDeathCnt(overseasCovidItems.slice(0, 190));
+  const [yesterdayAllDecideCnt, yesterdayAllDeathCnt] = getAllDecideDeathCnt(overseasCovidItems.slice(190, 380));
 
   const overseasChartData = getOverseasChartDataForm(overseasCovidItems);
 
-  // dynamic import...
+  useEffect(() => {
+    if (page <= 5) {
+      setTodayOverseasCovidItems(
+        overseasCovidItems.slice(
+          todayOverseasCovidItemsStartIndex,
+          todayOverseasCovidItemsStartIndex + REGION_ITEMS_PER_PAGE * page
+        )
+      );
+
+      setYesterdayOverseasCovidItems(
+        overseasCovidItems.slice(
+          yesterdayOverseasCovidItemsStartIndex,
+          yesterdayOverseasCovidItemsStartIndex + REGION_ITEMS_PER_PAGE * page
+        )
+      );
+
+      setDayBeforeYesterdayCovidItems(
+        overseasCovidItems.slice(
+          dayBeforeYesterdayCovidItemsStartIndex,
+          dayBeforeYesterdayCovidItemsStartIndex + REGION_ITEMS_PER_PAGE * page
+        )
+      );
+    }
+
+    console.log(page);
+  }, [page]);
 
   return (
-    <div className="w-full h-full flex flex-col flex-1 bg-blue-100 overflow-auto dark:bg-gray-800">
+    <div className="w-screen h-screen flex flex-col flex-1 bg-blue-100 overflow-auto dark:bg-gray-800">
       <Header nation={NATION.OVERSEAS} />
       <Navbar />
       <OverseasCases
@@ -34,12 +68,14 @@ const Overseas = ({ overseasCovidItems }) => {
         todayOverseasCovidItems={todayOverseasCovidItems}
         yesterdayOverseasCovidItems={yesterdayOverseasCovidItems}
         dayBeforeYesterdayCovidItems={dayBeforeYesterdayCovidItems}
+        page={page}
+        setPage={setPage}
       />
     </div>
   );
 };
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const {
     baseUrl: overseasCovidBaseUrl,
     serviceKey: overseasCovidServiceKey,

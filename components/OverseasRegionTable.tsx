@@ -1,5 +1,4 @@
-import React from "react";
-
+import FetchMoreTrigger from "./FetchMoreTrigger";
 import OverseasRegionItem from "./OverseasRegionItem";
 
 interface OverseasRegionlTableProps {}
@@ -8,10 +7,11 @@ const OverseasRegionlTable = ({
   todayOverseasCovidItems,
   yesterdayOverseasCovidItems,
   dayBeforeYesterdayCovidItems,
+  page,
+  setPage,
 }) => {
-  // TODO) 무한 스크롤 기능
   return (
-    <div className="w-1/2 bg-blue-50 flex flex-col m-auto mt-16 shadow-lg rounded-md dark:border-gray-500 dark:bg-gray-600">
+    <div className="w-1/2 bg-blue-50 relative flex flex-col m-auto mt-16 shadow-lg rounded-md dark:border-gray-500 dark:bg-gray-600">
       <div className="w-full bg-blue-200 flex justify-evenly text-sm leading-8 tracking-wide font-semibold dark:text-gray-200 dark:bg-gray-500">
         <div className="w-1/3 h-12 flex justify-center items-center">Location</div>
         <div className="w-1/3 h-12 flex justify-center items-center">Confirmed</div>
@@ -41,6 +41,7 @@ const OverseasRegionlTable = ({
           />
         );
       })}
+      <FetchMoreTrigger page={page} setPage={setPage} />
     </div>
   );
 };
