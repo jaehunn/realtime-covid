@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { GetStaticProps } from "next";
 import axios from "axios";
 import { OverseasCovidService } from "../env";
 import { getAllDecideDeathCnt, getOverseasChartDataForm } from "../utils";
@@ -7,7 +8,7 @@ import { NATION } from "../types";
 import { Header, Navbar, OverseasCases, OverseasRegionTable, OverseasChartByDate } from "../components";
 
 // TODO) 국기를 어떻게 뽑아올까
-// TODO) 로드가 느리다. 어떻게 해결할까. Rendering 에 대해서 다시 공부해보자
+// TODO) 로드가 느리다. 어떻게 해결할까.
 const Overseas = ({ overseasCovidItems }) => {
   const REGION_ITEMS_PER_PAGE = 38; // 38 * 5 = 190
   const [page, setPage] = useState(1);
@@ -26,6 +27,7 @@ const Overseas = ({ overseasCovidItems }) => {
 
   const overseasChartData = getOverseasChartDataForm(overseasCovidItems);
 
+  // TODO) 매번 자르는게아니라 이어붙히고싶다.
   useEffect(() => {
     if (page <= 5) {
       setTodayOverseasCovidItems(
@@ -49,8 +51,6 @@ const Overseas = ({ overseasCovidItems }) => {
         )
       );
     }
-
-    console.log(page);
   }, [page]);
 
   return (
@@ -75,7 +75,7 @@ const Overseas = ({ overseasCovidItems }) => {
   );
 };
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   const {
     baseUrl: overseasCovidBaseUrl,
     serviceKey: overseasCovidServiceKey,
@@ -100,6 +100,6 @@ export async function getStaticProps() {
       overseasCovidItems,
     },
   };
-}
+};
 
 export default Overseas;

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { GetStaticProps } from "next";
 import axios from "axios";
 import { DomesticCovidService, DomesticRegionCovidService } from "../env";
 import { NATION } from "../types";
@@ -11,7 +11,6 @@ const Home = ({ domesticCovidItems, domesticRegionCovidItems }) => {
   const todayCovidItems = domesticRegionCovidItems.slice(0, 19);
   const yesterdayCovidItems = domesticRegionCovidItems.slice(19, 38);
   const dayBeforeYesterdayCovidItems = domesticRegionCovidItems.slice(38, 57);
-
 
   return (
     <div className="w-full h-full flex flex-col flex-1 bg-blue-100 overflow-auto dark:bg-gray-800">
@@ -28,7 +27,7 @@ const Home = ({ domesticCovidItems, domesticRegionCovidItems }) => {
   );
 };
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   const {
     baseUrl: domesticCovidBaseUrl,
     serviceKey: domesticCovidServiceKey,
@@ -73,6 +72,6 @@ export async function getStaticProps() {
       domesticRegionCovidItems,
     },
   };
-}
+};
 
 export default Home;

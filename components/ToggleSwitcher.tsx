@@ -21,20 +21,20 @@ const ToggleSwitcher = () => {
 
   // TODO)
   useEffect(() => {
-    if (theme === "dark") toggleEl.current.classList.add("bg-gray-700", "translate-x-full");
-    else toggleEl.current.classList.add("bg-yellow-500", "-translate-x-2");
+    if (theme === "light") toggleEl.current.classList.add("bg-yellow-500", "-translate-x-2");
+    else toggleEl.current.classList.add("bg-gray-700", "translate-x-full");
   }, []);
 
   return (
     <button
-      className="w-20 h-10 rounded-full bg-white flex items-center transition duration-300"
+      className="w-20 h-10 rounded-full bg-white flex items-center transition duration-300 focus:outline-none"
       onClick={toggleHandler}
     >
       <div
         className="w-12 h-10 relative rounded-full transition duration-500 transform p-1 text-white leading-10"
         ref={toggleEl}
       >
-        {!theme || theme === "light" ? (
+        {theme && theme === "light" ? (
           <FontAwesomeIcon icon={faSun} size="2x" />
         ) : (
           <FontAwesomeIcon icon={faMoon} size="2x" />
