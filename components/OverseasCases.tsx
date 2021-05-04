@@ -1,19 +1,28 @@
-import IncreaseDecrease from "./IncreaseDecrease";
 import { toComma } from "../utils";
+import Case from "./Case";
 
-const OverseasCases = ({ todayAllDecideCnt, todayAllDeathCnt, yesterdayAllDecideCnt, yesterdayAllDeathCnt }) => {
+const OverseasCases = ({ accOverseasCovidItemInfos, yesterdayAccOverseasCovidItemInfos }) => {
+  const caseInfosItems = [
+    ["Confirmed", "rgba(248, 113, 113, 1)"],
+    ["Deaths", "rgba(0, 0, 0, 1)"],
+  ].map(([caseType, color], index) => ({
+    caseType,
+    caseCnt: toComma(accOverseasCovidItemInfos[index]),
+    caseIncreaseDecrease: accOverseasCovidItemInfos[index] - yesterdayAccOverseasCovidItemInfos[index],
+    color,
+  }));
+
   return (
-    <div className="w-1/2 h-32 flex flex-row flex-1 justify-evenly m-auto mt-16">
-      <div className="w-40 h-24 bg-blue-50 flex flex-col justify-center items-center shadow-lg rounded-md text-red-500 dark:bg-gray-600 dark:border-gray-500">
-        <div className="text-lg leading-4 tracking-wide">Confirmed</div>
-        <div className="text-sm leading-8 tracking-wide">{toComma(todayAllDecideCnt)}</div>
-        <IncreaseDecrease increaseDecreaseNumber={todayAllDecideCnt - yesterdayAllDecideCnt} />
-      </div>
-      <div className="w-40 h-24 bg-blue-50 flex flex-col justify-center items-center shadow-lg rounded-md text-black dark:bg-gray-600 dark:border-gray-500">
-        <div className="text-lg leading-4 tracking-wide">Deaths</div>
-        <div className="text-sm leading-8 tracking-wide">{toComma(yesterdayAllDecideCnt)}</div>
-        <IncreaseDecrease increaseDecreaseNumber={todayAllDeathCnt - yesterdayAllDeathCnt} />
-      </div>
+    <div className="lg:w-3/5 mx-auto flex justify-evenly m-auto mt-16 pb-10 mb-10 border-b border-gray-200">
+      {caseInfosItems.map(({ caseType, caseCnt, caseIncreaseDecrease, color }, index) => (
+        <Case
+          key={index}
+          caseType={caseType}
+          caseCnt={caseCnt}
+          caseIncreaseDecrease={caseIncreaseDecrease}
+          color={color}
+        />
+      ))}
     </div>
   );
 };

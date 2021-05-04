@@ -22,8 +22,11 @@ const Overseas = ({ overseasCovidItems }) => {
   const [dayBeforeYesterdayCovidItems, setDayBeforeYesterdayCovidItems] = useState([]);
   const dayBeforeYesterdayCovidItemsStartIndex = 380;
 
-  const [todayAllDecideCnt, todayAllDeathCnt] = getAllDecideDeathCnt(overseasCovidItems.slice(0, 190));
-  const [yesterdayAllDecideCnt, yesterdayAllDeathCnt] = getAllDecideDeathCnt(overseasCovidItems.slice(190, 380));
+  const [accDecideCnt, accDeathCnt] = getAllDecideDeathCnt(overseasCovidItems.slice(0, 190));
+  const [yesterdayaccDecideCnt, yesterdayAccDeathCnt] = getAllDecideDeathCnt(overseasCovidItems.slice(190, 380));
+
+  const accOverseasCovidItemInfos = [accDecideCnt, accDeathCnt];
+  const yesterdayAccOverseasCovidItemInfos = [yesterdayaccDecideCnt, yesterdayAccDeathCnt];
 
   const overseasChartData = getOverseasChartDataForm(overseasCovidItems);
 
@@ -54,14 +57,12 @@ const Overseas = ({ overseasCovidItems }) => {
   }, [page]);
 
   return (
-    <div className="w-screen h-screen flex flex-col flex-1 bg-blue-100 overflow-auto dark:bg-gray-800">
+    <div className="w-screen h-screen mx-auto px-5 py-12 overflow-auto bg-gray-200 dark:bg-gray-800">
       <Header nation={NATION.OVERSEAS} />
       <Navbar />
       <OverseasCases
-        todayAllDecideCnt={todayAllDecideCnt}
-        todayAllDeathCnt={todayAllDeathCnt}
-        yesterdayAllDecideCnt={yesterdayAllDecideCnt}
-        yesterdayAllDeathCnt={yesterdayAllDeathCnt}
+        accOverseasCovidItemInfos={accOverseasCovidItemInfos}
+        yesterdayAccOverseasCovidItemInfos={yesterdayAccOverseasCovidItemInfos}
       />
       <OverseasChartByDate overseasChartData={overseasChartData} />
       <OverseasRegionTable

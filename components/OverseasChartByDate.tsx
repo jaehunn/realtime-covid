@@ -43,7 +43,7 @@ const OverseasChartByDate = ({ overseasChartData }) => {
   };
 
   return (
-    <div className="w-1/2 h-3/5 bg-blue-50 m-auto mt-16 shadow-lg rounded-md dark:bg-gray-600">
+    <div className="lg:w-3/5 pb-10 mb-10 mx-auto border-b border-gray-800 rounded-md bg-blue-50 dark:bg-gray-600">
       <div className="flex">
         <select
           className="flex flex-start text-sm leading-2 rounded-full py-1 px-2 bg-blue-100 border-2 border-blue-400 border-opacity-75 m-4 cursor-pointer outline-none dark:bg-gray-500"

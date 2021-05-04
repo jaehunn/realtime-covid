@@ -8,15 +8,37 @@ import { Header, Navbar, Cases, ChartByDate, RegionTable } from "../components";
 const Home = ({ domesticCovidItems, domesticRegionCovidItems }) => {
   const [accCovidItem, yesterdayAccCovidItem] = domesticCovidItems;
 
+  const {
+    decideCnt: accDecideCnt,
+    deathCnt: accDeathCnt,
+    clearCnt: accClearCnt,
+    accExamCnt: accExamCnt,
+  } = accCovidItem;
+
+  const {
+    decideCnt: yesterdayAccDecideCnt,
+    deathCnt: yesterdayAccDeathCnt,
+    clearCnt: yesterdayAccClearCnt,
+    accExamCnt: yesterdayAccExamCnt,
+  } = yesterdayAccCovidItem;
+
+  const accCovidItemInfos = [accDecideCnt, accDeathCnt, accClearCnt, accExamCnt];
+  const yesterdayAccCovidItemInfos = [
+    yesterdayAccDecideCnt,
+    yesterdayAccDeathCnt,
+    yesterdayAccClearCnt,
+    yesterdayAccExamCnt,
+  ];
+
   const todayCovidItems = domesticRegionCovidItems.slice(0, 19);
   const yesterdayCovidItems = domesticRegionCovidItems.slice(19, 38);
   const dayBeforeYesterdayCovidItems = domesticRegionCovidItems.slice(38, 57);
 
   return (
-    <div className="w-full h-full flex flex-col flex-1 bg-blue-100 overflow-auto dark:bg-gray-800">
+    <div className="container mx-auto px-5 py-12 bg-gray-200 dark:bg-gray-800">
       <Header nation={NATION.DOMESTIC} />
       <Navbar />
-      <Cases accCovidItem={accCovidItem} yesterdayAccCovidItem={yesterdayAccCovidItem} />
+      <Cases accCovidItemInfos={accCovidItemInfos} yesterdayAccCovidItemInfos={yesterdayAccCovidItemInfos} />
       <ChartByDate domesticCovidItems={domesticCovidItems} />
       <RegionTable
         todayCovidItems={todayCovidItems}
