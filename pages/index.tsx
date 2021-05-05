@@ -1,7 +1,6 @@
 import { GetStaticProps } from "next";
 import axios from "axios";
 import { DomesticCovidService, DomesticRegionCovidService } from "../env";
-import { NATION } from "../types";
 
 import { Header, Navbar, Cases, ChartByDate, RegionTable } from "../components";
 
@@ -36,7 +35,7 @@ const Home = ({ domesticCovidItems, domesticRegionCovidItems }) => {
 
   return (
     <div className="container mx-auto px-5 py-12 bg-gray-200 dark:bg-gray-800">
-      <Header nation={NATION.DOMESTIC} />
+      <Header title={"Domestic"} />
       <Navbar />
       <Cases accCovidItemInfos={accCovidItemInfos} yesterdayAccCovidItemInfos={yesterdayAccCovidItemInfos} />
       <ChartByDate domesticCovidItems={domesticCovidItems} />

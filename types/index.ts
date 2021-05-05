@@ -16,11 +16,3 @@ export interface CasesProps {}
 export interface ChartByDateProps {}
 
 export interface DomesticCovidItemTypes {}
-
-export interface HeaderProps {
-  nation: NATION;
-}
-export enum NATION {
-  DOMESTIC = "Domestic",
-  OVERSEAS = "Overseas",
-}

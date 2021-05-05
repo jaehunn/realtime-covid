@@ -12,3 +12,4 @@ export { default as RegionTable } from "./RegionTable";
 export { default as OverseasCases } from "./OverseasCases";
 export { default as OverseasChartByDate } from "./OverseasChartByDate";
 export { default as OverseasRegionTable } from "./OverseasRegionTable";
+export { default as VaccineCases } from "./VaccineCases";

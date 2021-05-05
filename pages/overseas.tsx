@@ -3,7 +3,6 @@ import { GetStaticProps } from "next";
 import axios from "axios";
 import { OverseasCovidService } from "../env";
 import { getAllDecideDeathCnt, getOverseasChartDataForm } from "../utils";
-import { NATION } from "../types";
 
 import { Header, Navbar, OverseasCases, OverseasRegionTable, OverseasChartByDate } from "../components";
 
@@ -58,7 +57,7 @@ const Overseas = ({ overseasCovidItems }) => {
 
   return (
     <div className="w-screen h-screen mx-auto px-5 py-12 overflow-auto bg-gray-200 dark:bg-gray-800">
-      <Header nation={NATION.OVERSEAS} />
+      <Header title={"Overseas"} />
       <Navbar />
       <OverseasCases
         accOverseasCovidItemInfos={accOverseasCovidItemInfos}

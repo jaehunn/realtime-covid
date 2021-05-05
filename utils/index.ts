@@ -226,6 +226,13 @@ export const requestFormatDate = ([currentYear, currentMonth, currentDays]: stri
   return `${currentYear}${currentMonth}${currentDays}`;
 };
 
+export const requestFormatVaccineDate = ([currentYear, currentMonth, currentDays]: string[]) => {
+  if (currentMonth.length < 2) currentMonth = "0" + currentMonth;
+  if (currentDays.length < 2) currentDays = "0" + currentDays;
+
+  return `${currentYear}-${currentMonth}-${currentDays}`;
+};
+
 export const getDate = (minusDay = 0) => {
   let currentDate = new Date();
 

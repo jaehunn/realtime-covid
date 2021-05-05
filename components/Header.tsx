@@ -1,7 +1,6 @@
 import Link from "next/link";
-import { HeaderProps } from "../types";
 
-const Header = ({ nation }: HeaderProps) => {
+const Header = ({ title }) => {
   return (
     <div className="text-center dark:text-gray-200">
       <h1 className="text-5xl">
@@ -10,7 +9,7 @@ const Header = ({ nation }: HeaderProps) => {
         </Link>
         <br />
         <Link href="#" as="/">
-          <a className="text-3xl">{nation}</a>
+          <a className="text-3xl">{title}</a>
         </Link>
       </h1>
     </div>
