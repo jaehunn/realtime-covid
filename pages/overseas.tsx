@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { GetStaticProps } from "next";
 import axios from "axios";
 import { OverseasCovidService } from "../env";
-import { getAllDecideDeathCnt, getOverseasChartDataForm } from "../utils";
+import { getAllDecideDeathCnt, getOverseasChartDataForm, toComma } from "../utils";
 
-import { Header, Navbar, OverseasCases, OverseasRegionTable, OverseasChartByDate } from "../components";
+import { Header, Navbar, ChartByDate, OverseasRegionTable, Cases } from "../components";
 
 // TODO) 국기를 어떻게 뽑아올까
 // TODO) 로드가 느리다. 어떻게 해결할까.
@@ -18,8 +18,8 @@ const Overseas = ({ overseasCovidItems }) => {
   const [yesterdayOverseasCovidItems, setYesterdayOverseasCovidItems] = useState([]);
   const yesterdayOverseasCovidItemsStartIndex = 190;
 
-  const [dayBeforeYesterdayCovidItems, setDayBeforeYesterdayCovidItems] = useState([]);
-  const dayBeforeYesterdayCovidItemsStartIndex = 380;
+  const [dayBeforeYesterdayOverseasCovidItems, setDayBeforeYesterdayOverseasCovidItems] = useState([]);
+  const dayBeforeYesterdayOverseasCovidItemsStartIndex = 380;
 
   const [accDecideCnt, accDeathCnt] = getAllDecideDeathCnt(overseasCovidItems.slice(0, 190));
   const [yesterdayaccDecideCnt, yesterdayAccDeathCnt] = getAllDecideDeathCnt(overseasCovidItems.slice(190, 380));
@@ -28,6 +28,31 @@ const Overseas = ({ overseasCovidItems }) => {
   const yesterdayAccOverseasCovidItemInfos = [yesterdayaccDecideCnt, yesterdayAccDeathCnt];
 
   const overseasChartData = getOverseasChartDataForm(overseasCovidItems);
+
+  const caseInfosItems = [
+    ["Confirmed", "rgba(248, 113, 113, 1)"],
+    ["Deaths", "rgba(0, 0, 0, 1)"],
+  ].map(([caseType, color], index) => ({
+    caseType,
+    caseCnt: toComma(accOverseasCovidItemInfos[index]),
+    caseIncreaseDecrease: accOverseasCovidItemInfos[index] - yesterdayAccOverseasCovidItemInfos[index],
+    color,
+  }));
+
+  const chartSelectOptions = {
+    firstOptions: [
+      { value: "decideCnt", name: "Confirmed" },
+      { value: "deathCnt", name: "Deaths" },
+    ],
+    secondOptions: [
+      {
+        value: "daily",
+        name: "Daily",
+      },
+      { value: "weekly", name: "Weekly" },
+      { value: "monthly", name: "Monthly" },
+    ],
+  };
 
   // TODO) 매번 자르는게아니라 이어붙히고싶다.
   useEffect(() => {
@@ -46,28 +71,25 @@ const Overseas = ({ overseasCovidItems }) => {
         )
       );
 
-      setDayBeforeYesterdayCovidItems(
+      setDayBeforeYesterdayOverseasCovidItems(
         overseasCovidItems.slice(
-          dayBeforeYesterdayCovidItemsStartIndex,
-          dayBeforeYesterdayCovidItemsStartIndex + REGION_ITEMS_PER_PAGE * page
+          dayBeforeYesterdayOverseasCovidItemsStartIndex,
+          dayBeforeYesterdayOverseasCovidItemsStartIndex + REGION_ITEMS_PER_PAGE * page
         )
       );
     }
   }, [page]);
 
   return (
-    <div className="w-screen h-screen mx-auto px-5 py-12 overflow-auto bg-gray-200 dark:bg-gray-800">
+    <div className="container mx-auto px-5 py-12 bg-gray-200 dark:bg-gray-800 overflow-auto">
       <Header title={"Overseas"} />
       <Navbar />
-      <OverseasCases
-        accOverseasCovidItemInfos={accOverseasCovidItemInfos}
-        yesterdayAccOverseasCovidItemInfos={yesterdayAccOverseasCovidItemInfos}
-      />
-      <OverseasChartByDate overseasChartData={overseasChartData} />
+      <Cases caseInfosItems={caseInfosItems} />
+      <ChartByDate chartData={overseasChartData} chartSelectOptions={chartSelectOptions} />
       <OverseasRegionTable
         todayOverseasCovidItems={todayOverseasCovidItems}
         yesterdayOverseasCovidItems={yesterdayOverseasCovidItems}
-        dayBeforeYesterdayCovidItems={dayBeforeYesterdayCovidItems}
+        dayBeforeYesterdayOverseasCovidItems={dayBeforeYesterdayOverseasCovidItems}
         page={page}
         setPage={setPage}
       />

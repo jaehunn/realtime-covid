@@ -1,12 +1,8 @@
 import { toIncreaseDecreaseNumber, getSignNumber } from "../utils";
-import IncreaseDecreaseIcon from "./IncreaseDecreaseIcon";
+import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-interface IncreaseDecreaseProps {
-  increaseDecreaseNumber: number;
-  hasTextColor?: boolean;
-}
-
-const IncreaseDecrease = ({ increaseDecreaseNumber, hasTextColor = true }: IncreaseDecreaseProps) => {
+const IncreaseDecrease = ({ increaseDecreaseNumber, hasTextColor = true }) => {
   let signNumber = getSignNumber(increaseDecreaseNumber);
 
   return (
@@ -17,6 +13,20 @@ const IncreaseDecrease = ({ increaseDecreaseNumber, hasTextColor = true }: Incre
       <IncreaseDecreaseIcon increaseDecreaseNumber={increaseDecreaseNumber} />{" "}
       {toIncreaseDecreaseNumber(increaseDecreaseNumber)}
     </div>
+  );
+};
+
+const IncreaseDecreaseIcon = ({ increaseDecreaseNumber }) => {
+  return (
+    <>
+      {getSignNumber(increaseDecreaseNumber) === 1 ? (
+        <FontAwesomeIcon icon={faArrowUp} />
+      ) : getSignNumber(increaseDecreaseNumber) === -1 ? (
+        <FontAwesomeIcon icon={faArrowDown} />
+      ) : (
+        <></>
+      )}
+    </>
   );
 };
 

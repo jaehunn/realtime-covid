@@ -78,8 +78,6 @@ export const getChartDataSetsData = (covidItems, { firstOption, secondOption }) 
 
       const data = [];
 
-      console.log(covidItems.slice(0, 30));
-
       covidItems.slice(0, 30).forEach((item, index) => {
         const targetDate = new Date(item.createDt);
 
@@ -90,8 +88,6 @@ export const getChartDataSetsData = (covidItems, { firstOption, secondOption }) 
             startDaySelectOption = item[firstOption];
 
             data.unshift(endDaySelectOption - startDaySelectOption);
-
-            console.log(data);
 
             startDaySelectOption = 0;
             endDaySelectOption = 0;
