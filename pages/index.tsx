@@ -106,17 +106,28 @@ export const getStaticProps: GetStaticProps = async () => {
     endCreateDt: domesticRegionCovidEndCreateDt,
   } = domesticRegionCovidParams;
 
-  const { data: domesticCovidData } = await axios.get(
-    `${domesticCovidBaseUrl}?serviceKey=${domesticCovidServiceKey}&pageNo=${domesticCovidPageNo}&numOfRows=${domesticCovidNumOfRows}&startCreateDt=${domesticCovidStartCreateDt}&endCreateDt=${domesticCovidEndCreateDt}`
-  );
+  let domesticCovidItems = [];
+  let domesticRegionCovidItems = [];
 
-  const domesticCovidItems = await domesticCovidData.response.body.items.item;
+  try {
+    const { data: domesticCovidData } = await axios.get(
+      `${domesticCovidBaseUrl}?serviceKey=${domesticCovidServiceKey}&pageNo=${domesticCovidPageNo}&numOfRows=${domesticCovidNumOfRows}&startCreateDt=${domesticCovidStartCreateDt}&endCreateDt=${domesticCovidEndCreateDt}`
+    );
 
-  const { data: domesticRegionCovidData } = await axios.get(
-    `${domesticRegionCovidBaseUrl}?serviceKey=${domesticRegionCovidServiceKey}&pageNo=${domesticRegionCovidPageNo}&numOfRows=${domesticRegionCovidNumOfRows}&startCreateDt=${domesticRegionCovidStartCreateDt}&endCreateDt=${domesticRegionCovidEndCreateDt}`
-  );
+    domesticCovidItems = await domesticCovidData.response.body.items.item;
+  } catch (err) {
+    console.error(err);
+  }
 
-  const domesticRegionCovidItems = await domesticRegionCovidData.response.body.items.item;
+  try {
+    const { data: domesticRegionCovidData } = await axios.get(
+      `${domesticRegionCovidBaseUrl}?serviceKey=${domesticRegionCovidServiceKey}&pageNo=${domesticRegionCovidPageNo}&numOfRows=${domesticRegionCovidNumOfRows}&startCreateDt=${domesticRegionCovidStartCreateDt}&endCreateDt=${domesticRegionCovidEndCreateDt}`
+    );
+
+    domesticRegionCovidItems = await domesticRegionCovidData.response.body.items.item;
+  } catch (err) {
+    console.error(err);
+  }
 
   return {
     props: {

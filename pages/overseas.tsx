@@ -111,11 +111,17 @@ export const getStaticProps: GetStaticProps = async () => {
     endCreateDt: overseasCovidEndCreateDt,
   } = overseasCovidParams;
 
-  const { data: _overseasCovidData } = await axios.get(
-    `${overseasCovidBaseUrl}?serviceKey=${overseasCovidServiceKey}&pageNo=${overseasCovidPageNo}&numOfRows=${overseasCovidNumOfRows}&startCreateDt=${overseasCovidStartCreateDt}&endCreateDt=${overseasCovidEndCreateDt}`
-  );
+  let overseasCovidItems = [];
 
-  const overseasCovidItems = await _overseasCovidData.response.body.items.item;
+  try {
+    const { data: _overseasCovidData } = await axios.get(
+      `${overseasCovidBaseUrl}?serviceKey=${overseasCovidServiceKey}&pageNo=${overseasCovidPageNo}&numOfRows=${overseasCovidNumOfRows}&startCreateDt=${overseasCovidStartCreateDt}&endCreateDt=${overseasCovidEndCreateDt}`
+    );
+
+    overseasCovidItems = await _overseasCovidData.response.body.items.item;
+  } catch (err) {
+    console.error(err);
+  }
 
   return {
     props: {
