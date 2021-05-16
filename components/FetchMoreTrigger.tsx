@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 
 const FetchMoreTrigger = ({ page, setPage }) => {
   const fetchMoreTriggerEl = useRef(null);
@@ -19,4 +19,4 @@ const FetchMoreTrigger = ({ page, setPage }) => {
   return <div className="absolute bottom-0 left-0 right-0" ref={fetchMoreTriggerEl}></div>;
 };
 
-export default FetchMoreTrigger;
+export default React.memo(FetchMoreTrigger);

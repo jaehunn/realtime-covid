@@ -19,7 +19,6 @@ const ToggleSwitcher = () => {
     }
   };
 
-  // TODO)
   useEffect(() => {
     if (theme === "light") toggleEl.current.classList.add("bg-yellow-500", "-translate-x-2");
     else toggleEl.current.classList.add("bg-gray-700", "translate-x-full");
@@ -44,4 +43,4 @@ const ToggleSwitcher = () => {
   );
 };
 
-export default ToggleSwitcher;
+export default React.memo(ToggleSwitcher);

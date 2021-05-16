@@ -1,3 +1,4 @@
+import React from "react";
 import ToggleSwitcher from "./ToggleSwitcher";
 import Link from "next/link";
 
@@ -12,21 +13,19 @@ const Navbar = () => {
     { name: "Vaccine", href: "/vaccine" },
   ];
 
-  const NavLink = (href: string, name: string, index: number) => (
-    <Link key={index} href={href} passHref>
-      <span className="w-28 h-10 flex justify-start items-center p-6 shadow-lg rounded-lg bg-blue-50 dark:bg-gray-600 dark:border-gray-500 cursor-pointer">
-        <a>{name}</a>
-      </span>
-    </Link>
-  );
-
   return (
     <div className="fixed flex flex-col top-1/4 left-full transform -translate-x-full dark:text-gray-200 pr-8 z-10">
-      {navInfos.map(({ name, href }, index) => NavLink(href, name, index))}
+      {navInfos.map(({ name, href }, index) => (
+        <Link key={index} href={href}>
+          <span className="w-28 h-10 flex justify-start items-center p-6 shadow-lg rounded-lg bg-blue-50 dark:bg-gray-600 dark:border-gray-500 cursor-pointer">
+            <a>{name}</a>
+          </span>
+        </Link>
+      ))}
 
       <ToggleSwitcher />
     </div>
   );
 };
 
-export default Navbar;
+export default React.memo(Navbar);

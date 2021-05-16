@@ -49,4 +49,4 @@ const ChartByDate = ({ chartData, chartSelectOptions }) => {
   );
 };
 
-export default ChartByDate;
+export default React.memo(ChartByDate);

@@ -20,4 +20,4 @@ const SelectOption = ({ selectOptions }) => {
   );
 };
 
-export default SelectOption;
+export default React.memo(SelectOption);

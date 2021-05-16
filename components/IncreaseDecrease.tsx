@@ -1,3 +1,4 @@
+import React from "react";
 import { toIncreaseDecreaseNumber, getSignNumber } from "../utils";
 import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -30,4 +31,4 @@ const IncreaseDecreaseIcon = ({ increaseDecreaseNumber }) => {
   );
 };
 
-export default IncreaseDecrease;
+export default React.memo(IncreaseDecrease);

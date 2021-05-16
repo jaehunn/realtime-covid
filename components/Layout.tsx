@@ -1,3 +1,4 @@
+import React from "react";
 import Head from "next/head";
 
 interface LayoutProps {
@@ -31,4 +32,4 @@ const Layout = ({ children }: LayoutProps) => {
   );
 };
 
-export default Layout;
+export default React.memo(Layout);

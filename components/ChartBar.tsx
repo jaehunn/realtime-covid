@@ -68,4 +68,4 @@ const ChartBar = ({ labels, data, barOptions = {} }) => {
   );
 };
 
-export default ChartBar;
+export default React.memo(ChartBar);
