@@ -7,8 +7,6 @@ import { getVaccineChartDataForm, toComma } from "../utils";
 import VaccineChartByDate from "../components/VaccineChartByDate"; // 추상화 필요
 
 const Vaccine = ({ vaccineItems }) => {
-  console.log(vaccineItems);
-
   const accVaccineItem = vaccineItems[vaccineItems.length - 18];
 
   const caseInfosItems = [
@@ -35,7 +33,6 @@ const Vaccine = ({ vaccineItems }) => {
         name: "Daily",
       },
       { value: "weekly", name: "Weekly" },
-      { value: "monthly", name: "Monthly" },
     ],
   };
 

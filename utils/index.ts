@@ -17,7 +17,6 @@ const DAYS_PER_MONTH = {
 
 export const getVaccineChartDataForm = (vaccineItems) => {
   let startIndex = vaccineItems.length - 18;
-  let currentIndex = 0;
 
   const chartFormVaccineItems = [];
 
@@ -25,16 +24,12 @@ export const getVaccineChartDataForm = (vaccineItems) => {
     const vaccineItem = vaccineItems[index];
 
     const accVaccinatedCnt = vaccineItem.firstCnt + vaccineItem.secondCnt;
-    const totalAccVaccinatedCnt = vaccineItem.totalFirstCnt + vaccineItem.totalSecondCnt;
 
     chartFormVaccineItems.push({
-      seq: currentIndex,
+      seq: index,
       createDt: vaccineItem.baseDate,
       accVaccinatedCnt,
-      totalAccVaccinatedCnt,
     });
-
-    currentIndex += 1;
   }
 
   return chartFormVaccineItems;
@@ -66,7 +61,11 @@ export const getOverseasChartDataForm = (overseasCovidItems) => {
 };
 
 export const getVaccineChartDataSetsData = (vaccineItems, { secondOption }) => {
-  if (secondOption === "daily") return vaccineItems.slice(0, 7).map(({ accVaccinatedCnt }) => accVaccinatedCnt);
+  if (secondOption === "daily")
+    return vaccineItems
+      .slice(0, 7)
+      .sort((itemA, itemB) => itemA.seq - itemB.seq)
+      .map(({ accVaccinatedCnt }) => accVaccinatedCnt);
 
   if (secondOption === "weekly") {
     let accVaccinatedCntPerWeek = 0;
@@ -86,47 +85,6 @@ export const getVaccineChartDataSetsData = (vaccineItems, { secondOption }) => {
     if (data.length > 4) return data.slice(0, 4);
 
     return data;
-  }
-
-  // TODO) 구현해보자
-  if (secondOption === "monthly") {
-    let accVaccinatedCntPerMonth = 0;
-
-    const data = [];
-
-    let currentMonth = new Date(vaccineItems[0].createDt).getMonth() + 1;
-
-    vaccineItems.forEach(({ createDt, accVaccinatedCnt }, index) => {
-      const targetDate = new Date(createDt);
-      const targetMonth = targetDate.getMonth() + 1;
-
-      if (targetMonth % 12 === currentMonth) accVaccinatedCntPerMonth += accVaccinatedCnt;
-      else if ((targetMonth % 12) + 1 === currentMonth) {
-        data.unshift(accVaccinatedCntPerMonth);
-
-        accVaccinatedCntPerMonth = 0;
-
-        currentMonth = targetDate.getMonth() + 1;
-      }
-
-      if (index === vaccineItems.length - 1) data.unshift(accVaccinatedCntPerMonth);
-    });
-
-    return data;
-  }
-};
-
-export const getVaccineChartLabels = (vaccineItems, { secondOption }) => {
-  if (secondOption === "daily") {
-    // ...
-  }
-
-  if (secondOption === "weekly") {
-    // ...
-  }
-
-  if (secondOption === "monthly") {
-    // ...
   }
 };
 
@@ -220,7 +178,7 @@ export const getChartDataSetsData = (covidItems, { firstOption, secondOption }) 
   }
 };
 
-export const getChartLabels = (covidItems, { firstOption, secondOption }) => {
+export const getChartLabels = (covidItems, { firstOption = {}, secondOption }) => {
   if (secondOption === "daily") {
     return covidItems
       .slice(0, 8)

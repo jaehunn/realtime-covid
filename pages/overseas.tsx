@@ -9,7 +9,7 @@ import { Header, Navbar, ChartByDate, OverseasRegionTable, Cases } from "../comp
 // TODO) 국기를 어떻게 뽑아올까
 // TODO) 로드가 느리다. 어떻게 해결할까.
 const Overseas = ({ overseasCovidItems }) => {
-  const REGION_ITEMS_PER_PAGE = 38; // 38 * 5 = 190
+  const REGION_ITEMS_PER_PAGE = 38;
   const [page, setPage] = useState(1);
 
   const [todayOverseasCovidItems, setTodayOverseasCovidItems] = useState([]);

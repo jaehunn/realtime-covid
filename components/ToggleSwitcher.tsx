@@ -26,7 +26,7 @@ const ToggleSwitcher = () => {
 
   return (
     <button
-      className="w-20 h-10 rounded-full bg-white flex items-center transition duration-300 focus:outline-none"
+      className="w-20 h-10 mt-10 rounded-full bg-white flex items-center transition duration-300 focus:outline-none"
       onClick={toggleHandler}
     >
       <div

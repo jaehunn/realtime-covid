@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { getChartDataSetsData, getChartLabels, getVaccineChartDataSetsData } from "../utils";
+import { getChartLabels, getVaccineChartDataSetsData } from "../utils";
 import { SelectOption, ChartBar } from "../components";
 
 const VaccineChartByDate = ({ chartData, chartSelectOptions }) => {
@@ -14,13 +14,10 @@ const VaccineChartByDate = ({ chartData, chartSelectOptions }) => {
 
   useEffect(() => {
     const chartSetsData = getVaccineChartDataSetsData(chartData, options);
-
-    console.log(chartSetsData);
-
     setChartDataSetsData(chartSetsData);
 
-    // const chartLabels = getChartLabels(chartData, options);
-    // setChartLabels(chartLabels);
+    const chartLabels = getChartLabels(chartData, options);
+    setChartLabels(chartLabels);
   }, [options]);
 
   const secondOptionChangeHandler: React.ChangeEventHandler<HTMLSelectElement> = ({
