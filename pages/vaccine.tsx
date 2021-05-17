@@ -2,34 +2,33 @@ import axios from "axios";
 import { GetStaticProps } from "next";
 import { VaccineService } from "../env";
 import { Cases, Header, Navbar } from "../components";
-import { toComma } from "../utils";
+import { getVaccineChartDataForm, toComma } from "../utils";
+
+import VaccineChartByDate from "../components/VaccineChartByDate"; // 추상화 필요
 
 const Vaccine = ({ vaccineItems }) => {
   console.log(vaccineItems);
 
+  const accVaccineItem = vaccineItems[vaccineItems.length - 18];
+
   const caseInfosItems = [
     {
       caseType: "1st Vaccinated",
-      caseCnt: toComma(vaccineItems[vaccineItems.length - 1].totalFirstCnt),
-      caseIncreaseDecrease: vaccineItems[vaccineItems.length - 1].firstCnt,
+      caseCnt: toComma(accVaccineItem.totalFirstCnt),
+      caseIncreaseDecrease: accVaccineItem.firstCnt,
       color: "rgba(52, 211, 153, 1)",
     },
     {
       caseType: "2nd Vaccinated",
-      caseCnt: toComma(vaccineItems[vaccineItems.length - 1].totalSecondCnt),
-      caseIncreaseDecrease: vaccineItems[vaccineItems.length - 1].secondCnt,
+      caseCnt: toComma(accVaccineItem.totalSecondCnt),
+      caseIncreaseDecrease: accVaccineItem.secondCnt,
       color: "rgba(96, 165, 250, 1)",
     },
   ];
 
+  const vaccineChartData = getVaccineChartDataForm(vaccineItems);
+
   const chartSelectOptions = {
-    firstOptions: [
-      { value: "decideCnt", name: "Confirmed" },
-      { value: "deathCnt", name: "Deaths" },
-      { value: "clearCnt", name: "Recovered" },
-      { value: "accExamCnt", name: "Tested" },
-      { value: "decideRate", name: "Confirmed Rate" },
-    ],
     secondOptions: [
       {
         value: "daily",
@@ -41,11 +40,11 @@ const Vaccine = ({ vaccineItems }) => {
   };
 
   return (
-    <div className="w-screen h-screen mx-auto px-5 py-12 overflow-auto bg-gray-200 dark:bg-gray-800">
+    <div className="container mx-auto px-5 py-12 bg-gray-200 dark:bg-gray-800 overflow-auto">
       <Header title={"Vaccine"} />
       <Navbar />
       <Cases caseInfosItems={caseInfosItems} />
-      {/* <ChartByDate /> */}
+      <VaccineChartByDate chartData={vaccineChartData} chartSelectOptions={chartSelectOptions} />
     </div>
   );
 };
