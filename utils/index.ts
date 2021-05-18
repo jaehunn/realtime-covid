@@ -75,7 +75,7 @@ export const getVaccineChartDataSetsData = (vaccineItems, { secondOption }) => {
     vaccineItems.slice(0, 30).forEach(({ accVaccinatedCnt }, index) => {
       accVaccinatedCntPerWeek += accVaccinatedCnt;
 
-      if (index % 7 === 0) {
+      if ((index + 1) % 7 === 0) {
         data.unshift(accVaccinatedCntPerWeek);
 
         accVaccinatedCntPerWeek = 0;
@@ -127,16 +127,20 @@ export const getChartDataSetsData = (covidItems, { firstOption, secondOption }) 
       const data = [];
 
       covidItems.slice(0, 30).forEach((item, index) => {
-        if (endDaySelectOption === 0) endDaySelectOption = item[firstOption];
-        else if (index % 7 === 0) {
+        if (endDaySelectOption === 0) {
+          endDaySelectOption = item[firstOption];
+          console.log(item.createDt);
+        } else if ((index + 1) % 7 === 0) {
           startDaySelectOption = item[firstOption];
 
+          console.log(item.createDt);
           data.unshift(endDaySelectOption - startDaySelectOption);
 
           startDaySelectOption = 0;
           endDaySelectOption = 0;
         }
       });
+      console.log(data);
 
       if (data.length > 4) return data.slice(0, 4);
 
@@ -198,21 +202,14 @@ export const getChartLabels = (covidItems, { firstOption = {}, secondOption }) =
     const labels = [];
 
     covidItems.slice(0, 29).forEach((item, index) => {
-      const targetDate = new Date(item.createDt);
+      if (endDate === "") endDate = item.createDt;
+      else if ((index + 1) % 7 === 0) {
+        startDate = item.createDt;
 
-      // 뜬금없는 날짜가 끼워져있다.
-      // guard, 오차 검증
-      const currentDate = new Date();
-      if (Math.abs(currentDate.getMonth() - targetDate.getMonth()) <= 1) {
-        if (endDate === "") endDate = item.createDt;
-        else if (index % 7 === 0) {
-          startDate = item.createDt;
+        labels.unshift(`${getFormatDate(startDate)} ~ ${getFormatDate(endDate)}`);
 
-          labels.unshift(`${getFormatDate(startDate)} ~ ${getFormatDate(endDate)}`);
-
-          startDate = "";
-          endDate = "";
-        }
+        startDate = "";
+        endDate = "";
       }
     });
 
