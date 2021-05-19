@@ -1,5 +1,5 @@
 import React from "react";
-import { IncreaseDecrease } from "../components";
+import { IncreaseDecrease } from "../components/shared";
 import { toComma } from "../utils";
 
 const OverseasRegionItem = ({ region, confirmed, confirmedIncreaseDecrease, deaths, deathsIncreaseDecrease }) => {

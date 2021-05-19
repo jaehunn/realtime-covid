@@ -1,8 +1,8 @@
 import axios from "axios";
-import { GetStaticProps } from "next";
-import { VaccineService } from "../env";
-import { Cases, Header, Navbar } from "../components";
+import { Header, Navbar, Cases } from "../components/shared";
 import { getVaccineChartDataForm, toComma } from "../utils";
+import { VaccineService } from "../env";
+import { vaccineChartSelectOptions } from "../data";
 
 import VaccineChartByDate from "../components/VaccineChartByDate"; // 추상화 필요
 
@@ -14,39 +14,29 @@ const Vaccine = ({ vaccineItems }) => {
       caseType: "1st Vaccinated",
       caseCnt: toComma(accVaccineItem.totalFirstCnt),
       caseIncreaseDecrease: accVaccineItem.firstCnt,
-      color: "rgba(52, 211, 153, 1)",
+      color: "text-green-400",
     },
     {
       caseType: "2nd Vaccinated",
       caseCnt: toComma(accVaccineItem.totalSecondCnt),
       caseIncreaseDecrease: accVaccineItem.secondCnt,
-      color: "rgba(96, 165, 250, 1)",
+      color: "text-blue-400",
     },
   ];
 
   const vaccineChartData = getVaccineChartDataForm(vaccineItems);
 
-  const chartSelectOptions = {
-    secondOptions: [
-      {
-        value: "daily",
-        name: "Daily",
-      },
-      { value: "weekly", name: "Weekly" },
-    ],
-  };
-
   return (
-    <div className="container mx-auto px-5 py-12 bg-gray-200 dark:bg-gray-800 overflow-auto">
+    <div className="container mx-auto px-5 py-12 bg-gray-50 dark:bg-gray-800 overflow-auto">
       <Header title={"Vaccine"} />
       <Navbar />
       <Cases caseInfosItems={caseInfosItems} />
-      <VaccineChartByDate chartData={vaccineChartData} chartSelectOptions={chartSelectOptions} />
+      <VaccineChartByDate chartData={vaccineChartData} chartSelectOptions={vaccineChartSelectOptions} />
     </div>
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps = async () => {
   const { baseUrl: vaccineBaseUrl, serviceKey: vaccineServiceKey, params: vaccineParams } = VaccineService;
 
   const { page: vaccinePageNo, perPage: vaccinePerPage, "cond[baseDate::GTE]": vaccineBaseDate } = vaccineParams;

@@ -1,6 +1,6 @@
 import React from "react";
-import { IncreaseDecrease } from "../components";
-import { toComma } from "../utils";
+import { IncreaseDecrease } from "../shared";
+import { toComma } from "../../utils";
 
 const RegionItem = ({
   region,

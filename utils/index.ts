@@ -1,19 +1,5 @@
 import { Region } from "../types";
-
-const DAYS_PER_MONTH = {
-  1: "31",
-  2: ["28", "29"],
-  3: "31",
-  4: "30",
-  5: "31",
-  6: "30",
-  7: "31",
-  8: "31",
-  9: "30",
-  10: "31",
-  11: "30",
-  12: "31",
-};
+import { DAYS_PER_MONTH } from "../data";
 
 export const getVaccineChartDataForm = (vaccineItems) => {
   let startIndex = vaccineItems.length - 18;
@@ -94,9 +80,7 @@ export const getChartDataSetsData = (covidItems, { firstOption, secondOption }) 
       const decideCntChartDataSetsData = getChartDataSetsData(covidItems, { firstOption: "decideCnt", secondOption });
       const accExamCntChartDataSetsData = getChartDataSetsData(covidItems, { firstOption: "accExamCnt", secondOption });
 
-      return decideCntChartDataSetsData.map((todayDecideCnt, index) =>
-        ((todayDecideCnt / accExamCntChartDataSetsData[index]) * 100).toFixed(2)
-      );
+      return decideCntChartDataSetsData.map((todayDecideCnt, index) => ((todayDecideCnt / accExamCntChartDataSetsData[index]) * 100).toFixed(2));
     } else {
       let defaultSelectOption = covidItems.slice(0, 8).sort((itemA, itemB) => itemA.seq - itemB.seq)[0][firstOption];
       const data = covidItems.slice(0, 8).sort((itemA, itemB) => itemA.seq - itemB.seq);
@@ -117,9 +101,7 @@ export const getChartDataSetsData = (covidItems, { firstOption, secondOption }) 
       const decideCntChartDataSetsData = getChartDataSetsData(covidItems, { firstOption: "decideCnt", secondOption });
       const accExamCntChartDataSetsData = getChartDataSetsData(covidItems, { firstOption: "accExamCnt", secondOption });
 
-      return decideCntChartDataSetsData.map((todayDecideCnt, index) =>
-        ((todayDecideCnt / accExamCntChartDataSetsData[index]) * 100).toFixed(2)
-      );
+      return decideCntChartDataSetsData.map((todayDecideCnt, index) => ((todayDecideCnt / accExamCntChartDataSetsData[index]) * 100).toFixed(2));
     } else {
       let startDaySelectOption = 0;
       let endDaySelectOption = 0;
@@ -153,9 +135,7 @@ export const getChartDataSetsData = (covidItems, { firstOption, secondOption }) 
       const decideCntChartDataSetsData = getChartDataSetsData(covidItems, { firstOption: "decideCnt", secondOption });
       const accExamCntChartDataSetsData = getChartDataSetsData(covidItems, { firstOption: "accExamCnt", secondOption });
 
-      return decideCntChartDataSetsData.map((todayDecideCnt, index) =>
-        ((todayDecideCnt / accExamCntChartDataSetsData[index]) * 100).toFixed(2)
-      );
+      return decideCntChartDataSetsData.map((todayDecideCnt, index) => ((todayDecideCnt / accExamCntChartDataSetsData[index]) * 100).toFixed(2));
     } else {
       const data = [];
 

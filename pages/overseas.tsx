@@ -1,25 +1,13 @@
-import { useState, useEffect } from "react";
-import { GetStaticProps } from "next";
 import axios from "axios";
+import { OverseasRegionTable } from "../components";
+import { Header, Navbar, Cases, ChartByDate } from "../components/shared";
 import { OverseasCovidService } from "../env";
-import { getAllDecideDeathCnt, getOverseasChartDataForm, toComma } from "../utils";
+import { toComma, toIncreaseDecreaseNumber, getAllDecideDeathCnt, getOverseasChartDataForm } from "../utils";
+import { overseasChartSelectOptions } from "../data";
+import { useScroll } from "../hooks";
 
-import { Header, Navbar, ChartByDate, OverseasRegionTable, Cases } from "../components";
-
-// TODO) 국기를 어떻게 뽑아올까
-// TODO) 로드가 느리다. 어떻게 해결할까.
 const Overseas = ({ overseasCovidItems }) => {
-  const REGION_ITEMS_PER_PAGE = 38;
-  const [page, setPage] = useState(1);
-
-  const [todayOverseasCovidItems, setTodayOverseasCovidItems] = useState([]);
-  const todayOverseasCovidItemsStartIndex = 0;
-
-  const [yesterdayOverseasCovidItems, setYesterdayOverseasCovidItems] = useState([]);
-  const yesterdayOverseasCovidItemsStartIndex = 190;
-
-  const [dayBeforeYesterdayOverseasCovidItems, setDayBeforeYesterdayOverseasCovidItems] = useState([]);
-  const dayBeforeYesterdayOverseasCovidItemsStartIndex = 380;
+  const { todayOverseasCovidItems, yesterdayOverseasCovidItems, dayBeforeYesterdayOverseasCovidItems, page, setPage } = useScroll(overseasCovidItems);
 
   const [accDecideCnt, accDeathCnt] = getAllDecideDeathCnt(overseasCovidItems.slice(0, 190));
   const [yesterdayaccDecideCnt, yesterdayAccDeathCnt] = getAllDecideDeathCnt(overseasCovidItems.slice(190, 380));
@@ -29,63 +17,22 @@ const Overseas = ({ overseasCovidItems }) => {
 
   const overseasChartData = getOverseasChartDataForm(overseasCovidItems);
 
-  const caseInfosItems = [
-    ["Confirmed", "rgba(248, 113, 113, 1)"],
-    ["Deaths", "rgba(0, 0, 0, 1)"],
+  const overseasCaseInfosItems = [
+    ["Confirmed", "text-red-400"],
+    ["Deaths", "text-black"],
   ].map(([caseType, color], index) => ({
     caseType,
     caseCnt: toComma(accOverseasCovidItemInfos[index]),
-    caseIncreaseDecrease: accOverseasCovidItemInfos[index] - yesterdayAccOverseasCovidItemInfos[index],
+    caseIncreaseDecrease: toIncreaseDecreaseNumber(accOverseasCovidItemInfos[index] - yesterdayAccOverseasCovidItemInfos[index]),
     color,
   }));
 
-  const chartSelectOptions = {
-    firstOptions: [
-      { value: "decideCnt", name: "Confirmed" },
-      { value: "deathCnt", name: "Deaths" },
-    ],
-    secondOptions: [
-      {
-        value: "daily",
-        name: "Daily",
-      },
-      { value: "weekly", name: "Weekly" },
-      { value: "monthly", name: "Monthly" },
-    ],
-  };
-
-  // TODO) 매번 자르는게아니라 이어붙히고싶다.
-  useEffect(() => {
-    if (page <= 5) {
-      setTodayOverseasCovidItems(
-        overseasCovidItems.slice(
-          todayOverseasCovidItemsStartIndex,
-          todayOverseasCovidItemsStartIndex + REGION_ITEMS_PER_PAGE * page
-        )
-      );
-
-      setYesterdayOverseasCovidItems(
-        overseasCovidItems.slice(
-          yesterdayOverseasCovidItemsStartIndex,
-          yesterdayOverseasCovidItemsStartIndex + REGION_ITEMS_PER_PAGE * page
-        )
-      );
-
-      setDayBeforeYesterdayOverseasCovidItems(
-        overseasCovidItems.slice(
-          dayBeforeYesterdayOverseasCovidItemsStartIndex,
-          dayBeforeYesterdayOverseasCovidItemsStartIndex + REGION_ITEMS_PER_PAGE * page
-        )
-      );
-    }
-  }, [page]);
-
   return (
-    <div className="container mx-auto px-5 py-12 bg-gray-200 dark:bg-gray-800 overflow-auto">
+    <div className="container mx-auto px-5 py-12 bg-gray-50 dark:bg-gray-800 overflow-auto">
       <Header title={"Overseas"} />
       <Navbar />
-      <Cases caseInfosItems={caseInfosItems} />
-      <ChartByDate chartData={overseasChartData} chartSelectOptions={chartSelectOptions} />
+      <Cases caseInfosItems={overseasCaseInfosItems} />
+      <ChartByDate chartData={overseasChartData} chartSelectOptions={overseasChartSelectOptions} />
       <OverseasRegionTable
         todayOverseasCovidItems={todayOverseasCovidItems}
         yesterdayOverseasCovidItems={yesterdayOverseasCovidItems}
@@ -97,12 +44,8 @@ const Overseas = ({ overseasCovidItems }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
-  const {
-    baseUrl: overseasCovidBaseUrl,
-    serviceKey: overseasCovidServiceKey,
-    params: overseasCovidParams,
-  } = OverseasCovidService;
+export const getStaticProps = async () => {
+  const { baseUrl: overseasCovidBaseUrl, serviceKey: overseasCovidServiceKey, params: overseasCovidParams } = OverseasCovidService;
 
   const {
     pageNo: overseasCovidPageNo,

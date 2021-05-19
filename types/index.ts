@@ -8,11 +8,3 @@ export enum Region {
   "Gangwon-do" = "Gangwon",
   "Gyeonggi-do" = "Gyeonggi",
 }
-
-export interface HomeProps {}
-
-export interface CasesProps {}
-
-export interface ChartByDateProps {}
-
-export interface DomesticCovidItemTypes {}

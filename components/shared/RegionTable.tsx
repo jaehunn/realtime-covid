@@ -1,6 +1,6 @@
-import React from 'react'
-import { RegionItem } from "../components";
-import { getRegionName } from "../utils";
+import React from "react";
+import { RegionItem } from "../shared";
+import { getRegionName } from "../../utils";
 
 const RegionTable = ({ todayCovidItems, yesterdayCovidItems, dayBeforeYesterdayCovidItems }) => {
   return (

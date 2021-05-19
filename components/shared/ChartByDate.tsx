@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-import { getChartDataSetsData, getChartLabels } from "../utils";
-import { SelectOption, ChartBar } from "../components";
+import { getChartDataSetsData, getChartLabels } from "../../utils";
+import { SelectOption, ChartBar } from "../shared";
 
 const ChartByDate = ({ chartData, chartSelectOptions }) => {
   const { firstOptions, secondOptions } = chartSelectOptions;
