@@ -1,6 +1,5 @@
 import axios from "axios";
-import { OverseasRegionTable } from "../components";
-import { Header, Navbar, Cases, ChartByDate } from "../components/shared";
+import { Header, Navbar, Cases, ChartByDate, RegionTable, FetchMoreTrigger } from "../components/shared";
 import { OverseasCovidService } from "../env";
 import { toComma, toIncreaseDecreaseNumber, getAllDecideDeathCnt, getOverseasChartDataForm } from "../utils";
 import { overseasChartSelectOptions } from "../data";
@@ -15,8 +14,6 @@ const Overseas = ({ overseasCovidItems }) => {
   const accOverseasCovidItemInfos = [accDecideCnt, accDeathCnt];
   const yesterdayAccOverseasCovidItemInfos = [yesterdayaccDecideCnt, yesterdayAccDeathCnt];
 
-  const overseasChartData = getOverseasChartDataForm(overseasCovidItems);
-
   const overseasCaseInfosItems = [
     ["Confirmed", "text-red-400"],
     ["Deaths", "text-black"],
@@ -27,19 +24,50 @@ const Overseas = ({ overseasCovidItems }) => {
     color,
   }));
 
+  const overseasChartData = getOverseasChartDataForm(overseasCovidItems);
+
+  const records = [];
+  todayOverseasCovidItems.forEach(({ nationNmEn, natDefCnt, natDeathCnt }, index) => {
+    const { natDefCnt: yesterdayDefCnt, natDeathCnt: yesterdayDeathCnt } = yesterdayOverseasCovidItems[index];
+    const { natDefCnt: dayBeforeYesterdayDefCnt, natDeathCnt: dayBeforeDeathCnt } = dayBeforeYesterdayOverseasCovidItems[index];
+
+    const todayConfirmed = natDefCnt - yesterdayDefCnt;
+    const yesterdayConfirmed = yesterdayDefCnt - dayBeforeYesterdayDefCnt;
+
+    const todayDeaths = natDeathCnt - yesterdayDeathCnt;
+    const yesterdayDeaths = yesterdayDeathCnt - dayBeforeDeathCnt;
+
+    const currentRecords = {
+      region: nationNmEn,
+      regionRecord: [
+        {
+          number: toComma(natDefCnt),
+          increaseDecreaseNumber: toIncreaseDecreaseNumber(todayConfirmed - yesterdayConfirmed),
+        },
+        {
+          number: toComma(natDeathCnt),
+          increaseDecreaseNumber: toIncreaseDecreaseNumber(todayDeaths - yesterdayDeaths),
+        },
+      ],
+    };
+
+    records.push(currentRecords);
+  });
+
+  const overseasRegionTableInfosItems = {
+    fields: ["Location", "Confirmed", "Deaths"],
+    records,
+  };
+
   return (
     <div className="container mx-auto px-5 py-12 bg-gray-50 dark:bg-gray-800 overflow-auto">
       <Header title={"Overseas"} />
       <Navbar />
       <Cases caseInfosItems={overseasCaseInfosItems} />
       <ChartByDate chartData={overseasChartData} chartSelectOptions={overseasChartSelectOptions} />
-      <OverseasRegionTable
-        todayOverseasCovidItems={todayOverseasCovidItems}
-        yesterdayOverseasCovidItems={yesterdayOverseasCovidItems}
-        dayBeforeYesterdayOverseasCovidItems={dayBeforeYesterdayOverseasCovidItems}
-        page={page}
-        setPage={setPage}
-      />
+      <RegionTable regionTableInfosItems={overseasRegionTableInfosItems}>
+        <FetchMoreTrigger page={page} setPage={setPage} />
+      </RegionTable>
     </div>
   );
 };

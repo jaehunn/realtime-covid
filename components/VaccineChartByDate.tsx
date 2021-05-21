@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { getChartLabels, getVaccineChartDataSetsData } from "../utils";
-import { SelectOption, ChartBar } from "../components/shared";
+import { SelectOptions, ChartBar } from "../components/shared";
 
 const VaccineChartByDate = ({ chartData, chartSelectOptions }) => {
   console.log(chartData, chartSelectOptions);
@@ -34,7 +34,7 @@ const VaccineChartByDate = ({ chartData, chartSelectOptions }) => {
 
   return (
     <div className="lg:w-3/5 pb-10 mb-10 mx-auto border-b border-gray-800 rounded-md bg-blue-50 dark:bg-gray-600">
-      <SelectOption selectOptions={selectOptions} />
+      <SelectOptions selectOptions={selectOptions} />
       <ChartBar labels={chartLabels} data={chartDataSetsData} />
     </div>
   );

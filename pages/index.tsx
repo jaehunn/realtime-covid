@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Header, Navbar, Cases, ChartByDate, RegionTable } from "../components/shared";
 import { DomesticCovidService, DomesticRegionCovidService } from "../env";
-import { toComma, toIncreaseDecreaseNumber } from "../utils";
+import { toComma, toIncreaseDecreaseNumber, getRegionName } from "../utils";
 import { domesticChartSelectOptions } from "../data";
 
 const Home = ({ domesticCovidItems, domesticRegionCovidItems }) => {
@@ -19,10 +19,6 @@ const Home = ({ domesticCovidItems, domesticRegionCovidItems }) => {
   const accCovidItemInfos = [accDecideCnt, accDeathCnt, accClearCnt, accExamCnt];
   const yesterdayAccCovidItemInfos = [yesterdayAccDecideCnt, yesterdayAccDeathCnt, yesterdayAccClearCnt, yesterdayAccExamCnt];
 
-  const todayCovidItems = domesticRegionCovidItems.slice(0, 19);
-  const yesterdayCovidItems = domesticRegionCovidItems.slice(19, 38);
-  const dayBeforeYesterdayCovidItems = domesticRegionCovidItems.slice(38, 57);
-
   const domesticCaseInfosItems = [
     ["Confirmed", "text-red-400"],
     ["Deaths", "text-black"],
@@ -35,17 +31,70 @@ const Home = ({ domesticCovidItems, domesticRegionCovidItems }) => {
     color,
   }));
 
+  const todayCovidItems = domesticRegionCovidItems.slice(0, 19);
+  const yesterdayCovidItems = domesticRegionCovidItems.slice(19, 38);
+  const dayBeforeYesterdayCovidItems = domesticRegionCovidItems.slice(38, 57);
+
+  const records = [];
+  todayCovidItems.forEach(({ gubunEn, incDec, defCnt, deathCnt, isolClearCnt }, index) => {
+    const { defCnt: yesterdayDefCnt, deathCnt: yesterdayDeathCnt, isolClearCnt: yesterdayRecoveredCnt } = yesterdayCovidItems[index];
+
+    const {
+      defCnt: dayBeforeYesterdayDefCnt,
+      deathCnt: dayBeforeYesterdayDeathCnt,
+      isolClearCnt: dayBeforeYesterdayRecoveredCnt,
+    } = dayBeforeYesterdayCovidItems[index];
+
+    const todayConfirmed = defCnt - yesterdayDefCnt;
+    const yesterdayConfirmed = yesterdayDefCnt - dayBeforeYesterdayDefCnt;
+
+    const todayDeaths = deathCnt - yesterdayDeathCnt;
+    const yesterdayDeaths = yesterdayDeathCnt - dayBeforeYesterdayDeathCnt;
+
+    const todayRecovered = isolClearCnt - yesterdayRecoveredCnt;
+    const yesterdayRecovered = yesterdayRecoveredCnt - dayBeforeYesterdayRecoveredCnt;
+
+    if (~gubunEn.indexOf("-do")) gubunEn = getRegionName(gubunEn);
+
+    const currentRecords = {
+      region: gubunEn,
+      regionRecord: [
+        {
+          number: toComma(todayConfirmed),
+          increaseDecreaseNumber: toIncreaseDecreaseNumber(todayConfirmed - yesterdayConfirmed),
+        },
+        {
+          number: toComma(defCnt),
+          increaseDecreaseNumber: toIncreaseDecreaseNumber(incDec),
+        },
+        {
+          number: toComma(deathCnt),
+          increaseDecreaseNumber: toIncreaseDecreaseNumber(todayDeaths - yesterdayDeaths),
+        },
+        {
+          number: toComma(isolClearCnt),
+          increaseDecreaseNumber: toIncreaseDecreaseNumber(todayRecovered - yesterdayRecovered),
+        },
+      ],
+    };
+
+    records.push(currentRecords);
+  });
+
+  const domesticRegionTableInfosItems = {
+    fields: ["Location", "Today Confirmed", "Confirmed", "Deaths", "Recovered"],
+    records,
+  };
+
+  console.log(domesticRegionTableInfosItems);
+
   return (
     <div className="container mx-auto px-5 py-12 bg-gray-50 dark:bg-gray-800">
       <Header title={"Domestic"} />
       <Navbar />
       <Cases caseInfosItems={domesticCaseInfosItems} />
       <ChartByDate chartData={domesticCovidItems} chartSelectOptions={domesticChartSelectOptions} />
-      <RegionTable
-        todayCovidItems={todayCovidItems}
-        yesterdayCovidItems={yesterdayCovidItems}
-        dayBeforeYesterdayCovidItems={dayBeforeYesterdayCovidItems}
-      />
+      <RegionTable regionTableInfosItems={domesticRegionTableInfosItems} />
     </div>
   );
 };

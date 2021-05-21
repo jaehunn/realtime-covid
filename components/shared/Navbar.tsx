@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import ToggleSwitcher from "./ToggleSwitcher";
+import { ToggleSwitcher } from ".";
 import { navInfos } from "../../data";
 
 const Navbar = () => {

@@ -1,5 +1,5 @@
 import React from "react";
-import { Case } from "../shared";
+import { Case } from ".";
 
 type CasesProps = {
   caseInfosItems: {

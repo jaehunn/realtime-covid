@@ -1,5 +1,5 @@
 import React from "react";
-import { IncreaseDecrease } from "../shared";
+import { IncreaseDecrease } from ".";
 type CaseProps = {
   caseType: string;
   caseCnt: string;

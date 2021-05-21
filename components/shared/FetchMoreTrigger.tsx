@@ -5,7 +5,6 @@ const FetchMoreTrigger = ({ page, setPage }) => {
 
   useEffect(() => {
     const fetchMoreObserver = new IntersectionObserver(([{ isIntersecting }]) => {
-      // page 가 계속 증가되는 이슈
       if (isIntersecting && page <= 4) setPage((page) => page + 1);
     });
 

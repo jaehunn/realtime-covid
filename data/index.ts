@@ -56,6 +56,7 @@ export const overseasChartSelectOptions = {
 };
 
 export const vaccineChartSelectOptions = {
+  firstOptions: [],
   secondOptions: [
     {
       value: "daily",

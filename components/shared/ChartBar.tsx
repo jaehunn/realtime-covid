@@ -4,7 +4,7 @@ import "chartjs-plugin-datalabels";
 import { toComma } from "../../utils";
 import { useTheme } from "next-themes";
 
-const ChartBar = ({ labels, data, barOptions = {} }) => {
+const ChartBar = ({ labels, data }) => {
   const { theme } = useTheme();
 
   const barData = {
@@ -25,8 +25,6 @@ const ChartBar = ({ labels, data, barOptions = {} }) => {
         layout: {
           padding: 40,
         },
-        // 가로 세로 높이 유지한채 리사이징
-        // TODO) 높이는 고정하고 싶다.
         maintainAspectRatio: true,
         responsive: true,
         scales: {
