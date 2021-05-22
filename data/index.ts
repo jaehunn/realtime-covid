@@ -1,3 +1,6 @@
+import { findGapFirstDaysFromNmonthAgo, requestFormatDate, requestFormatVaccineDate, getDate } from "../utils";
+import { CovidServiceTypes, VaccineServiceTypes } from "../types";
+
 export const DAYS_PER_MONTH = {
   1: "31",
   2: ["28", "29"],
@@ -64,4 +67,47 @@ export const vaccineChartSelectOptions = {
     },
     { value: "weekly", name: "Weekly" },
   ],
+};
+
+export const DomesticCovidService: CovidServiceTypes = {
+  baseUrl: "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson",
+  serviceKey: "fUio6BUTWluJVfLQpEDGp5Goep1YvqAVJt2%2Fz2WOoFbsyaJYNQ0shUPRlgryta5ytgbONMa2B8lmozCwOGAJwA%3D%3D",
+  params: {
+    pageNo: 1,
+    numOfRows: 10,
+    startCreateDt: requestFormatDate(getDate(findGapFirstDaysFromNmonthAgo(6))),
+    endCreateDt: requestFormatDate(getDate()),
+  },
+};
+
+export const DomesticRegionCovidService: CovidServiceTypes = {
+  baseUrl: "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson",
+  serviceKey: "fUio6BUTWluJVfLQpEDGp5Goep1YvqAVJt2/z2WOoFbsyaJYNQ0shUPRlgryta5ytgbONMa2B8lmozCwOGAJwA==",
+  params: {
+    pageNo: 1,
+    numOfRows: 10,
+    startCreateDt: requestFormatDate(getDate(findGapFirstDaysFromNmonthAgo(6))),
+    endCreateDt: requestFormatDate(getDate()),
+  },
+};
+
+export const OverseasCovidService: CovidServiceTypes = {
+  baseUrl: "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19NatInfStateJson",
+  serviceKey: "fUio6BUTWluJVfLQpEDGp5Goep1YvqAVJt2%2Fz2WOoFbsyaJYNQ0shUPRlgryta5ytgbONMa2B8lmozCwOGAJwA%3D%3D",
+  params: {
+    pageNo: 1,
+    numOfRows: 10,
+    startCreateDt: requestFormatDate(getDate(findGapFirstDaysFromNmonthAgo(1))),
+    endCreateDt: requestFormatDate(getDate()),
+  },
+};
+
+export const VaccineService: VaccineServiceTypes = {
+  baseUrl: "https://api.odcloud.kr/api/15077756/v1/vaccine-stat",
+  serviceKey: "fUio6BUTWluJVfLQpEDGp5Goep1YvqAVJt2%2Fz2WOoFbsyaJYNQ0shUPRlgryta5ytgbONMa2B8lmozCwOGAJwA%3D%3D",
+  params: {
+    page: 1,
+    perPage: 18 * findGapFirstDaysFromNmonthAgo(3),
+    "cond[baseDate::GTE]": requestFormatVaccineDate(getDate(findGapFirstDaysFromNmonthAgo(3))),
+  },
 };

@@ -1,8 +1,7 @@
 import axios from "axios";
 import { Header, Navbar, Cases } from "../components/shared";
 import { getVaccineChartDataForm, toComma } from "../utils";
-import { VaccineService } from "../env";
-import { vaccineChartSelectOptions } from "../data";
+import { vaccineChartSelectOptions,VaccineService } from "../data";
 
 import VaccineChartByDate from "../components/VaccineChartByDate"; // 추상화 필요
 

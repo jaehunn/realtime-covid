@@ -1,8 +1,7 @@
 import axios from "axios";
 import { Header, Navbar, Cases, ChartByDate, RegionTable } from "../components/shared";
-import { DomesticCovidService, DomesticRegionCovidService } from "../env";
 import { toComma, toIncreaseDecreaseNumber, getRegionName } from "../utils";
-import { domesticChartSelectOptions } from "../data";
+import { domesticChartSelectOptions, DomesticCovidService, DomesticRegionCovidService } from "../data";
 
 const Home = ({ domesticCovidItems, domesticRegionCovidItems }) => {
   const [accCovidItem, yesterdayAccCovidItem] = domesticCovidItems;
