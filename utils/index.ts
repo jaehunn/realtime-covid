@@ -277,7 +277,6 @@ export const findGapFirstDaysFromNmonthAgo = (n = 0) => {
   let nMonthAgoMonth = currentMonth - n; // 2
 
   // n개월 전 월의 1일까지 차이나는 일수를 반환한다.
-
   let days = currentDate.getDate();
   for (let curMonth = currentMonth - 1; curMonth >= nMonthAgoMonth; curMonth -= 1) {
     if (curMonth === 0) {
