@@ -2,8 +2,7 @@ import React, { useRef } from "react";
 import { useToggle } from "../../hooks";
 
 const ToggleSwitcher = () => {
-  const toggleEl = useRef(null);
-  const { theme, themeToggle } = useToggle(toggleEl);
+  const { toggleEl, themeToggle } = useToggle();
 
   return (
     <button className="w-20 h-10 mt-10 rounded-full bg-gray-200 flex items-center transition duration-300 focus:outline-none" onClick={themeToggle}>

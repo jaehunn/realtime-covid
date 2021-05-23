@@ -97,7 +97,7 @@ export const OverseasCovidService: CovidServiceTypes = {
   params: {
     pageNo: 1,
     numOfRows: 10,
-    startCreateDt: requestFormatDate(getDate(findGapFirstDaysFromNmonthAgo(1))),
+    startCreateDt: requestFormatDate(getDate(findGapFirstDaysFromNmonthAgo(6))),
     endCreateDt: requestFormatDate(getDate()),
   },
 };
