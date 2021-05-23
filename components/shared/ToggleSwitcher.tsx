@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { useToggle } from "../../hooks";
 
+// TODO) 토글될때 움직임이 나타나지않음 Hook 수정
 const ToggleSwitcher = () => {
   const { toggleEl, themeToggle } = useToggle();
 
