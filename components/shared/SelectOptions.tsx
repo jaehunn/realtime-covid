@@ -4,9 +4,9 @@ import { SelectOption } from ".";
 const SelectOptions = ({ selectOptions }) => {
   return (
     <div className="flex">
-      {selectOptions.map(({ options, handler }, index) => (
-        <SelectOption key={`selectOption${index}`} options={options} handler={handler} />
-      ))}
+      {selectOptions.map(
+        ({ options, handler }, index) => !!options.length && <SelectOption key={`selectOption${index}`} options={options} handler={handler} />
+      )}
     </div>
   );
 };

@@ -46,36 +46,15 @@ export const getOverseasChartDataForm = (overseasCovidItems) => {
   return chartFormOverseasCovidItems;
 };
 
-export const getVaccineChartDataSetsData = (vaccineItems, { secondOption }) => {
-  if (secondOption === "daily")
-    return vaccineItems
-      .slice(0, 7)
-      .sort((itemA, itemB) => itemA.seq - itemB.seq)
-      .map(({ accVaccinatedCnt }) => accVaccinatedCnt);
-
-  if (secondOption === "weekly") {
-    let accVaccinatedCntPerWeek = 0;
-
-    const data = [];
-
-    vaccineItems.slice(0, 30).forEach(({ accVaccinatedCnt }, index) => {
-      accVaccinatedCntPerWeek += accVaccinatedCnt;
-
-      if ((index + 1) % 7 === 0) {
-        data.unshift(accVaccinatedCntPerWeek);
-
-        accVaccinatedCntPerWeek = 0;
-      }
-    });
-
-    if (data.length > 4) return data.slice(0, 4);
-
-    return data;
-  }
-};
-
 export const getChartDataSetsData = (covidItems, { firstOption, secondOption }) => {
   if (secondOption === "daily") {
+    if (!firstOption) {
+      return covidItems
+        .slice(0, 7)
+        .sort((itemA, itemB) => itemA.seq - itemB.seq)
+        .map(({ accVaccinatedCnt }) => accVaccinatedCnt);
+    }
+
     if (firstOption === "decideRate") {
       const decideCntChartDataSetsData = getChartDataSetsData(covidItems, { firstOption: "decideCnt", secondOption });
       const accExamCntChartDataSetsData = getChartDataSetsData(covidItems, { firstOption: "accExamCnt", secondOption });
@@ -97,6 +76,26 @@ export const getChartDataSetsData = (covidItems, { firstOption, secondOption }) 
   }
 
   if (secondOption === "weekly") {
+    if (!firstOption) {
+      let accVaccinatedCntPerWeek = 0;
+
+      const data = [];
+
+      covidItems.slice(0, 30).forEach(({ accVaccinatedCnt }, index) => {
+        accVaccinatedCntPerWeek += accVaccinatedCnt;
+
+        if ((index + 1) % 7 === 0) {
+          data.unshift(accVaccinatedCntPerWeek);
+
+          accVaccinatedCntPerWeek = 0;
+        }
+      });
+
+      if (data.length > 4) return data.slice(0, 4);
+
+      return data;
+    }
+
     if (firstOption === "decideRate") {
       const decideCntChartDataSetsData = getChartDataSetsData(covidItems, { firstOption: "decideCnt", secondOption });
       const accExamCntChartDataSetsData = getChartDataSetsData(covidItems, { firstOption: "accExamCnt", secondOption });
@@ -317,7 +316,7 @@ export const toComma = (num: number): string => {
 export const getSignNumber = (num: number): number => {
   if (num === 0) return 0;
 
-  return num > 0 ? 1 : -1;
+  return num < 0 ? -1 : 1;
 };
 
 export const getRegionName = (region: string) => {

@@ -85,8 +85,6 @@ const Home = ({ domesticCovidItems, domesticRegionCovidItems }) => {
     records,
   };
 
-  console.log(domesticRegionTableInfosItems);
-
   return (
     <div className="container mx-auto px-5 py-12 bg-gray-50 dark:bg-gray-800">
       <Header title={"Domestic"} />

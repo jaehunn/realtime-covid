@@ -4,6 +4,7 @@ export { default as ToggleSwitcher } from "./ToggleSwitcher";
 export { default as Cases } from "./Cases";
 export { default as Case } from "./Case";
 export { default as IncreaseDecrease } from "./IncreaseDecrease";
+export { default as IncreaseDecreaseIcon } from "./IncreaseDecreaseIcon";
 export { default as ChartBar } from "./ChartBar";
 export { default as ChartByDate } from "./ChartByDate";
 export { default as RegionTable } from "./RegionTable";

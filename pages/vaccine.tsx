@@ -1,9 +1,7 @@
 import axios from "axios";
-import { Header, Navbar, Cases } from "../components/shared";
-import { getVaccineChartDataForm, toComma } from "../utils";
-import { vaccineChartSelectOptions,VaccineService } from "../data";
-
-import VaccineChartByDate from "../components/VaccineChartByDate"; // 추상화 필요
+import { Header, Navbar, Cases, ChartByDate } from "../components/shared";
+import { getVaccineChartDataForm, toComma, toIncreaseDecreaseNumber } from "../utils";
+import { vaccineChartSelectOptions, VaccineService } from "../data";
 
 const Vaccine = ({ vaccineItems }) => {
   const accVaccineItem = vaccineItems[vaccineItems.length - 18];
@@ -12,13 +10,13 @@ const Vaccine = ({ vaccineItems }) => {
     {
       caseType: "1st Vaccinated",
       caseCnt: toComma(accVaccineItem.totalFirstCnt),
-      caseIncreaseDecrease: accVaccineItem.firstCnt,
+      caseIncreaseDecrease: toIncreaseDecreaseNumber(accVaccineItem.firstCnt),
       color: "text-green-400",
     },
     {
       caseType: "2nd Vaccinated",
       caseCnt: toComma(accVaccineItem.totalSecondCnt),
-      caseIncreaseDecrease: accVaccineItem.secondCnt,
+      caseIncreaseDecrease: toIncreaseDecreaseNumber(accVaccineItem.secondCnt),
       color: "text-blue-400",
     },
   ];
@@ -30,7 +28,7 @@ const Vaccine = ({ vaccineItems }) => {
       <Header title={"Vaccine"} />
       <Navbar />
       <Cases caseInfosItems={caseInfosItems} />
-      <VaccineChartByDate chartData={vaccineChartData} chartSelectOptions={vaccineChartSelectOptions} />
+      <ChartByDate chartData={vaccineChartData} chartSelectOptions={vaccineChartSelectOptions} />
     </div>
   );
 };

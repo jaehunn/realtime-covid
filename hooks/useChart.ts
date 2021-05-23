@@ -4,7 +4,7 @@ import { getChartDataSetsData, getChartLabels } from "../utils";
 const useChart = (chartData, chartSelectOptions) => {
   const { firstOptions, secondOptions } = chartSelectOptions;
 
-  const [options, setOptions] = useState({ firstOption: firstOptions[0].value, secondOption: secondOptions[0].value });
+  const [options, setOptions] = useState({ firstOption: firstOptions[0]?.value, secondOption: secondOptions[0]?.value });
   const [chartDataSetsData, setChartDataSetsData] = useState([]);
   const [chartLabels, setChartLabels] = useState([]);
 
