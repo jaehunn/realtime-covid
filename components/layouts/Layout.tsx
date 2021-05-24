@@ -1,9 +1,6 @@
 import React from "react";
 import Head from "next/head";
-
-interface LayoutProps {
-  children: JSX.Element;
-}
+import { LayoutProps } from "../../types";
 
 const Layout = ({ children }: LayoutProps) => {
   return (
@@ -17,7 +14,6 @@ const Layout = ({ children }: LayoutProps) => {
 
         {/* Google Analytics */}
         {/* Favicon */}
-        <link rel="icon" href="../public/favicon.ico" />
 
         {/* social description */}
         <meta property="og:url" content="" />

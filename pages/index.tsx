@@ -96,7 +96,7 @@ const Home = ({ domesticCovidItems, domesticRegionCovidItems }) => {
   );
 };
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const { baseUrl: domesticCovidBaseUrl, serviceKey: domesticCovidServiceKey, params: domesticCovidParams } = DomesticCovidService;
 
   const {

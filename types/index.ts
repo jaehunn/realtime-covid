@@ -1,3 +1,7 @@
+export type LayoutProps = {
+  children: JSX.Element;
+};
+
 export enum Region {
   "Gyeongsangnam-do" = "Gyeongnam",
   "Gyeongsangbuk-do" = "Gyeongbuk",

@@ -50,7 +50,7 @@ export const getChartDataSetsData = (covidItems, { firstOption, secondOption }) 
   if (secondOption === "daily") {
     if (!firstOption) {
       return covidItems
-        .slice(0, 7)
+        .slice(0, 8)
         .sort((itemA, itemB) => itemA.seq - itemB.seq)
         .map(({ accVaccinatedCnt }) => accVaccinatedCnt);
     }
