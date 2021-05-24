@@ -4,7 +4,7 @@ import { IncreaseDecreaseIcon } from ".";
 
 const IncreaseDecrease = ({ increaseDecreaseNumber, hasTextColor = true }) => {
   let signNumber = getSignNumber(increaseDecreaseNumber);
-  const classes = `text-xs leading-2 tracking-wide rounded-full py-1 px-2 bg-blue-100 font-semibold dark:bg-gray-500`;
+  const classes = `flex text-xs leading-4 tracking-wide rounded-full sm:py-1 sm:px-2 py-1/2 px-1 bg-blue-100 font-semibold dark:bg-gray-500`;
 
   return (
     <div className={classes} style={hasTextColor ? {} : { color: `${signNumber === 1 ? "red" : signNumber === -1 ? "blue" : "black"}` }}>

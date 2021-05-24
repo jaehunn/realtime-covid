@@ -3,7 +3,7 @@ import { RegionTableField } from ".";
 
 const RegionTableFields = ({ fields }) => {
   return (
-    <div className="w-full bg-blue-200 flex justify-evenly text-sm leading-8 tracking-wide font-semibold dark:text-gray-200 dark:bg-gray-500">
+    <div className="flex justify-evenly sm:text-sm text-xs leading-4 tracking-wide font-semibold bg-blue-200 dark:text-gray-200 dark:bg-gray-500">
       {fields.map((field, index) => (
         <RegionTableField key={`field${index}`} field={field} />
       ))}

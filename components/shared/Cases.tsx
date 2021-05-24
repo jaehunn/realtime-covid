@@ -11,7 +11,7 @@ type CasesProps = {
 };
 
 const Cases = ({ caseInfosItems }: CasesProps) => {
-  const classes = "lg:w-3/5 mx-auto flex justify-evenly m-auto mt-16 pb-10 mb-10 border-b border-gray-800 dark:border-gray-200";
+  const classes = "container mx-auto flex justify-center mt-16 pb-10 mb-10 border-b border-gray-800 dark:border-gray-200";
 
   return (
     <div className={classes}>
