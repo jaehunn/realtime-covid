@@ -20,7 +20,7 @@ const useToggle = () => {
   useEffect(() => {
     if (theme === "light") toggleEl.current.classList.add("bg-yellow-500", "-translate-x-2");
     else toggleEl.current.classList.add("bg-gray-700", "translate-x-full");
-  }, [toggleEl, theme]);
+  }, [toggleEl]);
 
   return { toggleEl, themeToggle };
 };

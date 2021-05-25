@@ -75,7 +75,7 @@ export const DomesticCovidService: CovidServiceTypes = {
   params: {
     pageNo: 1,
     numOfRows: 10,
-    startCreateDt: requestFormatDate(getDate(findGapFirstDaysFromNmonthAgo(1))),
+    startCreateDt: requestFormatDate(getDate(findGapFirstDaysFromNmonthAgo(6))),
     endCreateDt: requestFormatDate(getDate()),
   },
 };
@@ -86,7 +86,7 @@ export const DomesticRegionCovidService: CovidServiceTypes = {
   params: {
     pageNo: 1,
     numOfRows: 10,
-    startCreateDt: requestFormatDate(getDate(findGapFirstDaysFromNmonthAgo(1))),
+    startCreateDt: requestFormatDate(getDate(findGapFirstDaysFromNmonthAgo(6))),
     endCreateDt: requestFormatDate(getDate()),
   },
 };
@@ -97,7 +97,7 @@ export const OverseasCovidService: CovidServiceTypes = {
   params: {
     pageNo: 1,
     numOfRows: 10,
-    startCreateDt: requestFormatDate(getDate(findGapFirstDaysFromNmonthAgo(1))),
+    startCreateDt: requestFormatDate(getDate(findGapFirstDaysFromNmonthAgo(6))),
     endCreateDt: requestFormatDate(getDate()),
   },
 };
@@ -108,7 +108,7 @@ export const VaccineService: VaccineServiceTypes = {
   serviceKey: "fUio6BUTWluJVfLQpEDGp5Goep1YvqAVJt2%2Fz2WOoFbsyaJYNQ0shUPRlgryta5ytgbONMa2B8lmozCwOGAJwA%3D%3D",
   params: {
     page: 1,
-    perPage: 18 * findGapFirstDaysFromNmonthAgo(1),
-    "cond[baseDate::GTE]": requestFormatVaccineDate(getDate(findGapFirstDaysFromNmonthAgo(1))),
+    perPage: 18 * findGapFirstDaysFromNmonthAgo(3),
+    "cond[baseDate::GTE]": requestFormatVaccineDate(getDate(findGapFirstDaysFromNmonthAgo(3))),
   },
 };

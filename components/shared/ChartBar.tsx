@@ -53,8 +53,6 @@ const ChartBar = ({ labels, data }) => {
         plugins: {
           datalabels: {
             formatter: function (_, context) {
-              console.log(context);
-
               return toComma(context.dataset.data[context.dataIndex]);
             },
             display: true,
