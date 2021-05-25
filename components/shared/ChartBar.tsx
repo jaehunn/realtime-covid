@@ -23,7 +23,7 @@ const ChartBar = ({ labels, data }) => {
       data={barData}
       options={{
         layout: {
-          padding: 40,
+          padding: 20,
         },
         maintainAspectRatio: true,
         responsive: true,
@@ -53,6 +53,8 @@ const ChartBar = ({ labels, data }) => {
         plugins: {
           datalabels: {
             formatter: function (_, context) {
+              console.log(context);
+
               return toComma(context.dataset.data[context.dataIndex]);
             },
             display: true,

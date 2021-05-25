@@ -75,7 +75,7 @@ export const DomesticCovidService: CovidServiceTypes = {
   params: {
     pageNo: 1,
     numOfRows: 10,
-    startCreateDt: requestFormatDate(getDate(findGapFirstDaysFromNmonthAgo(6))),
+    startCreateDt: requestFormatDate(getDate(findGapFirstDaysFromNmonthAgo(1))),
     endCreateDt: requestFormatDate(getDate()),
   },
 };
@@ -86,7 +86,7 @@ export const DomesticRegionCovidService: CovidServiceTypes = {
   params: {
     pageNo: 1,
     numOfRows: 10,
-    startCreateDt: requestFormatDate(getDate(findGapFirstDaysFromNmonthAgo(6))),
+    startCreateDt: requestFormatDate(getDate(findGapFirstDaysFromNmonthAgo(1))),
     endCreateDt: requestFormatDate(getDate()),
   },
 };
@@ -97,17 +97,18 @@ export const OverseasCovidService: CovidServiceTypes = {
   params: {
     pageNo: 1,
     numOfRows: 10,
-    startCreateDt: requestFormatDate(getDate(findGapFirstDaysFromNmonthAgo(6))),
+    startCreateDt: requestFormatDate(getDate(findGapFirstDaysFromNmonthAgo(1))),
     endCreateDt: requestFormatDate(getDate()),
   },
 };
 
+// 3
 export const VaccineService: VaccineServiceTypes = {
   baseUrl: "https://api.odcloud.kr/api/15077756/v1/vaccine-stat",
   serviceKey: "fUio6BUTWluJVfLQpEDGp5Goep1YvqAVJt2%2Fz2WOoFbsyaJYNQ0shUPRlgryta5ytgbONMa2B8lmozCwOGAJwA%3D%3D",
   params: {
     page: 1,
-    perPage: 18 * findGapFirstDaysFromNmonthAgo(3),
-    "cond[baseDate::GTE]": requestFormatVaccineDate(getDate(findGapFirstDaysFromNmonthAgo(3))),
+    perPage: 18 * findGapFirstDaysFromNmonthAgo(1),
+    "cond[baseDate::GTE]": requestFormatVaccineDate(getDate(findGapFirstDaysFromNmonthAgo(1))),
   },
 };

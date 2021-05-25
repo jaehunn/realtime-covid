@@ -7,9 +7,9 @@ const IncreaseDecreaseIcon = ({ increaseDecreaseNumber }) => {
   return (
     <>
       {getSignNumber(increaseDecreaseNumber) === 1 ? (
-        <FontAwesomeIcon icon={faArrowUp} />
+        <FontAwesomeIcon size="sm" icon={faArrowUp} />
       ) : getSignNumber(increaseDecreaseNumber) === -1 ? (
-        <FontAwesomeIcon icon={faArrowDown} />
+        <FontAwesomeIcon size="sm" icon={faArrowDown} />
       ) : (
         <></>
       )}
