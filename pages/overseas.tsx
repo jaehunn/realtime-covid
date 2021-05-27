@@ -71,7 +71,7 @@ const Overseas = ({ overseasCovidItems }) => {
   );
 };
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const { baseUrl: overseasCovidBaseUrl, serviceKey: overseasCovidServiceKey, params: overseasCovidParams } = OverseasCovidService;
 
   const {
