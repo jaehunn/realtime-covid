@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Header, Navbar, Cases, ChartByDate, RegionTable, FetchMoreTrigger } from "../components/shared";
 import { toComma, toIncreaseDecreaseNumber, getAllDecideDeathCnt, getOverseasChartDataForm } from "../utils";
-import { overseasChartSelectOptions, OverseasCovidService } from "../data";
+import {  overseasChartSelectOptions, OverseasCovidService } from "../data";
 import { useScroll } from "../hooks";
 
 const Overseas = ({ overseasCovidItems }) => {

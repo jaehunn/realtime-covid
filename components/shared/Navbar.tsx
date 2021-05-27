@@ -6,27 +6,38 @@ import { navInfos } from "../../data";
 // hover 시 나타나게 만들기
 const Navbar = () => {
   const linksEl = useRef(null);
+  const switcherEl = useRef(null);
+
+  const handleButtonClick = () => {
+    linksEl.current.classList.toggle("hidden");
+  };
 
   return (
-    <nav className="absolute top-2 left-2 w-16 h-16 flex justify-center items-center rounded bg-white">
-      <button className="w-8 h-8 flex flex-col justify-evenly items-center">
+    <nav className="relative top-2 left-2 w-12 h-12 flex justify-center items-center rounded bg-white">
+      <button className="w-8 h-8 flex flex-col justify-evenly items-center focus:outline-none" onClick={handleButtonClick}>
         <div className="w-8 h-1 bg-black"></div>
         <div className="w-8 h-1 bg-black"></div>
         <div className="w-8 h-1 bg-black"></div>
       </button>
 
-      <div className="hidden flex" ref={linksEl}>
+      <div
+        className="hidden flex absolute top-0 left-full transition-transform sm:text-sm sm:leading-4 text-xs leading-4 tracking-wide"
+        ref={linksEl}
+      >
         {navInfos.map(({ name, href }, index) => (
           <Link key={index} href={href}>
-            <span className="inline-flex hidden">
+            <div className="sm:w-20 sm:h-12 w-16 h-12 bg-blue-50 mx-2 flex flex-col justify-center items-center shadow-lg rounded-lg dark:bg-gray-600 dark:border-gray-500 cursor-pointer transition duration-500 ease-in-out dark:hover:bg-gray-700 hover:bg-blue-200 transform hover:-translate-y-1 hover:scale-100">
               <a>{name}</a>
-            </span>
+            </div>
           </Link>
         ))}
       </div>
+
+      {/* <div className="flex absolute top-full left-0 mt-10 justify-center items-center lg:p-6 p-3 shadow-lg rounded-lg bg-blue-50 hover:bg-blue-200 dark:bg-gray-600 dark:border-gray-500 dark:hover:bg-gray-700 cursor-pointer">
+        <ToggleSwitcher />
+      </div> */}
     </nav>
   );
-  
 };
 
 export default React.memo(Navbar);

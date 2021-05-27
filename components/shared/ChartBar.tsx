@@ -59,6 +59,9 @@ const ChartBar = ({ labels, data }) => {
             color: `${theme === "dark" ? "rgba(229, 231, 235, 1)" : "rgba(0, 0, 0, 1)"}`,
             anchor: "end",
             align: "end",
+            font: {
+              size: 10,
+            },
           },
         },
       }}
