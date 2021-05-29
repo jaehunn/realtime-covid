@@ -1,11 +1,15 @@
 import axios from "axios";
 import { Header, Navbar, Cases, ChartByDate, RegionTable, FetchMoreTrigger } from "../components/shared";
-import { toComma, toIncreaseDecreaseNumber, getAllDecideDeathCnt, getOverseasChartDataForm } from "../utils";
-import {  overseasChartSelectOptions, OverseasCovidService } from "../data";
-import { useScroll } from "../hooks";
+import { getAllDecideDeathCnt, getOverseasChartDataForm } from "../utils";
+import { overseasChartSelectOptions, OverseasCovidService } from "../data";
+// import { useScroll } from "../hooks";
 
 const Overseas = ({ overseasCovidItems }) => {
-  const { todayOverseasCovidItems, yesterdayOverseasCovidItems, dayBeforeYesterdayOverseasCovidItems, page, setPage } = useScroll(overseasCovidItems);
+  // const { todayOverseasCovidItems, yesterdayOverseasCovidItems, dayBeforeYesterdayOverseasCovidItems, page, setPage } = useScroll(overseasCovidItems);
+
+  const todayOverseasCovidItems = overseasCovidItems.slice(0, 190);
+  const yesterdayOverseasCovidItems = overseasCovidItems.slice(190, 380);
+  const dayBeforeYesterdayOverseasCovidItems = overseasCovidItems.slice(380, 570);
 
   const [accDecideCnt, accDeathCnt] = getAllDecideDeathCnt(overseasCovidItems.slice(0, 190));
   const [yesterdayaccDecideCnt, yesterdayAccDeathCnt] = getAllDecideDeathCnt(overseasCovidItems.slice(190, 380));
@@ -18,8 +22,8 @@ const Overseas = ({ overseasCovidItems }) => {
     ["Deaths", "text-black"],
   ].map(([caseType, color], index) => ({
     caseType,
-    caseCnt: toComma(accOverseasCovidItemInfos[index]),
-    caseIncreaseDecrease: toIncreaseDecreaseNumber(accOverseasCovidItemInfos[index] - yesterdayAccOverseasCovidItemInfos[index]),
+    caseCnt: accOverseasCovidItemInfos[index],
+    caseIncreaseDecrease: accOverseasCovidItemInfos[index] - yesterdayAccOverseasCovidItemInfos[index],
     color,
   }));
 
@@ -36,25 +40,24 @@ const Overseas = ({ overseasCovidItems }) => {
     const todayDeaths = natDeathCnt - yesterdayDeathCnt;
     const yesterdayDeaths = yesterdayDeathCnt - dayBeforeDeathCnt;
 
-    const currentRecords = {
-      region: nationNmEn,
-      regionRecord: [
-        {
-          number: toComma(natDefCnt),
-          increaseDecreaseNumber: toIncreaseDecreaseNumber(todayConfirmed - yesterdayConfirmed),
-        },
-        {
-          number: toComma(natDeathCnt),
-          increaseDecreaseNumber: toIncreaseDecreaseNumber(todayDeaths - yesterdayDeaths),
-        },
-      ],
-    };
+    const currentRecords = [
+      { region: nationNmEn },
+      {
+        number: natDefCnt,
+        increaseDecreaseNumber: todayConfirmed - yesterdayConfirmed,
+      },
+      {
+        number: natDeathCnt,
+        increaseDecreaseNumber: todayDeaths - yesterdayDeaths,
+      },
+    ];
 
     records.push(currentRecords);
   });
 
   const overseasRegionTableInfosItems = {
     fields: ["Location", "Confirmed", "Deaths"],
+    sortTypes: ["", "", ""],
     records,
   };
 
@@ -64,9 +67,7 @@ const Overseas = ({ overseasCovidItems }) => {
       <Navbar />
       <Cases caseInfosItems={overseasCaseInfosItems} />
       <ChartByDate chartData={overseasChartData} chartSelectOptions={overseasChartSelectOptions} />
-      <RegionTable regionTableInfosItems={overseasRegionTableInfosItems}>
-        <FetchMoreTrigger page={page} setPage={setPage} />
-      </RegionTable>
+      <RegionTable regionTableInfosItems={overseasRegionTableInfosItems}>{/* <FetchMoreTrigger page={page} setPage={setPage} /> */}</RegionTable>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Header, Navbar, Cases, ChartByDate, RegionTable } from "../components/shared";
-import { toComma, toIncreaseDecreaseNumber, getRegionName } from "../utils";
-import {  domesticChartSelectOptions, DomesticCovidService, DomesticRegionCovidService } from "../data";
+import { getRegionName } from "../utils";
+import { domesticChartSelectOptions, DomesticCovidService, DomesticRegionCovidService } from "../data";
 
 const Home = ({ domesticCovidItems, domesticRegionCovidItems }) => {
   const [accCovidItem, yesterdayAccCovidItem] = domesticCovidItems;
@@ -25,8 +25,8 @@ const Home = ({ domesticCovidItems, domesticRegionCovidItems }) => {
     ["Tested", "text-blue-400"],
   ].map(([caseType, color], index) => ({
     caseType,
-    caseCnt: toComma(accCovidItemInfos[index]),
-    caseIncreaseDecrease: toIncreaseDecreaseNumber(accCovidItemInfos[index] - yesterdayAccCovidItemInfos[index]),
+    caseCnt: accCovidItemInfos[index],
+    caseIncreaseDecrease: accCovidItemInfos[index] - yesterdayAccCovidItemInfos[index],
     color,
   }));
 
@@ -55,33 +55,32 @@ const Home = ({ domesticCovidItems, domesticRegionCovidItems }) => {
 
     if (~gubunEn.indexOf("-do")) gubunEn = getRegionName(gubunEn);
 
-    const currentRecords = {
-      region: gubunEn,
-      regionRecord: [
-        {
-          number: toComma(todayConfirmed),
-          increaseDecreaseNumber: toIncreaseDecreaseNumber(todayConfirmed - yesterdayConfirmed),
-        },
-        {
-          number: toComma(defCnt),
-          increaseDecreaseNumber: toIncreaseDecreaseNumber(incDec),
-        },
-        {
-          number: toComma(deathCnt),
-          increaseDecreaseNumber: toIncreaseDecreaseNumber(todayDeaths - yesterdayDeaths),
-        },
-        {
-          number: toComma(isolClearCnt),
-          increaseDecreaseNumber: toIncreaseDecreaseNumber(todayRecovered - yesterdayRecovered),
-        },
-      ],
-    };
+    const currentRecords = [
+      { region: gubunEn },
+      {
+        number: todayConfirmed,
+        increaseDecreaseNumber: todayConfirmed - yesterdayConfirmed,
+      },
+      {
+        number: defCnt,
+        increaseDecreaseNumber: incDec,
+      },
+      {
+        number: deathCnt,
+        increaseDecreaseNumber: todayDeaths - yesterdayDeaths,
+      },
+      {
+        number: isolClearCnt,
+        increaseDecreaseNumber: todayRecovered - yesterdayRecovered,
+      },
+    ];
 
     records.push(currentRecords);
   });
 
   const domesticRegionTableInfosItems = {
     fields: ["Location", "Today Confirmed", "Confirmed", "Deaths", "Recovered"],
+    sortTypes: ["", "", "", "", ""],
     records,
   };
 

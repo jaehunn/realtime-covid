@@ -4,8 +4,8 @@ import { Case } from ".";
 type CasesProps = {
   caseInfosItems: {
     caseType: string;
-    caseCnt: string;
-    caseIncreaseDecrease: string;
+    caseCnt: number;
+    caseIncreaseDecrease: number;
     color: string;
   }[];
 };

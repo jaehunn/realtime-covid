@@ -1,5 +1,5 @@
 import React from "react";
-import { getSignNumber } from "../../utils";
+import { getSignNumber, toIncreaseDecreaseNumber } from "../../utils";
 import { IncreaseDecreaseIcon } from ".";
 
 const IncreaseDecrease = ({ increaseDecreaseNumber, hasTextColor = true }) => {
@@ -8,7 +8,7 @@ const IncreaseDecrease = ({ increaseDecreaseNumber, hasTextColor = true }) => {
 
   return (
     <div className={classes} style={hasTextColor ? {} : { color: `${signNumber === 1 ? "red" : signNumber === -1 ? "blue" : "black"}` }}>
-      <div className="pr-0.5">{increaseDecreaseNumber}</div>
+      <div className="pr-0.5">{toIncreaseDecreaseNumber(increaseDecreaseNumber)}</div>
       <IncreaseDecreaseIcon increaseDecreaseNumber={increaseDecreaseNumber} />
     </div>
   );

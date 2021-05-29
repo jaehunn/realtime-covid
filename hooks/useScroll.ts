@@ -15,15 +15,15 @@ const useScroll = (overseasCovidItems) => {
 
   useEffect(() => {
     if (page <= 5) {
-      setTodayOverseasCovidItems(
+      setTodayOverseasCovidItems(() =>
         overseasCovidItems.slice(todayOverseasCovidItemsStartIndex, todayOverseasCovidItemsStartIndex + REGION_ITEMS_PER_PAGE * page)
       );
 
-      setYesterdayOverseasCovidItems(
+      setYesterdayOverseasCovidItems(() =>
         overseasCovidItems.slice(yesterdayOverseasCovidItemsStartIndex, yesterdayOverseasCovidItemsStartIndex + REGION_ITEMS_PER_PAGE * page)
       );
 
-      setDayBeforeYesterdayOverseasCovidItems(
+      setDayBeforeYesterdayOverseasCovidItems(() =>
         overseasCovidItems.slice(
           dayBeforeYesterdayOverseasCovidItemsStartIndex,
           dayBeforeYesterdayOverseasCovidItemsStartIndex + REGION_ITEMS_PER_PAGE * page
