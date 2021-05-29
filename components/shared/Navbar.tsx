@@ -13,7 +13,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="relative top-2 left-2 w-12 h-12 flex justify-center items-center rounded bg-white">
+    <nav className="relative top-4 left-1 w-12 h-12 flex justify-center items-center rounded bg-white">
       <button className="w-8 h-8 flex flex-col justify-evenly items-center focus:outline-none" onClick={handleButtonClick}>
         <div className="w-8 h-1 bg-black"></div>
         <div className="w-8 h-1 bg-black"></div>
@@ -26,16 +26,16 @@ const Navbar = () => {
       >
         {navInfos.map(({ name, href }, index) => (
           <Link key={index} href={href}>
-            <div className="sm:w-20 sm:h-12 w-16 h-12 bg-blue-50 mx-2 flex flex-col justify-center items-center shadow-lg rounded-lg dark:bg-gray-600 dark:border-gray-500 cursor-pointer transition duration-500 ease-in-out dark:hover:bg-gray-700 hover:bg-blue-200 transform hover:-translate-y-1 hover:scale-100">
+            <div className="sm:w-20 w-16 h-12 bg-blue-50 ml-1 flex flex-col justify-center items-center shadow-lg rounded-lg dark:bg-gray-600 dark:border-gray-500 cursor-pointer transition duration-500 ease-in-out dark:hover:bg-gray-700 hover:bg-blue-200 transform hover:-translate-y-1 hover:scale-100">
               <a>{name}</a>
             </div>
           </Link>
         ))}
-      </div>
 
-      {/* <div className="flex absolute top-full left-0 mt-10 justify-center items-center lg:p-6 p-3 shadow-lg rounded-lg bg-blue-50 hover:bg-blue-200 dark:bg-gray-600 dark:border-gray-500 dark:hover:bg-gray-700 cursor-pointer">
-        <ToggleSwitcher />
-      </div> */}
+        <div className="flex justify-center items-center ml-1 sm:w-24 w-16 h-12 sm:p-6 p-3 shadow-lg rounded-lg bg-blue-50 hover:bg-blue-100 dark:bg-gray-600 dark:border-gray-500 dark:hover:bg-gray-700 cursor-pointer">
+          <ToggleSwitcher />
+        </div>
+      </div>
     </nav>
   );
 };
