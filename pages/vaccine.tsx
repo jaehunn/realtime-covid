@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Header, Navbar, Cases, ChartByDate } from "../components/shared";
-import { getVaccineChartDataForm, toComma, toIncreaseDecreaseNumber } from "../utils";
+import { getVaccineChartDataForm } from "../utils";
 import { vaccineChartSelectOptions, VaccineService } from "../data";
 
 const Vaccine = ({ vaccineItems }) => {
@@ -9,14 +9,14 @@ const Vaccine = ({ vaccineItems }) => {
   const caseInfosItems = [
     {
       caseType: "1st Vaccinated",
-      caseCnt: toComma(accVaccineItem.totalFirstCnt),
-      caseIncreaseDecrease: toIncreaseDecreaseNumber(accVaccineItem.firstCnt),
+      caseCnt: accVaccineItem.totalFirstCnt,
+      caseIncreaseDecrease: accVaccineItem.firstCnt,
       color: "text-green-400",
     },
     {
       caseType: "2nd Vaccinated",
-      caseCnt: toComma(accVaccineItem.totalSecondCnt),
-      caseIncreaseDecrease: toIncreaseDecreaseNumber(accVaccineItem.secondCnt),
+      caseCnt: accVaccineItem.totalSecondCnt,
+      caseIncreaseDecrease: accVaccineItem.secondCnt,
       color: "text-blue-400",
     },
   ];
