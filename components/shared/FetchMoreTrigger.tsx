@@ -1,6 +1,7 @@
 import React from "react";
 import { useInfiniteScroll } from "../../hooks";
 
+// not use
 const FetchMoreTrigger = ({ page, setPage }) => {
   const { fetchMoreTriggerEl } = useInfiniteScroll(page, setPage);
 
